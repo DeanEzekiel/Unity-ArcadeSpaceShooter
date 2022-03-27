@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2139577896}
   - component: {fileID: 2139577895}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 8932891961313033209}
   - component: {fileID: 2128334529105203422}
   - component: {fileID: 6699587587756157744}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -240,7 +240,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 2128334528988070628}
   shield: {fileID: 2139577893}
   projectile: {fileID: 3412262282714903754, guid: 63a9e38bb0f2bab479f68b10603014cd, type: 3}
-  rocket: {fileID: 5528703681762526623, guid: 8486ec25c4dc18044984e673702eac30, type: 3}
+  rocket: {fileID: 481285028909363705, guid: cf51bcedba616084dab5772415b394a7, type: 3}
 --- !u!114 &6699587587756157744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,7 +262,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2128334528988070628}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Spawn Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}

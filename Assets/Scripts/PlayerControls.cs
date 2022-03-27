@@ -29,12 +29,15 @@ public class PlayerControls : MonoBehaviour
 
     private void Update()
     {
-        Move();
-        Rotate();
-        Shoot();
+        if (GameController.Instance.PlayerControlsActive)
+        {
+            Move();
+            Rotate();
+            Shoot();
 
-        ShieldAbility();
-        BlasterAbility();
+            ShieldAbility();
+            BlasterAbility();
+        }
     }
 
     private void OnEnable()

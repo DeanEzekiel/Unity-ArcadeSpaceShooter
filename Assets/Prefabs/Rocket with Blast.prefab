@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1569502127130081798}
   - component: {fileID: 1918039624891785105}
   - component: {fileID: 2390274131996377578}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rocket with Blast
   m_TagString: Rocket
   m_Icon: {fileID: 0}
@@ -146,7 +146,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6833396794279052613}
   - component: {fileID: 3047244108752106644}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: shield_Edit
   m_TagString: Untagged
   m_Icon: {fileID: 0}

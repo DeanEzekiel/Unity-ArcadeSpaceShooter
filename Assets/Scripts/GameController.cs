@@ -28,16 +28,21 @@ public class GameController : MonoBehaviour
     #endregion
 
     #region Private Fields
+    private int score = 0;
     [SerializeField]
-    private int life = 3;
+    private float timePerRound = 15f;
+    //[SerializeField]
+    //private float timer;
+    //[SerializeField]
+    //private int life = 3;
     [SerializeField]
     private int rocketMax = 3;
-    [SerializeField]
-    private int rocketCnt = 3;
+    //[SerializeField]
+    //private int rocketCnt = 3;
     [SerializeField]
     private float shieldMax = 100f;
-    [SerializeField]
-    private float shieldPnt = 100f;
+    //[SerializeField]
+    //private float shieldPnt = 100f;
     [SerializeField]
     private float shieldDepleteTime = 0.1f;
     [SerializeField]
@@ -52,11 +57,26 @@ public class GameController : MonoBehaviour
     private bool shieldOn = false;
 
     [SerializeField]
-    private GameObject testMenuUI;
+    private int alienPoints = 100;
+    [SerializeField]
+    private int asteroidPoints = 50;
+
+    [SerializeField]
+    private GameObject GameOverUI;
+    [SerializeField]
+    private GameObject GamePausedUI;
+    [SerializeField]
+    private GameObject ShopUI;
 
     #endregion
 
     #region Accessors
+    public int Life { get; private set; } = 3;
+    public int RocketCnt { get; private set; } = 3;
+    public float ShieldPnt { get; private set; } = 100f;
+    public float Timer { get; private set; }
+
+    //planning on making this public get and private set
     public int CoinDropRate = 40;
     public int CoinLifetime = 3; //3 seconds
 
@@ -71,8 +91,18 @@ public class GameController : MonoBehaviour
 
     public float PlayerSpeed = 6;
 
-    public float AsteroidSpeedMin = 5f;
-    public float AsteroidSpeedMax = 12f;
+    public float AsteroidSpeedMin = 1f;
+    public float AsteroidSpeedMax = 2f;
+
+    public float AlienForwardDetection = 5f; //this is the scale x; position x to be adjusted to half of this value
+    public float AlienSpeed = 2f;
+    public float AlienDetectCooldown = 0.5f;
+
+    public float AlienShootSpeed = 13f;
+    public float AlienShootLifetime = 1.2f;
+    public float AlienShootCooldown = 1;
+
+    public bool PlayerControlsActive { get; private set; } = true;
 
     #endregion
 
@@ -90,17 +120,13 @@ public class GameController : MonoBehaviour
     {
         if (!shieldOn)
         {
-            life--;
-            print($"Player has been hit! Player Life now at: {life}/3");
+            Life--;
+            print($"Player has been hit! Player Life now at: {Life}/3");
         }
 
-        if(life == 0)
+        if(Life == 0)
         {
-            //destroy Player, Asteroid, Enemy
-            DestroyWithTag("Player");
-            DestroyWithTag("Asteroid");
-            DestroyWithTag("Enemy");
-            DisplayTestMenu();
+            GameOver();
         }
     }
 
@@ -110,19 +136,29 @@ public class GameController : MonoBehaviour
         print($"Total Coins Collected: {totalCoinsCollected}");
     }
 
-    private void EnemyKilled()
+    private void AlienKilled()
     {
-        print("Bullseye");
-
         //TO DO plus points here
+        AddPoints(alienPoints);
+    }
+
+    private void AsteroidKilled()
+    {
+        AddPoints(asteroidPoints);
+    }
+
+    private void AddPoints(int points)
+    {
+        score += points;
+        print($"Current Score: {score}");
     }
 
     private void CheckRockets()
     {
-        if (rocketCnt > 0)
+        if (RocketCnt > 0)
         {
             RocketLaunch?.Invoke();
-            rocketCnt--;
+            RocketCnt--;
         }
     }
 
@@ -134,20 +170,20 @@ public class GameController : MonoBehaviour
 
     private void ShieldPointsCalc()
     {
-        if(shieldOn && shieldPnt > 0)
+        if(shieldOn && ShieldPnt > 0)
         {
-            shieldPnt -= (shieldDepletePnt / shieldDepleteTime * Time.deltaTime);
+            ShieldPnt -= (shieldDepletePnt / shieldDepleteTime * Time.deltaTime);
         }
-        else if (!shieldOn && shieldPnt < shieldMax)
+        else if (!shieldOn && ShieldPnt < shieldMax)
         {
-            shieldPnt += (shieldReplenishPnt / shieldReplenishTime * Time.deltaTime);
+            ShieldPnt += (shieldReplenishPnt / shieldReplenishTime * Time.deltaTime);
         }
 
-        if (shieldPnt > shieldMax)
-            shieldPnt = shieldMax;
-        else if (shieldPnt <= 0)
+        if (ShieldPnt > shieldMax)
+            ShieldPnt = shieldMax;
+        else if (ShieldPnt <= 0)
         {
-            shieldPnt = 0;
+            ShieldPnt = 0;
             shieldOn = false;
             ShieldToggle?.Invoke();
         }
@@ -161,10 +197,125 @@ public class GameController : MonoBehaviour
             Destroy(oneObject);
     }
 
-    private void DisplayTestMenu()
+    private void GameOver()
     {
-        testMenuUI.SetActive(true);
+        GameOverUI.SetActive(true);
+
+        //destroy Player, Asteroid, Enemy, Projectiles
+        DestroyWithTag("Player");
+        DestroyWithTag("Asteroid");
+        DestroyWithTag("Enemy");
+        DestroyWithTag("PlayerProjectile");
+        DestroyWithTag("Rocket");
+        DestroyWithTag("AlienProjectile");
+        DestroyWithTag("Coin");
+
+        //Time Stops so that timer won't tick
+        PauseTime();
     }
+
+    private void ShowShop()
+    {
+        ShopUI.SetActive(true);
+
+        //disable player controls while shop is active or just use a bool
+        DeactivatePlayerControls();
+
+        //remove all aliens, asteroids and projectiles
+        DestroyWithTag("Asteroid");
+        DestroyWithTag("Enemy");
+        DestroyWithTag("PlayerProjectile");
+        DestroyWithTag("Rocket");
+        DestroyWithTag("AlienProjectile");
+        DestroyWithTag("Coin");
+    }
+
+    private void ActivatePlayerControls()
+    {
+        PlayerControlsActive = true;
+    }
+    private void DeactivatePlayerControls()
+    {
+        PlayerControlsActive = false;
+    }
+
+    private void TimerCountdown()
+    {
+        Timer -= Time.deltaTime;
+
+        if (Timer <= 0 && Life >= 1)
+        {
+            //show SHOP
+            ShowShop();
+            PauseTime();
+        }
+    }
+
+    private void ResetTimer()
+    {
+        Timer = timePerRound;
+    }
+
+    private void ResetValues()
+    {
+        GameOverUI.SetActive(false);
+        GamePausedUI.SetActive(false);
+        ShopUI.SetActive(false);
+
+        ResetTimer();
+        ActivatePlayerControls();
+
+        PlayTime();
+    }
+
+    private void RestartGame()
+    {
+        GameOverUI.SetActive(false);
+        GamePausedUI.SetActive(false);
+        ShopUI.SetActive(false);
+
+        ResetTimer();
+        ActivatePlayerControls();
+
+        //reset life, coins earned, score, rocket count, mana
+        RocketCnt = rocketMax;
+        ShieldPnt = shieldMax;
+        shieldOn = false;
+
+        totalCoinsCollected = 0;
+        score = 0;
+        Life = 3;
+
+        PlayTime();
+    }
+
+    private void PauseGame()
+    {
+        if (!GameOverUI.activeInHierarchy && !ShopUI.activeInHierarchy)
+        {
+            PauseTime();
+            DeactivatePlayerControls();
+            GamePausedUI.SetActive(true);
+        }
+    }
+
+    private void ResumeGame()
+    {
+        PlayTime();
+        ActivatePlayerControls();
+        GamePausedUI.SetActive(false);
+    }
+
+    private void PlayTime()
+    {
+        Time.timeScale = 1;
+    }
+
+    private void PauseTime()
+    {
+        Time.timeScale = 0;
+    }
+
 
     #endregion
 
@@ -173,38 +324,60 @@ public class GameController : MonoBehaviour
     private void Awake()
     {
         InitSingleton();
+        DontDestroyOnLoad(gameObject);
 
-        testMenuUI.SetActive(false);
-        shieldPnt = shieldMax;
-        rocketCnt = rocketMax;
+        GameOverUI.SetActive(false);
+        GamePausedUI.SetActive(false);
+        ShopUI.SetActive(false);
+        ShieldPnt = shieldMax;
+        RocketCnt = rocketMax;
+    }
+
+    private void Start()
+    {
+        ResetTimer();
+        ActivatePlayerControls();
     }
 
     private void Update()
     {
         ShieldPointsCalc();
+        TimerCountdown();
     }
 
     private void OnEnable()
     {
         PlayerBoundaries.OnPlayerCollision += PlayerCollision;
-        ProjectileBehavior.OnEnemyKill += EnemyKilled;
-        RocketProjectile.OnRocketCollide += EnemyKilled;
 
         PlayerControls.OnRocketLaunch += CheckRockets;
         PlayerControls.OnShieldToggle += CheckShield;
 
         CoinBehavior.CoinPickedUp += CollectCoin;
+
+        EnemyBehavior.AlienKilled += AlienKilled;
+        EnemyBehavior.Asteroid1Killed += AsteroidKilled;
+
+        GameUIView.RestartScene += ResetValues;
+        GameUIView.RestartGame += RestartGame;
+        GameUIView.PauseGame += PauseGame;
+        GameUIView.ResumeGame += ResumeGame;
     }
     private void OnDisable()
     {
         PlayerBoundaries.OnPlayerCollision -= PlayerCollision;
-        ProjectileBehavior.OnEnemyKill -= EnemyKilled;
-        RocketProjectile.OnRocketCollide -= EnemyKilled;
 
         PlayerControls.OnRocketLaunch -= CheckRockets;
         PlayerControls.OnShieldToggle -= CheckShield;
 
         CoinBehavior.CoinPickedUp -= CollectCoin;
+
+        EnemyBehavior.AlienKilled -= AlienKilled;
+        EnemyBehavior.Asteroid1Killed -= AsteroidKilled;
+
+        GameUIView.RestartScene -= ResetValues;
+        GameUIView.RestartGame -= RestartGame;
+        GameUIView.PauseGame -= PauseGame;
+        GameUIView.ResumeGame -= ResumeGame;
     }
     #endregion
 

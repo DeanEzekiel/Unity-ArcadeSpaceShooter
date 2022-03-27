@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3227680897757907848}
   - component: {fileID: 6076129132672978067}
   - component: {fileID: 1522580065345000003}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Asteroid
   m_TagString: Asteroid
   m_Icon: {fileID: 0}
@@ -97,8 +97,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2edaaab5502b9ed46858e69947937133, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedMin: 5
-  speedMax: 12
+  rotationZ: 0
+  directionX: 0
+  directionY: 0
+  movementSpeed: 0
+  randomDirection: 0
+  hit: 0
   coin: {fileID: 549229825680572225, guid: ab1c44bfab41e5d499609af25c99c653, type: 3}
 --- !u!58 &6076129132672978067
 CircleCollider2D:

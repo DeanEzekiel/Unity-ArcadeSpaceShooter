@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine;
 public class EnemyBehavior : MonoBehaviour
 {
 
-    #region Private Fields
+    #region Public Fields
     public float rotationZ;
     public float directionX;
     public float directionY;
@@ -22,14 +23,33 @@ public class EnemyBehavior : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Rocket"))
         {
+            if (gameObject.CompareTag("Enemy"))
+                AlienKilled?.Invoke();
+            else if (gameObject.CompareTag("Asteroid"))
+                Asteroid1Killed?.Invoke();
+
             hit = true;
-            print("blasted");
             Destroy(gameObject);
         }
     }
 
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        //when exiting the background, destroy this game object
+        if (collision.gameObject.CompareTag("Background"))
+            Destroy(gameObject);
+    }
+
     public void OnCollisionEnter2D(Collision2D other)
     {
+        if (other.gameObject.CompareTag("Rocket") || other.gameObject.CompareTag("PlayerProjectile") || other.gameObject.CompareTag("Player"))
+        {
+            if (gameObject.CompareTag("Enemy"))
+                AlienKilled?.Invoke();
+            else if (gameObject.CompareTag("Asteroid"))
+                Asteroid1Killed?.Invoke();
+        }
+
         //if it bumps with other game objects, destroy this
         hit = true;
         Destroy(gameObject);
@@ -50,47 +70,10 @@ public class EnemyBehavior : MonoBehaviour
 
     #endregion
 
-    #region Methods
-
-    public void SetRotation()
-    {
-        rotationZ = UnityEngine.Random.Range(0f, 360f);
-        //transform.rotation = Quaternion.Euler(0, 0, rotationZ);
-        transform.Rotate(0, 0, rotationZ);
-    }
-
-    public void SetDirection()
-    {
-        directionX = UnityEngine.Random.Range(0f, 1f);
-        directionY = 1 - directionX;
-
-        //to randomly set the direction X and/or Y to negative
-        randomDirection = UnityEngine.Random.Range(1, 5);
-        switch (randomDirection)
-        {
-            case 1:
-                break;
-            case 2:
-                directionX *= -1;
-                break;
-            case 3:
-                directionX *= -1;
-                directionY *= -1;
-                break;
-            case 4:
-                directionY *= -1;
-                break;
-            default:
-                break;
-        }
-    }
-
-    public void SetMovementSpeed()
-    {
-        movementSpeed = UnityEngine.Random.Range(GameController.Instance.AsteroidSpeedMin, GameController.Instance.AsteroidSpeedMax);
-    }
-
+    #region
+    //When invoked, this will add points
+    public static event Action Asteroid1Killed;
+    public static event Action AlienKilled;
     #endregion
-
 
 }

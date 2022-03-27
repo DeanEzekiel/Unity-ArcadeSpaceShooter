@@ -8,6 +8,10 @@ TagManager:
   - Asteroid
   - Background
   - Rocket
+  - Ignore
+  - PlayerProjectile
+  - AlienProjectile
+  - Coin
   layers:
   - Default
   - TransparentFX
@@ -15,9 +19,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Background
+  - Projectiles
+  - Interactables
   - 
   - 
   - 

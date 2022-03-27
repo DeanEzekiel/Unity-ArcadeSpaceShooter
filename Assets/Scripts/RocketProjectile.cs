@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,9 +19,8 @@ public class RocketProjectile : ProjectileBehavior
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (!col.gameObject.CompareTag("Player"))
+        if (!col.gameObject.CompareTag("Player") && !col.gameObject.CompareTag("Coin"))
         {
-            OnRocketCollide?.Invoke();
             hit = true;
             blast.SetActive(true);
 
@@ -38,9 +36,5 @@ public class RocketProjectile : ProjectileBehavior
         }
 
     }
-    #endregion
-
-    #region Events
-    public static event Action OnRocketCollide;
     #endregion
 }
