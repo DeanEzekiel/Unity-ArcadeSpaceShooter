@@ -5,7 +5,7 @@ using UnityEngine;
 public class Asteroid : AEnemy
 {
     #region Unity Calllbacks
-    private void Start()
+    private void OnEnable()
     {
         hit = false;
         pointWhenKilled = GameMaster.Instance.enemySettings.asteroidPoints;
@@ -31,28 +31,13 @@ public class Asteroid : AEnemy
     #region Implementation
     protected override void Move()
     {
-        directionX = UnityEngine.Random.Range(0f, 1f);
+        // random direction
+        directionX = UnityEngine.Random.Range(0.2f, 0.8f);
         directionY = 1 - directionX;
 
-        //to randomly set the direction X and/or Y to negative
-        randomDirection = UnityEngine.Random.Range(1, 5);
-        switch (randomDirection)
-        {
-            case 1:
-                break;
-            case 2:
-                directionX *= -1;
-                break;
-            case 3:
-                directionX *= -1;
-                directionY *= -1;
-                break;
-            case 4:
-                directionY *= -1;
-                break;
-            default:
-                break;
-        }
+        // must move towards the game view -- opposite of the spawn point
+        directionX *= FlipSign(transform.position.x);
+        directionY *= FlipSign(transform.position.y);
     }
 
     public override void OnBump(int addScore)
@@ -73,6 +58,34 @@ public class Asteroid : AEnemy
         movementSpeed = UnityEngine.Random.Range(
             GameMaster.Instance.enemySettings.asteroidSpeedMin,
             GameMaster.Instance.enemySettings.asteroidSpeedMax);
+    }
+
+    /// <summary>
+    /// if the number is exactly 0, randomize the sign
+    /// else, flip the sign
+    /// </summary>
+    /// <param name="number"></param>
+    /// <returns>An integer that will either be -1 or 1 to hold the sign</returns>
+    private int FlipSign(float number)
+    {
+        int sign = 1;
+        if (number == 0)
+        {
+            if(Random.Range(0,2) > 0)
+            {
+                sign = -1;
+            }
+        }
+        else if (number > 0)
+        {
+            sign = -1;
+        }
+        else
+        {
+            sign = 1;
+        }
+
+        return sign;
     }
     #endregion
 }
