@@ -21,19 +21,13 @@ public class AlienForwardDetector : MonoBehaviour
 
     private void Start()
     {
-        theTrigger = transform.GetComponent<BoxCollider2D>();
-        try
-        {
-            theTrigger.size = new Vector2(
-                GameMaster.Instance.enemySettings.alienForwardDetection, 1);
-        }
-        catch
-        {
-            theTrigger.size = new Vector2(enemySettings.alienForwardDetection, 1);
-        }
-        theTrigger.offset = new Vector2(theTrigger.size.x / 2, 0);
+        SetTriggerSize();
     }
 
+    private void OnEnable()
+    {
+        SetTriggerSize();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -83,6 +77,21 @@ public class AlienForwardDetector : MonoBehaviour
         //    Shoot = false;
         //    Think = false;
         //}
+    }
+
+    private void SetTriggerSize()
+    {
+        theTrigger = transform.GetComponent<BoxCollider2D>();
+        try
+        {
+            theTrigger.size = new Vector2(
+                GameMaster.Instance.enemySettings.alienForwardDetection, 1);
+        }
+        catch
+        {
+            theTrigger.size = new Vector2(enemySettings.alienForwardDetection, 1);
+        }
+        theTrigger.offset = new Vector2(theTrigger.size.x / 2, 0);
     }
 
     public void EnableTrigger()
