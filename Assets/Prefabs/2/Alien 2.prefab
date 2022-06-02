@@ -72,7 +72,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Think: 0
   CanDetect: 0
-  enemySettings: {fileID: 0}
+  enemySettings: {fileID: 11400000, guid: 94eca8c01406e4d74b3fa6a67fc1dde9, type: 2}
 --- !u!1 &2819149905931771922
 GameObject:
   m_ObjectHideFlags: 0
@@ -329,7 +329,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 2819149905931771923}
   projectile: {fileID: 8053420734468972113, guid: 2d5545c6c98dc4e90b4e4162c7bd2848, type: 3}
   detector: {fileID: 139024756}
-  enemySettings: {fileID: 0}
+  enemySettings: {fileID: 11400000, guid: 94eca8c01406e4d74b3fa6a67fc1dde9, type: 2}
   rotating: 0
   moving: 0
   entering: 0
