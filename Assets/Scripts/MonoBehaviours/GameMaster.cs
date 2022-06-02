@@ -23,7 +23,14 @@ public class GameMaster : ASingleton<GameMaster>
     private PlayerSettings initialPlayerSettings;
     [SerializeField]
     private EnemySettings initialEnemySettings;
-    #endregion
+    #endregion // Fields
+
+    #region Events
+
+    public static event Action ShieldToggle;
+    public static event Action ResetPlayerPosition;
+
+    #endregion //Events
 
     #region Unity Callbacks
     protected override void Awake()
@@ -188,6 +195,7 @@ public class GameMaster : ASingleton<GameMaster>
 
         ResetTimer();
         ActivatePlayerControls();
+        ResetPlayerPosition?.Invoke();
 
         PlayTime();
         GameView.Instance.SetSlidersMax();
@@ -213,12 +221,6 @@ public class GameMaster : ASingleton<GameMaster>
     {
         Time.timeScale = 0;
     }
-
-    #endregion
-
-    #region Events
-
-    public static event Action ShieldToggle;
 
     #endregion
 }

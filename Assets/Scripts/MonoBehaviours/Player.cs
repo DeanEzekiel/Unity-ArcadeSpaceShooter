@@ -43,11 +43,13 @@ public class Player : ACharacter
     private void OnEnable()
     {
         GameMaster.ShieldToggle += ToggleShield;
+        GameMaster.ResetPlayerPosition += ResetPosition;
     }
 
     private void OnDisable()
     {
         GameMaster.ShieldToggle -= ToggleShield;
+        GameMaster.ResetPlayerPosition -= ResetPosition;
     }
     #endregion
 
@@ -152,6 +154,11 @@ public class Player : ACharacter
                 }
             }
         }
+    }
+
+    private void ResetPosition()
+    {
+        transform.position = Vector2.zero;
     }
     #endregion
 }
