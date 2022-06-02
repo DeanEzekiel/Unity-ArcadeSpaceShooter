@@ -9,6 +9,7 @@ public class PlayerSettings : ScriptableObject
     [Header("Game Values")]
     public int life = 3;
     public int score = 0;
+    public int round = 0;
     public int coins = 0;
 
     [Space]
@@ -51,6 +52,7 @@ public class PlayerSettings : ScriptableObject
     {
         other.life = this.life;
         other.score = this.score;
+        other.round = this.round;
         other.coins = this.coins;
         other.timePerRound = this.timePerRound;
         other.timer = this.timer;
