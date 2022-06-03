@@ -10,14 +10,19 @@ public class ShopController : ControllerHelper
     private ShopItemView _shopItemViewPrefab;
 
     [SerializeField]
-    private ShopOfferings _shopModel;
+    private ShopOfferingsModel_SO _shopModel;
     #endregion // MVC
 
     #region Inspector Fields
-    [Header("")]
+    [Header("UI")]
     [SerializeField]
     private Transform _shopItemsContainer;
     #endregion // Inspector Fields
+
+    #region View Dictionary
+    Dictionary<ItemPurpose, ShopItemView> _dictShopItem
+        = new Dictionary<ItemPurpose, ShopItemView>();
+    #endregion // View Dictionary
 
     #region Unity Callbacks
     private void Start()
@@ -37,6 +42,16 @@ public class ShopController : ControllerHelper
     }
 
     #endregion // Unity Callbacks
+
+    #region Public Actions
+    public void CheckMaxAllowed()
+    {
+        // TODO e.g. if the lives is at MAX, DisablePurchasing of AddLife Purpose
+        // use the _dictShopItem
+    }
+
+    // TODO Update the Texts of the Shop UI - Coins, Lives, Rockets, Shield Pnts
+    #endregion // Public Actions
 
     #region Class Implementation
     private void ClearContainer()
@@ -61,6 +76,10 @@ public class ShopController : ControllerHelper
             itemView.SetText(shopItem.ItemName, shopItem.ItemDescription, shopItem.ItemCost);
             itemView.SetIcon(shopItem.ItemIcon);
             itemView.SetButtonPurpose(shopItem.ItemPurpose, shopItem.ItemPurposeValue);
+            itemView.EnablePurchasing();
+
+            // register the purpose of this Shop Item View
+            _dictShopItem.Add(shopItem.ItemPurpose, itemView);
         }
     }
 
