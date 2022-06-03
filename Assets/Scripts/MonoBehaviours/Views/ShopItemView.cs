@@ -18,11 +18,16 @@ public class ShopItemView : MonoBehaviour
     private TextMeshProUGUI _cost;
     [SerializeField]
     private Button _purchaseButton;
+    [SerializeField]
+    private TextMeshProUGUI _purchaseButtonText;
     #endregion // Inspector Fields
 
     #region Private Fields
     private ItemPurpose _purpose;
     private float _value;
+
+    private readonly string _purchaseButtonActive = "Buy";
+    private readonly string _purchaseButtonInactive = "Full";
     #endregion // Private Fields
 
     #region Events
@@ -51,14 +56,17 @@ public class ShopItemView : MonoBehaviour
     #endregion // Class Implementation
 
     #region Public Actions
-    public void ActivatePurchasing()
+    public void EnablePurchasing()
     {
         _purchaseButton.interactable = true;
+        _purchaseButtonText.text = _purchaseButtonActive;
+
     }
 
-    public void DeactivatePurchasing()
+    public void DisablePurchasing()
     {
         _purchaseButton.interactable = false;
+        _purchaseButtonText.text = _purchaseButtonInactive;
     }
 
     public void SetText(string title, string description, int cost)

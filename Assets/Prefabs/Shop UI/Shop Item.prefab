@@ -1177,6 +1177,7 @@ MonoBehaviour:
   _description: {fileID: 4581018297177870684}
   _cost: {fileID: 4581018296708326101}
   _purchaseButton: {fileID: 4581018297575234856}
+  _purchaseButtonText: {fileID: 4581018298101220664}
 --- !u!114 &-5468075900393626761
 MonoBehaviour:
   m_ObjectHideFlags: 0
