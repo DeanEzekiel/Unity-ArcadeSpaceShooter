@@ -98,18 +98,20 @@ public class GameMaster : ASingleton<GameMaster>
     {
         if (playerSettings.shieldOn && playerSettings.shieldPoint > 0)
         {
-            playerSettings.shieldPoint -= (playerSettings.shieldDepletePnt /
-                playerSettings.shieldDepleteTime * Time.deltaTime);
+            playerSettings.shieldPoint -= (playerSettings.shieldMax /
+                playerSettings.shieldDepleteTimeInSec * Time.deltaTime);
         }
         else if (!playerSettings.shieldOn && playerSettings.shieldPoint <
             playerSettings.shieldMax)
         {
-            playerSettings.shieldPoint += (playerSettings.shieldReplenishPnt /
-                playerSettings.shieldReplenishTime * Time.deltaTime);
+            playerSettings.shieldPoint += (playerSettings.shieldMax /
+                playerSettings.shieldReplenishTimeInSec * Time.deltaTime);
         }
 
         if (playerSettings.shieldPoint > playerSettings.shieldMax)
+        {
             playerSettings.shieldPoint = playerSettings.shieldMax;
+        }
         else if (playerSettings.shieldPoint <= 0)
         {
             playerSettings.shieldPoint = 0;
