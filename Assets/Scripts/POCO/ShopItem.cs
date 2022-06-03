@@ -8,4 +8,6 @@ public class ShopItem
     public string ItemDescription;
     public int ItemCost;
     public Sprite ItemIcon;
+    public ItemPurpose ItemPurpose;
+    public float ItemPurposeValue;
 }

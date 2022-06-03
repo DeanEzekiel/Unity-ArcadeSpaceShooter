@@ -17,19 +17,29 @@ MonoBehaviour:
     ItemDescription: Survive one more hit by getting +1 life.
     ItemCost: 8
     ItemIcon: {fileID: 21300000, guid: f78052bf1b7ad4bd994caaa4be833b3a, type: 3}
+    ItemPurpose: 0
+    ItemPurposeValue: 1
   - ItemName: +1 Rocket Max
     ItemDescription: Lets your ship able to carry one more rocket.
     ItemCost: 5
     ItemIcon: {fileID: 21300000, guid: 0a09dd4ae4bc34f6eb99716d8e0c7619, type: 3}
+    ItemPurpose: 1
+    ItemPurposeValue: 1
   - ItemName: Refill Rockets
     ItemDescription: Refill to current rocket carrying capacity.
     ItemCost: 8
     ItemIcon: {fileID: 21300000, guid: 0a09dd4ae4bc34f6eb99716d8e0c7619, type: 3}
+    ItemPurpose: 2
+    ItemPurposeValue: 0
   - ItemName: +10 Shield Points
     ItemDescription: Lengthens shield use by adding 10 points.
     ItemCost: 8
     ItemIcon: {fileID: 21300000, guid: b885cf119743a48ea9c40aeb9187d38f, type: 3}
+    ItemPurpose: 3
+    ItemPurposeValue: 10
   - ItemName: -0.5 Shield Regen
     ItemDescription: Reduces shield recharge time by half a second.
     ItemCost: 5
     ItemIcon: {fileID: 21300000, guid: b885cf119743a48ea9c40aeb9187d38f, type: 3}
+    ItemPurpose: 4
+    ItemPurposeValue: 0.5
