@@ -32,6 +32,8 @@ public class GameView : ASingleton<GameView>
     [SerializeField]
     private TextMeshProUGUI Lives;
     [SerializeField]
+    private TextMeshProUGUI Coins;
+    [SerializeField]
     private TextMeshProUGUI Rockets;
     [SerializeField]
     private TextMeshProUGUI ShieldPoints;
@@ -69,6 +71,7 @@ public class GameView : ASingleton<GameView>
         }
 
         Lives.text = GameMaster.Instance.playerSettings.life.ToString();
+        Coins.text = GameMaster.Instance.playerSettings.coins.ToString();
         Rockets.text = GameMaster.Instance.playerSettings.rocketCount.ToString();
         ShieldPoints.text = $"{Mathf.Round(GameMaster.Instance.playerSettings.shieldPoint)}" +
             $" / {GameMaster.Instance.playerSettings.shieldMax}";

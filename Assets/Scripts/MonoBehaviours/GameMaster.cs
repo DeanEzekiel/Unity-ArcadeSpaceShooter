@@ -27,7 +27,9 @@ public class GameMaster : ASingleton<GameMaster>
     public ControllerList Controller;
 
     [SerializeField]
-    private float spawnTimeInterval = 5f;
+    private float maxSpawnTime = 5f;
+    [SerializeField]
+    private float minSpawnTime = 2f;
     [SerializeField]
     private float spawnTimePercentDeduction = 0.10f;
 
@@ -55,7 +57,7 @@ public class GameMaster : ASingleton<GameMaster>
     }
     private void Start()
     {
-        cachedTimeInterval = spawnTimeInterval;
+        cachedTimeInterval = maxSpawnTime;
         OnStartRound();
     }
 
@@ -214,7 +216,7 @@ public class GameMaster : ASingleton<GameMaster>
         // reset player and enemy settings to initial values
         playerSettings = initialPlayerSettings.DeepClone(playerSettings);
         enemySettings = initialEnemySettings.DeepClone(enemySettings);
-        cachedTimeInterval = spawnTimeInterval;
+        cachedTimeInterval = maxSpawnTime;
 
         ResetValues();
         GameView.Instance.SetSlidersMax();
@@ -259,6 +261,7 @@ public class GameMaster : ASingleton<GameMaster>
         {
             cachedTimeInterval -= (cachedTimeInterval * spawnTimePercentDeduction);
         }
+        cachedTimeInterval = Mathf.Clamp(cachedTimeInterval, minSpawnTime, maxSpawnTime);
 
         // max enemies to spawn at a given time
         // should be the number of spawnpoints available
