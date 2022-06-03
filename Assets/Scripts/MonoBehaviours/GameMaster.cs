@@ -164,6 +164,8 @@ public class GameMaster : ASingleton<GameMaster>
     {
         ShopUI.SetActive(true);
 
+        Controller.Shop.UpdateViewTexts();
+
         //disable player controls while shop is active or just use a bool
         DeactivatePlayerControls();
 

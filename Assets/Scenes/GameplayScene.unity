@@ -707,7 +707,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 246467332}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: -6.0612903, z: 0}
+  m_LocalPosition: {x: 3, y: -7.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1353142718}
@@ -1143,7 +1143,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 462602950}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3, y: 6.0612903, z: 0}
+  m_LocalPosition: {x: -3, y: 7.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1353142718}
@@ -1189,7 +1189,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 475087515}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10, y: 6.0612903, z: 0}
+  m_LocalPosition: {x: 10, y: 7.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1353142718}
@@ -1653,6 +1653,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemySpawn: {fileID: 1353142719}
+  Shop: {fileID: 911884467}
 --- !u!4 &625680695
 Transform:
   m_ObjectHideFlags: 0
@@ -1678,8 +1679,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 627112405}
-  - component: {fileID: 627112407}
-  - component: {fileID: 627112406}
   m_Layer: 5
   m_Name: Frame
   m_TagString: Untagged
@@ -1708,44 +1707,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -100, y: -300}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &627112406
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 627112404}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 775d51d2084c6436899c5981da7e484b, type: 3}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &627112407
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 627112404}
-  m_CullTransparentMesh: 1
 --- !u!1 &670775632
 GameObject:
   m_ObjectHideFlags: 0
@@ -2663,6 +2624,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shopItemViewPrefab: {fileID: 1195635240213644808, guid: 7e88e659e33e14f2f8c4210fce7b7209, type: 3}
+  _shopView: {fileID: 7409140332770990147}
   _shopModel: {fileID: 11400000, guid: b67576cd139614e5185d8ad0f6962d90, type: 2}
   _shopItemsContainer: {fileID: 912348909}
 --- !u!1 &912348908
@@ -2906,7 +2868,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 948352796}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10, y: -6.0612903, z: 0}
+  m_LocalPosition: {x: -10, y: -7.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1353142718}
@@ -2952,7 +2914,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 975431096}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10, y: 6.0612903, z: 0}
+  m_LocalPosition: {x: -10, y: 7.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1353142718}
@@ -3445,7 +3407,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.0612903
+  orthographic size: 6.75
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -3622,7 +3584,7 @@ GameObject:
   - component: {fileID: 1365959181}
   - component: {fileID: 1365959180}
   m_Layer: 5
-  m_Name: Shield Duration Value
+  m_Name: Shield Points Value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4139,7 +4101,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1535390971}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3, y: -6.0612903, z: 0}
+  m_LocalPosition: {x: -3, y: -7.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1353142718}
@@ -4258,7 +4220,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1645301730}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: 6.0612903, z: 0}
+  m_LocalPosition: {x: 3, y: 7.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1353142718}
@@ -5009,7 +4971,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2127696342}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10, y: -6.0612903, z: 0}
+  m_LocalPosition: {x: 10, y: -7.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1353142718}
@@ -5357,7 +5319,7 @@ GameObject:
   - component: {fileID: 7409140333505167396}
   - component: {fileID: 2936570372690648558}
   m_Layer: 5
-  m_Name: UI Canvas
+  m_Name: UI Canvas (Views)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7055,13 +7017,31 @@ GameObject:
   - component: {fileID: 7409140332770990149}
   - component: {fileID: 7409140332770990151}
   - component: {fileID: 7409140332770990148}
+  - component: {fileID: 7409140332770990147}
   m_Layer: 5
-  m_Name: Shop Panel
+  m_Name: Shop View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &7409140332770990147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7409140332770990146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bade66a9c8f047b5a8a0d998e528a4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _coinsText: {fileID: 1933469953}
+  _livesText: {fileID: 1840680943}
+  _rocketsText: {fileID: 993290379}
+  _shieldPointsText: {fileID: 1365959180}
+  _shieldRegenText: {fileID: 1047102847}
 --- !u!114 &7409140332770990148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7082,7 +7062,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1

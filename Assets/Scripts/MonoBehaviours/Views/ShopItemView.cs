@@ -55,7 +55,7 @@ public class ShopItemView : MonoBehaviour
     }
     #endregion // Class Implementation
 
-    #region Public Actions
+    #region Public Methods
     public void EnablePurchasing()
     {
         _purchaseButton.interactable = true;
@@ -86,5 +86,5 @@ public class ShopItemView : MonoBehaviour
         _purpose = purpose;
         _value = value;
     }
-    #endregion // Public Actions
+    #endregion // Public Methods
 }
