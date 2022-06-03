@@ -1,6 +1,6 @@
-public static class Layers
+public class Layers
 {
-    public const string Background = "Background";
-    public const string Projectiles = "Projectiles";
-    public const string Interactables = "Interactables";
+    public static readonly string Background = "Background";
+    public static readonly string Projectiles = "Projectiles";
+    public static readonly string Interactables = "Interactables";
 }

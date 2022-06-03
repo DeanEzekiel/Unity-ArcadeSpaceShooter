@@ -64,19 +64,19 @@ public class Asteroid : AEnemy
     /// if the number is exactly 0, randomize the sign
     /// else, flip the sign
     /// </summary>
-    /// <param name="number"></param>
+    /// <param name="coordinate">Transform position X or Y</param>
     /// <returns>An integer that will either be -1 or 1 to hold the sign</returns>
-    private int FlipSign(float number)
+    private int FlipSign(float coordinate)
     {
         int sign = 1;
-        if (number == 0)
+        if (coordinate == 0)
         {
             if(Random.Range(0,2) > 0)
             {
                 sign = -1;
             }
         }
-        else if (number > 0)
+        else if (coordinate > 0)
         {
             sign = -1;
         }

@@ -1,12 +1,12 @@
-public static class Tags
+public class Tags
 {
-    public const string Player = "Player";
-    public const string Alien = "Enemy";
-    public const string Asteroid = "Asteroid";
-    public const string Background = "Background";
-    public const string Rocket = "Rocket";
-    public const string Ignore = "Ignore";
-    public const string PlayerProjectile = "PlayerProjectile";
-    public const string AlienProjectile = "AlienProjectile";
-    public const string Coin = "Coin";
+    public static readonly string Player = "Player";
+    public static readonly string Alien = "Enemy";
+    public static readonly string Asteroid = "Asteroid";
+    public static readonly string Background = "Background";
+    public static readonly string Rocket = "Rocket";
+    public static readonly string Ignore = "Ignore";
+    public static readonly string PlayerProjectile = "PlayerProjectile";
+    public static readonly string AlienProjectile = "AlienProjectile";
+    public static readonly string Coin = "Coin";
 }

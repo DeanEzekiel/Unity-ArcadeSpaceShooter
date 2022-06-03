@@ -27,7 +27,9 @@ public class GameMaster : ASingleton<GameMaster>
     public ControllerList Controller;
 
     [SerializeField]
-    private float spawnTimeInterval = 5f;
+    private float maxSpawnTime = 5f;
+    [SerializeField]
+    private float minSpawnTime = 2f;
     [SerializeField]
     private float spawnTimePercentDeduction = 0.10f;
 
@@ -55,7 +57,7 @@ public class GameMaster : ASingleton<GameMaster>
     }
     private void Start()
     {
-        cachedTimeInterval = spawnTimeInterval;
+        cachedTimeInterval = maxSpawnTime;
         OnStartRound();
     }
 
@@ -96,18 +98,20 @@ public class GameMaster : ASingleton<GameMaster>
     {
         if (playerSettings.shieldOn && playerSettings.shieldPoint > 0)
         {
-            playerSettings.shieldPoint -= (playerSettings.shieldDepletePnt /
-                playerSettings.shieldDepleteTime * Time.deltaTime);
+            playerSettings.shieldPoint -= (playerSettings.shieldMax /
+                playerSettings.shieldDepleteTimeInSec * Time.deltaTime);
         }
         else if (!playerSettings.shieldOn && playerSettings.shieldPoint <
             playerSettings.shieldMax)
         {
-            playerSettings.shieldPoint += (playerSettings.shieldReplenishPnt /
-                playerSettings.shieldReplenishTime * Time.deltaTime);
+            playerSettings.shieldPoint += (playerSettings.shieldMax /
+                playerSettings.shieldReplenishTimeInSec * Time.deltaTime);
         }
 
         if (playerSettings.shieldPoint > playerSettings.shieldMax)
+        {
             playerSettings.shieldPoint = playerSettings.shieldMax;
+        }
         else if (playerSettings.shieldPoint <= 0)
         {
             playerSettings.shieldPoint = 0;
@@ -159,6 +163,8 @@ public class GameMaster : ASingleton<GameMaster>
     private void ShowShop()
     {
         ShopUI.SetActive(true);
+
+        Controller.Shop.UpdateViewTexts();
 
         //disable player controls while shop is active or just use a bool
         DeactivatePlayerControls();
@@ -214,7 +220,7 @@ public class GameMaster : ASingleton<GameMaster>
         // reset player and enemy settings to initial values
         playerSettings = initialPlayerSettings.DeepClone(playerSettings);
         enemySettings = initialEnemySettings.DeepClone(enemySettings);
-        cachedTimeInterval = spawnTimeInterval;
+        cachedTimeInterval = maxSpawnTime;
 
         ResetValues();
         GameView.Instance.SetSlidersMax();
@@ -259,6 +265,7 @@ public class GameMaster : ASingleton<GameMaster>
         {
             cachedTimeInterval -= (cachedTimeInterval * spawnTimePercentDeduction);
         }
+        cachedTimeInterval = Mathf.Clamp(cachedTimeInterval, minSpawnTime, maxSpawnTime);
 
         // max enemies to spawn at a given time
         // should be the number of spawnpoints available
