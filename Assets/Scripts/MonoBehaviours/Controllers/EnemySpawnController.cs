@@ -39,7 +39,8 @@ public class EnemySpawnController : ControllerHelper
     #region Class Implementation
     private IEnumerator C_Spawn()
     {
-        while (GameMaster.Instance.playerSettings.timer > 0)
+        // TODO Timer MVC related
+        while (GameMaster.Instance.Controller.Player.Model.timer > 0)
         {
             List<Transform> validSpawnPoints = GetSpawnPoints();
             yield return null;

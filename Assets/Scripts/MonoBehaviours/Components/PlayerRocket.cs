@@ -5,14 +5,16 @@ using UnityEngine;
 public class PlayerRocket : AProjectile
 {
     private bool hit = false;
+    private float blastRadius;
 
     [SerializeField]
     private GameObject blast;
 
-    private void Start()
+    public void SetSpecs(float speedVal, float lifetimeVal, float radiusVal)
     {
-        speed = GameMaster.Instance.playerSettings.rocketSpeed;
-        lifetime = GameMaster.Instance.playerSettings.rocketLifetime;
+        speed = speedVal;
+        lifetime = lifetimeVal;
+        blastRadius = radiusVal;
 
         blast.SetActive(false);
     }
@@ -29,7 +31,7 @@ public class PlayerRocket : AProjectile
     public override void OnBump(int addScore)
     {
         //add score - points from the directly hit
-        GameMaster.Instance.playerSettings.score += addScore;
+        GameMaster.Instance.AddScore(addScore);
         //don't destroy it yet
 
         hit = true; //once hit, it will stop moving
@@ -48,7 +50,7 @@ public class PlayerRocket : AProjectile
     {
         LayerMask Interactables = LayerMask.GetMask(Layers.Interactables);
         RaycastHit2D[] radiusHit = Physics2D.CircleCastAll(transform.position,
-            GameMaster.Instance.playerSettings.rocketBlastRadius,
+            blastRadius,
             Vector3.zero, 0f, Interactables);
 
         foreach (var obj in radiusHit)
@@ -57,7 +59,7 @@ public class PlayerRocket : AProjectile
             if (isEnemy)
             {
                 //add points
-                GameMaster.Instance.playerSettings.score += enemy.pointWhenKilled;
+                GameMaster.Instance.AddScore(enemy.pointWhenKilled);
                 enemy.hit = true; //enemy is hit because of the explosion
                 Destroy(obj.collider.gameObject);//destroy that object
                 //if the hit is true, on destroy > generate a coin randomly

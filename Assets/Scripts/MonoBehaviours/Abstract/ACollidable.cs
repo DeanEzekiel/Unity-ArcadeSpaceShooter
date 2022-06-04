@@ -15,7 +15,7 @@ public abstract class ACollidable : MonoBehaviour
 
     public virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        print("Collision detected");
+        print($"Collision detected {gameObject.name} and {collision.gameObject.name}");
         var hasCollidable =
             collision.transform.TryGetComponent<ACollidable>(out var other);
         if (hasCollidable)

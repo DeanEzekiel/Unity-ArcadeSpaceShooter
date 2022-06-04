@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class PlayerBullet : AProjectile
 {
-    private void Start()
+    public void SetSpecs(float speedVal, float lifetimeVal)
     {
-        speed = GameMaster.Instance.playerSettings.playerBulletSpeed;
-        lifetime = GameMaster.Instance.playerSettings.playerBulletLifetime;
+        speed = speedVal;
+        lifetime = lifetimeVal;
     }
 
     public override void OnBump(int addScore)
     {
         //add score
-        GameMaster.Instance.playerSettings.score += addScore;
+        GameMaster.Instance.AddScore(addScore);
         base.OnBump(addScore); //destroys gameobject
     }
 }

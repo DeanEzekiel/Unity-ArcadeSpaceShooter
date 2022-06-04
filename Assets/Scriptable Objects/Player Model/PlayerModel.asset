@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19b4f37afe7b248be96aebda3a6c0244, type: 3}
+  m_Name: PlayerModel
+  m_EditorClassIdentifier: 
+  life: 3
+  score: 0
+  round: 0
+  coins: 0
+  timePerRound: 15
+  timer: 15
+  rocketCount: 3
+  shieldPoint: 100
+  lifeMax: 3
+  playerSpeed: 6
+  playerRotationSpeed: 720
+  rocketMax: 3
+  rocketSpeed: 15
+  rocketLifetime: 1
+  rocketCooldown: 0.5
+  rocketBlastRadius: 2
+  shieldMax: 100
+  shieldDepleteSec: 3
+  shieldReplenishSec: 5
+  shieldOn: 0
+  playerBulletSpeed: 13
+  playerBulletLifetime: 1
+  playerBulletCooldown: 0.5

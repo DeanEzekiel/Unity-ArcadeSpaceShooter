@@ -13,7 +13,7 @@ public class Coin : MonoBehaviour
     {
         if (other.gameObject.CompareTag(Tags.Player))
         {
-            GameMaster.Instance.playerSettings.coins++;
+            GameMaster.Instance.CoinCollected();
             Destroy(gameObject);
         }
     }

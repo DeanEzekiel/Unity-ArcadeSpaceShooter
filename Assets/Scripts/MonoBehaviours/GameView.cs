@@ -70,22 +70,26 @@ public class GameView : ASingleton<GameView>
             OnPauseGame();
         }
 
-        Lives.text = GameMaster.Instance.playerSettings.life.ToString();
-        Coins.text = GameMaster.Instance.playerSettings.coins.ToString();
-        Rockets.text = GameMaster.Instance.playerSettings.rocketCount.ToString();
-        ShieldPoints.text = $"{Mathf.Round(GameMaster.Instance.playerSettings.shieldPoint)}" +
-            $" / {GameMaster.Instance.playerSettings.shieldMax}";
+        // TODO separate this from Update
+        Lives.text = GameMaster.Instance.Controller.Player.Life.ToString();
+        Coins.text = GameMaster.Instance.Controller.Player.Coins.ToString();
+        Rockets.text = GameMaster.Instance.Controller.Player.RocketCount.ToString();
+        ShieldPoints.text = $"{Mathf.Round(GameMaster.Instance.Controller.Player.ShieldPoint)}" +
+            $" / {GameMaster.Instance.Controller.Player.ShieldMax}";
 
-        ShieldSlider.value = GameMaster.Instance.playerSettings.shieldPoint;
-        TimerSlider.value = GameMaster.Instance.playerSettings.timer;
+        ShieldSlider.value = GameMaster.Instance.Controller.Player.ShieldPoint;
+
+        // TODO for Timer MVC
+        TimerSlider.value = GameMaster.Instance.Controller.Player.Model.timer;
     }
 
     #endregion
 
     public void SetSlidersMax()
     {
-        TimerSlider.maxValue = GameMaster.Instance.playerSettings.timePerRound;
-        ShieldSlider.maxValue = GameMaster.Instance.playerSettings.shieldMax;
+        // TODO for Timer MVC
+        TimerSlider.maxValue = GameMaster.Instance.Controller.Player.Model.timePerRound;
+        ShieldSlider.maxValue = GameMaster.Instance.Controller.Player.ShieldMax;
     }
 
     #region Button Actions
@@ -105,6 +109,7 @@ public class GameView : ASingleton<GameView>
     {
         //Restart Scene
         RestartScene?.Invoke();
+        // TODO LoadScene should be managed by the Controller
         SceneManager.LoadScene("GameplayScene");
     }
 
@@ -112,6 +117,7 @@ public class GameView : ASingleton<GameView>
     {
         //Restart Game
         RestartGame?.Invoke();
+        // TODO LoadScene should be managed by the Controller
         SceneManager.LoadScene("GameplayScene");
     }
 

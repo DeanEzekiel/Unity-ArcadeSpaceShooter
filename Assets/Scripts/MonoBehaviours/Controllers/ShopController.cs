@@ -55,19 +55,19 @@ public class ShopController : ControllerHelper
     public void CheckMaxAllowed()
     {
         SetItemAvailability(ItemPurpose.AddLife,
-            GameMaster.Instance.playerSettings.life,
-            GameMaster.Instance.playerSettings.lifeMax);
+            Controller.Player.Life,
+            Controller.Player.LifeMax);
         SetItemAvailability(ItemPurpose.AddRocketMax,
-            GameMaster.Instance.playerSettings.rocketMax,
+            Controller.Player.RocketMax,
             _shopModel.RocketMaxAllowed);
         SetItemAvailability(ItemPurpose.RefillRockets,
-            GameMaster.Instance.playerSettings.rocketCount,
-            GameMaster.Instance.playerSettings.rocketMax);
+            Controller.Player.RocketCount,
+            Controller.Player.RocketMax);
         SetItemAvailability(ItemPurpose.AddShieldPoints,
-            GameMaster.Instance.playerSettings.shieldPoint,
-            GameMaster.Instance.playerSettings.shieldMax);
+            Controller.Player.ShieldPoint,
+            Controller.Player.ShieldMax);
         SetItemAvailability(ItemPurpose.ShortenShieldRegen,
-            GameMaster.Instance.playerSettings.shieldReplenishSec,
+            Controller.Player.ShieldReplenishSec,
             _shopModel.ShieldRegenSecMinAllowed);
     }
 
@@ -81,42 +81,42 @@ public class ShopController : ControllerHelper
 
     public int GetPlayerCoins()
     {
-        return GameMaster.Instance.playerSettings.coins;
+        return Controller.Player.Coins;
     }
 
     public int GetPlayerLifeCount()
     {
-        return GameMaster.Instance.playerSettings.life;
+        return Controller.Player.Life;
     }
 
     public int GetMaxLifeSize()
     {
-        return GameMaster.Instance.playerSettings.lifeMax;
+        return Controller.Player.LifeMax;
     }
 
     public int GetPlayerRocketCount()
     {
-        return GameMaster.Instance.playerSettings.rocketCount;
+        return Controller.Player.RocketCount;
     }
 
     public int GetMaxRocketSize()
     {
-        return GameMaster.Instance.playerSettings.rocketMax;
+        return Controller.Player.RocketMax;
     }
 
     public int GetPlayerShieldPoints()
     {
-        return Mathf.RoundToInt(GameMaster.Instance.playerSettings.shieldPoint);
+        return Mathf.RoundToInt(Controller.Player.ShieldPoint);
     }
 
     public int GetMaxShieldPoints()
     {
-        return Mathf.RoundToInt(GameMaster.Instance.playerSettings.shieldMax);
+        return Mathf.RoundToInt(Controller.Player.ShieldMax);
     }
 
     public float GetShieldReplenish()
     {
-        return GameMaster.Instance.playerSettings.shieldReplenishSec;
+        return Controller.Player.ShieldReplenishSec;
     }
     #endregion // Public Methods
 
@@ -128,7 +128,7 @@ public class ShopController : ControllerHelper
         {
             item.DisablePurchasing(REASON_FULL);
         }
-        else if (inShop && (GameMaster.Instance.playerSettings.coins < item.Cost))
+        else if (inShop && (Controller.Player.Coins < item.Cost))
         {
             item.DisablePurchasing(REASON_LOW_FUNDS);
         }
@@ -145,7 +145,7 @@ public class ShopController : ControllerHelper
         {
             item.DisablePurchasing(REASON_FULL);
         }
-        else if (inShop && (GameMaster.Instance.playerSettings.coins < item.Cost))
+        else if (inShop && (Controller.Player.Coins < item.Cost))
         {
             item.DisablePurchasing(REASON_LOW_FUNDS);
         }
@@ -195,47 +195,32 @@ public class ShopController : ControllerHelper
 
     private void CollectPayment(int cost)
     {
-        GameMaster.Instance.playerSettings.coins -= cost;
+        Controller.Player.SpendCoins(cost);
     }
 
     private void ApplyUpgrade(ItemPurpose purpose, float value)
     {
         if (purpose == ItemPurpose.AddLife)
         {
-            GameMaster.Instance.playerSettings.life = Mathf.Clamp(
-                GameMaster.Instance.playerSettings.life + (int)value,
-                GameMaster.Instance.playerSettings.life,
-                GameMaster.Instance.playerSettings.lifeMax
-                );
+            Controller.Player.AddLife((int)value);
         }
         else if (purpose == ItemPurpose.AddRocketMax)
         {
-            GameMaster.Instance.playerSettings.rocketMax = Mathf.Clamp(
-                GameMaster.Instance.playerSettings.rocketMax + (int)value,
-                GameMaster.Instance.playerSettings.rocketMax,
-                _shopModel.RocketMaxAllowed
-                );
+            Controller.Player.AddRocketMax((int)value,
+                _shopModel.RocketMaxAllowed);
         }
         else if (purpose == ItemPurpose.RefillRockets)
         {
-            GameMaster.Instance.playerSettings.rocketCount =
-                GameMaster.Instance.playerSettings.rocketMax;
+            Controller.Player.RefillRockets();
         }
         else if (purpose == ItemPurpose.AddShieldPoints)
         {
-            GameMaster.Instance.playerSettings.shieldPoint = Mathf.Clamp(
-                GameMaster.Instance.playerSettings.shieldPoint + value,
-                GameMaster.Instance.playerSettings.shieldPoint,
-                GameMaster.Instance.playerSettings.shieldMax
-                );
+            Controller.Player.AddShieldPoints(value);
         }
         else if (purpose == ItemPurpose.ShortenShieldRegen)
         {
-            GameMaster.Instance.playerSettings.shieldReplenishSec = Mathf.Clamp(
-                GameMaster.Instance.playerSettings.shieldReplenishSec - value,
-                _shopModel.ShieldRegenSecMinAllowed,
-                GameMaster.Instance.playerSettings.shieldReplenishSec
-                );
+            Controller.Player.ShortenShieldRegen(value,
+                _shopModel.ShieldRegenSecMinAllowed);
         }
         else
         {

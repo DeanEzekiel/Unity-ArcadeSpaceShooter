@@ -13,14 +13,9 @@ public class GameMaster : ASingleton<GameMaster>
     [SerializeField]
     private GameObject ShopUI;
 
-    public bool PlayerControlsActive { get; private set; } = true;
-
     public GameSettings gameSettings;
-    public PlayerSettings playerSettings;
     public EnemySettings enemySettings;
 
-    [SerializeField]
-    private PlayerSettings initialPlayerSettings;
     [SerializeField]
     private EnemySettings initialEnemySettings;
 
@@ -34,14 +29,9 @@ public class GameMaster : ASingleton<GameMaster>
     private float spawnTimePercentDeduction = 0.10f;
 
     private float cachedTimeInterval = 0f;
+
+    private int round;
     #endregion // Fields
-
-    #region Events
-
-    public static event Action ShieldToggle;
-    public static event Action ResetPlayerPosition;
-
-    #endregion //Events
 
     #region Unity Callbacks
     protected override void Awake()
@@ -51,22 +41,20 @@ public class GameMaster : ASingleton<GameMaster>
         GameOverUI.SetActive(false);
         GamePausedUI.SetActive(false);
         ShopUI.SetActive(false);
-
-        //playerSettings = initialPlayerSettings.DeepClone(playerSettings);
-        //enemySettings = initialEnemySettings.DeepClone(enemySettings);
     }
     private void Start()
     {
         cachedTimeInterval = maxSpawnTime;
         OnStartRound();
+        Controller.Player.Reset();
     }
 
     private void Update()
     {
-        ShieldPointsCalc();
         TimerCountdown();
 
-        if(playerSettings.life == 0)
+        //TODO move to Player Controller
+        if(Controller.Player.Life == 0)
         {
             GameOver();
         }
@@ -79,7 +67,6 @@ public class GameMaster : ASingleton<GameMaster>
         GameView.PauseGame += PauseGame;
         GameView.ResumeGame += ResumeGame;
 
-        playerSettings = initialPlayerSettings.DeepClone(playerSettings);
         enemySettings = initialEnemySettings.DeepClone(enemySettings);
     }
 
@@ -93,41 +80,29 @@ public class GameMaster : ASingleton<GameMaster>
     }
     #endregion
 
-    #region Implementation
-    private void ShieldPointsCalc()
+    #region Public Methods
+    public void CoinCollected()
     {
-        if (playerSettings.shieldOn && playerSettings.shieldPoint > 0)
-        {
-            playerSettings.shieldPoint -= (playerSettings.shieldMax /
-                playerSettings.shieldDepleteSec * Time.deltaTime);
-        }
-        else if (!playerSettings.shieldOn && playerSettings.shieldPoint <
-            playerSettings.shieldMax)
-        {
-            playerSettings.shieldPoint += (playerSettings.shieldMax /
-                playerSettings.shieldReplenishSec * Time.deltaTime);
-        }
-
-        if (playerSettings.shieldPoint > playerSettings.shieldMax)
-        {
-            playerSettings.shieldPoint = playerSettings.shieldMax;
-        }
-        else if (playerSettings.shieldPoint <= 0)
-        {
-            playerSettings.shieldPoint = 0;
-            ShieldToggle?.Invoke(); //this will activate/deactivate the shield
-        }
+        Controller.Player.CoinCollected();
     }
+
+    public void AddScore(int value)
+    {
+        Controller.Player.AddScore(value);
+    }
+    #endregion // Public Methods
+
+    #region Implementation
 
     private void ResetTimer()
     {
-        playerSettings.timer = playerSettings.timePerRound;
+        Controller.Player.Model.timer = Controller.Player.Model.timePerRound;
     }
     private void TimerCountdown()
     {
-        playerSettings.timer -= Time.deltaTime;
+        Controller.Player.Model.timer -= Time.deltaTime;
 
-        if (playerSettings.timer <= 0 && playerSettings.life >= 1)
+        if (Controller.Player.Model.timer <= 0 && Controller.Player.Life >= 1)
         {
             Controller.EnemySpawn.StopSpawning();
 
@@ -137,11 +112,11 @@ public class GameMaster : ASingleton<GameMaster>
     }
     private void ActivatePlayerControls()
     {
-        PlayerControlsActive = true;
+        Controller.Player.AllowPlayerControls(true);
     }
     private void DeactivatePlayerControls()
     {
-        PlayerControlsActive = false;
+        Controller.Player.AllowPlayerControls(false);
     }
     private void GameOver()
     {
@@ -149,7 +124,7 @@ public class GameMaster : ASingleton<GameMaster>
         GameOverUI.SetActive(true);
 
         //destroy Player, Asteroid, Enemy, Projectiles
-        DestroyWithTag(Tags.Player);
+        Controller.Player.HideView();
         DestroyWithTag(Tags.Asteroid);
         DestroyWithTag(Tags.Alien);
         DestroyWithTag(Tags.PlayerProjectile);
@@ -219,7 +194,10 @@ public class GameMaster : ASingleton<GameMaster>
     {
         Debug.Log("GameMaster Restart Game");
         // reset player and enemy settings to initial values
-        playerSettings = initialPlayerSettings.DeepClone(playerSettings);
+        Controller.Player.Reset();
+
+        round = 0;
+
         enemySettings = initialEnemySettings.DeepClone(enemySettings);
         cachedTimeInterval = maxSpawnTime;
 
@@ -242,7 +220,7 @@ public class GameMaster : ASingleton<GameMaster>
         ResetTimer();
         ActivatePlayerControls();
 
-        ResetPlayerPosition?.Invoke();
+        Controller.Player.ResetPosition();
 
         PlayTime();
         GameView.Instance.SetSlidersMax();
@@ -254,12 +232,12 @@ public class GameMaster : ASingleton<GameMaster>
 
     private void AddRound()
     {
-        playerSettings.round++;
+        round++;
     }
 
     private void SpawnEnemies()
     {
-        int currentRound = playerSettings.round;
+        int currentRound = round;
         int enemiesToSpawn = currentRound; // same as the current round
 
         if (currentRound > 1)
