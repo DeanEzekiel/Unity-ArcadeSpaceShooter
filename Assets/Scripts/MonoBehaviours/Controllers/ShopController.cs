@@ -20,6 +20,11 @@ public class ShopController : ControllerHelper
     [Header("UI")]
     [SerializeField]
     private Transform _shopItemsContainer;
+
+    [SerializeField]
+    private string REASON_FULL = "Full";
+    [SerializeField]
+    private string REASON_LOW_FUNDS = "Low funds";
     #endregion // Inspector Fields
 
     #region View Dictionary
@@ -49,12 +54,22 @@ public class ShopController : ControllerHelper
     #region Public Methods
     public void CheckMaxAllowed()
     {
-        // TODO e.g. if the lives is at MAX, DisablePurchasing of AddLife Purpose
-        // use the _dictShopItem
+        SetItemAvailability(ItemPurpose.AddLife,
+            GameMaster.Instance.playerSettings.life,
+            GameMaster.Instance.playerSettings.lifeMax);
+        SetItemAvailability(ItemPurpose.AddRocketMax,
+            GameMaster.Instance.playerSettings.rocketMax,
+            _shopModel.RocketMaxAllowed);
+        SetItemAvailability(ItemPurpose.RefillRockets,
+            GameMaster.Instance.playerSettings.rocketCount,
+            GameMaster.Instance.playerSettings.rocketMax);
+        SetItemAvailability(ItemPurpose.AddShieldPoints,
+            GameMaster.Instance.playerSettings.shieldPoint,
+            GameMaster.Instance.playerSettings.shieldMax);
+        SetItemAvailability(ItemPurpose.ShortenShieldRegen,
+            GameMaster.Instance.playerSettings.shieldReplenishSec,
+            _shopModel.ShieldRegenSecMinAllowed);
     }
-
-    // TODO call this after purchase is made and after the values are updated
-    // to force the texts to refresh
 
     /// <summary>
     /// To force the UI on the View to reflect the updated values.
@@ -101,11 +116,46 @@ public class ShopController : ControllerHelper
 
     public float GetShieldReplenish()
     {
-        return GameMaster.Instance.playerSettings.shieldReplenishTimeInSec;
+        return GameMaster.Instance.playerSettings.shieldReplenishSec;
     }
     #endregion // Public Methods
 
     #region Class Implementation
+    private void SetItemAvailability(ItemPurpose purpose, float value, float compareValue)
+    {
+        var inShop = _dictShopItem.TryGetValue(purpose, out ShopItemView item);
+        if ((value == compareValue) && inShop)
+        {
+            item.DisablePurchasing(REASON_FULL);
+        }
+        else if (inShop && (GameMaster.Instance.playerSettings.coins < item.Cost))
+        {
+            item.DisablePurchasing(REASON_LOW_FUNDS);
+        }
+        else if (inShop)
+        {
+            item.EnablePurchasing();
+        }
+    }
+
+    private void SetItemAvailability(ItemPurpose purpose, int value, int compareValue)
+    {
+        var inShop = _dictShopItem.TryGetValue(purpose, out ShopItemView item);
+        if ((value == compareValue) && inShop)
+        {
+            item.DisablePurchasing(REASON_FULL);
+        }
+        else if (inShop && (GameMaster.Instance.playerSettings.coins < item.Cost))
+        {
+            item.DisablePurchasing(REASON_LOW_FUNDS);
+        }
+        else if (inShop)
+        {
+            item.EnablePurchasing();
+        }
+    }
+
+
     private void ClearContainer()
     {
         foreach (Transform child in _shopItemsContainer)
@@ -135,10 +185,62 @@ public class ShopController : ControllerHelper
         }
     }
 
-    private void OnPurchase(ItemPurpose purpose, float value)
+    private void OnPurchase(ItemPurpose purpose, float value, int cost)
     {
-        // TODO Clamp the values there should be a max of allowable upgrades
-        Debug.Log($"Clicked {purpose} with a value of {value}");
+        CollectPayment(cost);
+        ApplyUpgrade(purpose, value);
+        UpdateViewTexts();
+        CheckMaxAllowed();
+    }
+
+    private void CollectPayment(int cost)
+    {
+        GameMaster.Instance.playerSettings.coins -= cost;
+    }
+
+    private void ApplyUpgrade(ItemPurpose purpose, float value)
+    {
+        if (purpose == ItemPurpose.AddLife)
+        {
+            GameMaster.Instance.playerSettings.life = Mathf.Clamp(
+                GameMaster.Instance.playerSettings.life + (int)value,
+                GameMaster.Instance.playerSettings.life,
+                GameMaster.Instance.playerSettings.lifeMax
+                );
+        }
+        else if (purpose == ItemPurpose.AddRocketMax)
+        {
+            GameMaster.Instance.playerSettings.rocketMax = Mathf.Clamp(
+                GameMaster.Instance.playerSettings.rocketMax + (int)value,
+                GameMaster.Instance.playerSettings.rocketMax,
+                _shopModel.RocketMaxAllowed
+                );
+        }
+        else if (purpose == ItemPurpose.RefillRockets)
+        {
+            GameMaster.Instance.playerSettings.rocketCount =
+                GameMaster.Instance.playerSettings.rocketMax;
+        }
+        else if (purpose == ItemPurpose.AddShieldPoints)
+        {
+            GameMaster.Instance.playerSettings.shieldPoint = Mathf.Clamp(
+                GameMaster.Instance.playerSettings.shieldPoint + value,
+                GameMaster.Instance.playerSettings.shieldPoint,
+                GameMaster.Instance.playerSettings.shieldMax
+                );
+        }
+        else if (purpose == ItemPurpose.ShortenShieldRegen)
+        {
+            GameMaster.Instance.playerSettings.shieldReplenishSec = Mathf.Clamp(
+                GameMaster.Instance.playerSettings.shieldReplenishSec - value,
+                _shopModel.ShieldRegenSecMinAllowed,
+                GameMaster.Instance.playerSettings.shieldReplenishSec
+                );
+        }
+        else
+        {
+            Debug.Log("Unregistered item purchased.");
+        }
     }
     #endregion // Class Implementation
 }

@@ -7,4 +7,7 @@ using UnityEngine;
 public class ShopOfferingsModel_SO : ScriptableObject
 {
     public List<ShopItem> Items = new List<ShopItem>();
+
+    public int RocketMaxAllowed = 5;
+    public float ShieldRegenSecMinAllowed = 2.0f;
 }

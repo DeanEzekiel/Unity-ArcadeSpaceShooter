@@ -33,8 +33,8 @@ public class PlayerSettings : ScriptableObject
     public float rocketBlastRadius = 2f;
     [Space]
     public float shieldMax = 100f;
-    public float shieldDepleteTimeInSec = 3f;
-    public float shieldReplenishTimeInSec = 5f;
+    public float shieldDepleteSec = 3f;
+    public float shieldReplenishSec = 5f;
     public bool shieldOn = false;
     [Space]
     public float playerBulletSpeed = 13f;
@@ -65,8 +65,8 @@ public class PlayerSettings : ScriptableObject
         other.rocketCooldown = this.rocketCooldown;
         other.rocketBlastRadius = this.rocketBlastRadius;
         other.shieldMax = this.shieldMax;
-        other.shieldDepleteTimeInSec = this.shieldDepleteTimeInSec;
-        other.shieldReplenishTimeInSec = this.shieldReplenishTimeInSec;
+        other.shieldDepleteSec = this.shieldDepleteSec;
+        other.shieldReplenishSec = this.shieldReplenishSec;
         other.shieldOn = this.shieldOn;
         other.playerBulletSpeed = this.playerBulletSpeed;
         other.playerBulletLifetime = this.playerBulletLifetime;
