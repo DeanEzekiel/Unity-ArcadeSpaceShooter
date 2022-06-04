@@ -33,7 +33,7 @@ MonoBehaviour:
     ItemPurposeValue: 0
   - ItemName: +10 Shield Points
     ItemDescription: Lengthens shield use by adding 10 points.
-    ItemCost: 8
+    ItemCost: 2
     ItemIcon: {fileID: 21300000, guid: b885cf119743a48ea9c40aeb9187d38f, type: 3}
     ItemPurpose: 3
     ItemPurposeValue: 10
@@ -43,3 +43,5 @@ MonoBehaviour:
     ItemIcon: {fileID: 21300000, guid: b885cf119743a48ea9c40aeb9187d38f, type: 3}
     ItemPurpose: 4
     ItemPurposeValue: 0.5
+  RocketMaxAllowed: 5
+  ShieldRegenSecMinAllowed: 2
