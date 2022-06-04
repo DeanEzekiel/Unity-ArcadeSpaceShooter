@@ -99,13 +99,13 @@ public class GameMaster : ASingleton<GameMaster>
         if (playerSettings.shieldOn && playerSettings.shieldPoint > 0)
         {
             playerSettings.shieldPoint -= (playerSettings.shieldMax /
-                playerSettings.shieldDepleteTimeInSec * Time.deltaTime);
+                playerSettings.shieldDepleteSec * Time.deltaTime);
         }
         else if (!playerSettings.shieldOn && playerSettings.shieldPoint <
             playerSettings.shieldMax)
         {
             playerSettings.shieldPoint += (playerSettings.shieldMax /
-                playerSettings.shieldReplenishTimeInSec * Time.deltaTime);
+                playerSettings.shieldReplenishSec * Time.deltaTime);
         }
 
         if (playerSettings.shieldPoint > playerSettings.shieldMax)
@@ -165,6 +165,7 @@ public class GameMaster : ASingleton<GameMaster>
         ShopUI.SetActive(true);
 
         Controller.Shop.UpdateViewTexts();
+        Controller.Shop.CheckMaxAllowed();
 
         //disable player controls while shop is active or just use a bool
         DeactivatePlayerControls();

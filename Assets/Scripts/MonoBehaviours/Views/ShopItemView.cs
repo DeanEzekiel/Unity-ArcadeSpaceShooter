@@ -27,18 +27,18 @@ public class ShopItemView : MonoBehaviour
     private float _value;
 
     private readonly string _purchaseButtonActive = "Buy";
-    private readonly string _purchaseButtonInactive = "Full";
     #endregion // Private Fields
 
     #region Events
     /// <summary>
     /// Holds the Purpose & Value of the Purchase.
     /// </summary>
-    public static event Action<ItemPurpose, float> PurchaseClick;
+    public static event Action<ItemPurpose, float, int> PurchaseClick;
     #endregion // Events
 
     #region Accessors
     public ItemPurpose Purpose => _purpose;
+    public int Cost;
     #endregion // Accessors
 
     #region Unity Callbacks
@@ -51,7 +51,7 @@ public class ShopItemView : MonoBehaviour
     #region Class Implementation
     private void OnPurchase()
     {
-        PurchaseClick?.Invoke(_purpose, _value);
+        PurchaseClick?.Invoke(_purpose, _value, Cost);
     }
     #endregion // Class Implementation
 
@@ -63,16 +63,17 @@ public class ShopItemView : MonoBehaviour
 
     }
 
-    public void DisablePurchasing()
+    public void DisablePurchasing(string reason)
     {
         _purchaseButton.interactable = false;
-        _purchaseButtonText.text = _purchaseButtonInactive;
+        _purchaseButtonText.text = reason;
     }
 
     public void SetText(string title, string description, int cost)
     {
         _title.text = title;
         _description.text = description;
+        Cost = cost;
         _cost.text = cost.ToString();
     }
 
