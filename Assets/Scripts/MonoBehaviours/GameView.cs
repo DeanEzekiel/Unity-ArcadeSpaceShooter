@@ -78,17 +78,14 @@ public class GameView : ASingleton<GameView>
             $" / {GameMaster.Instance.Controller.Player.ShieldMax}";
 
         ShieldSlider.value = GameMaster.Instance.Controller.Player.ShieldPoint;
-
-        // TODO for Timer MVC
-        TimerSlider.value = GameMaster.Instance.Controller.Player.Model.timer;
+        TimerSlider.value = GameMaster.Instance.Controller.Timer.TimeLeft;
     }
 
     #endregion
 
     public void SetSlidersMax()
     {
-        // TODO for Timer MVC
-        TimerSlider.maxValue = GameMaster.Instance.Controller.Player.Model.timePerRound;
+        TimerSlider.maxValue = GameMaster.Instance.Controller.Timer.TimePerRound;
         ShieldSlider.maxValue = GameMaster.Instance.Controller.Player.ShieldMax;
     }
 

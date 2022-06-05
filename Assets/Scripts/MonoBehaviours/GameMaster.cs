@@ -51,8 +51,7 @@ public class GameMaster : ASingleton<GameMaster>
 
     private void Update()
     {
-        TimerCountdown();
-
+        CheckTimeEnd();
         //TODO move to Player Controller
         if(Controller.Player.Life == 0)
         {
@@ -96,13 +95,13 @@ public class GameMaster : ASingleton<GameMaster>
 
     private void ResetTimer()
     {
-        Controller.Player.Model.timer = Controller.Player.Model.timePerRound;
+        Controller.Timer.ResetTimer();
+        Controller.Timer.StartTimer();
     }
-    private void TimerCountdown()
+    //TODO refactor this to Timer and Game Controller
+    private void CheckTimeEnd()
     {
-        Controller.Player.Model.timer -= Time.deltaTime;
-
-        if (Controller.Player.Model.timer <= 0 && Controller.Player.Life >= 1)
+        if (Controller.Timer.TimeLeft <= 0 && Controller.Player.Life >= 1)
         {
             Controller.EnemySpawn.StopSpawning();
 

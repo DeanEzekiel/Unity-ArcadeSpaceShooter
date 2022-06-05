@@ -4,16 +4,12 @@ using UnityEngine;
     menuName = "ScriptableObjects/New PlayerModel")]
 public class PlayerModel_SO : ScriptableObject
 {
+    //TODO fix the names of the fields
     [Header("Game Values")]
     public int life = 3;
     public int score = 0;
     public int coins = 0;
 
-    [Space]
-    [Range(0f, 200f)]
-    [Tooltip("The number of seconds per round.")]
-    public float timePerRound = 15f;
-    public float timer = 15f;
     [Space]
     public int rocketCount = 3;
     public float shieldPoint = 100f;
@@ -53,8 +49,6 @@ public class PlayerModel_SO : ScriptableObject
         other.life = this.life;
         other.score = this.score;
         other.coins = this.coins;
-        other.timePerRound = this.timePerRound;
-        other.timer = this.timer;
         other.rocketCount = this.rocketCount;
         other.shieldPoint = this.shieldPoint;
         other.playerSpeed = this.playerSpeed;
