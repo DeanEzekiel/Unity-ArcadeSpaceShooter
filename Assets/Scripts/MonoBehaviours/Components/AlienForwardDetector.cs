@@ -13,6 +13,9 @@ public class AlienForwardDetector : MonoBehaviour
     private int prevObstacleHash;
 
     protected EnemyModel_SO EnemyModel => GameController.Instance.Controller.Enemy.Model;
+
+    [SerializeField]
+    private EnemyModel_SO _enemyModel;
     //private Action shoot;
     //private Action think;
 
@@ -81,7 +84,17 @@ public class AlienForwardDetector : MonoBehaviour
     private void SetTriggerSize()
     {
         theTrigger = transform.GetComponent<BoxCollider2D>();
-        theTrigger.size = new Vector2(EnemyModel.alienForwardDetection, 1);
+
+        try
+        {
+            theTrigger.size = new Vector2(EnemyModel.alienForwardDetection, 1);
+        }
+        catch (Exception)
+        {
+            // need its own private _enemyModel for the Welcome Scene
+            theTrigger.size = new Vector2(_enemyModel.alienForwardDetection, 1);
+        }
+
         theTrigger.offset = new Vector2(theTrigger.size.x / 2, 0);
     }
 

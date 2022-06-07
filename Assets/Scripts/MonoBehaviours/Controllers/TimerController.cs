@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,8 +14,14 @@ public class TimerController : ControllerHelper
     private TimerModel_SO _model;
     #endregion // MVC
 
+    #region Events
+    public static event Action StartRound;
+    #endregion // Events
+
     #region Private Fields
-    private bool hasStarted = false;
+    private bool hasRoundStarted = false;
+
+    private int _roundCountdown;
     #endregion
 
     #region Accessors
@@ -25,7 +32,7 @@ public class TimerController : ControllerHelper
     #region Unity Callbacks
     private void Update()
     {
-        if (hasStarted)
+        if (hasRoundStarted)
         {
             TimerCountdown();
         }
@@ -40,12 +47,18 @@ public class TimerController : ControllerHelper
 
     public void StartTimer()
     {
-        hasStarted = true;
+        hasRoundStarted = true;
     }
 
     public void StopTimer()
     {
-        hasStarted = false;
+        hasRoundStarted = false;
+    }
+
+    public void StartRoundTimer(int round)
+    {
+        _view_RoundStart.SetTextRound(round);
+        StartCoroutine(C_RoundStartCountdown());
     }
     #endregion // Public Methods
 
@@ -53,6 +66,28 @@ public class TimerController : ControllerHelper
     private void TimerCountdown()
     {
         _model.TimeLeft -= Time.deltaTime;
+    }
+
+    private IEnumerator C_RoundStartCountdown()
+    {
+        _roundCountdown = _model.RoundCountdownSec;
+        _view_RoundStart.ShowCountdown(true);
+        hasRoundStarted = false;
+
+        do
+        {
+            _view_RoundStart.SetTextCountdown(_roundCountdown);
+
+            _roundCountdown--;
+            yield return new WaitForSeconds(1);
+        } while (_roundCountdown > 0);
+
+        if (_roundCountdown <= 0)
+        {
+            hasRoundStarted = true;
+            _view_RoundStart.ShowCountdown(false);
+            StartRound?.Invoke();
+        }
     }
     #endregion // Implementation
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,9 @@ public class Alien : AEnemy
     private GameObject projectile;
     [SerializeField]
     private AlienForwardDetector detector;
+
+    [SerializeField]
+    private EnemyModel_SO _enemyModel;
 
     //states - start
     [SerializeField]
@@ -53,14 +57,29 @@ public class Alien : AEnemy
     #region Unity Callbacks
     private void Start()
     {
-        movementSpeed = EnemyModel.alienSpeed;
-        hit = false;
-        pointWhenKilled = EnemyModel.alienPoints;
-        thinkingCooldown = EnemyModel.alienDetectCooldown;
-        shootTimer = EnemyModel.alienBulletCooldown;
+        try
+        {
+            movementSpeed = EnemyModel.alienSpeed;
+            hit = false;
+            pointWhenKilled = EnemyModel.alienPoints;
+            thinkingCooldown = EnemyModel.alienDetectCooldown;
+            shootTimer = EnemyModel.alienBulletCooldown;
 
-        defaultThinkCooldown = EnemyModel.alienDetectCooldown;
-        defaultBulletCooldown = EnemyModel.alienBulletCooldown;
+            defaultThinkCooldown = EnemyModel.alienDetectCooldown;
+            defaultBulletCooldown = EnemyModel.alienBulletCooldown;
+        }
+        catch (Exception)
+        {
+            // need its own private _enemyModel for the Welcome Scene
+            movementSpeed = _enemyModel.alienSpeed;
+            hit = false;
+            pointWhenKilled = _enemyModel.alienPoints;
+            thinkingCooldown = _enemyModel.alienDetectCooldown;
+            shootTimer = _enemyModel.alienBulletCooldown;
+
+            defaultThinkCooldown = _enemyModel.alienDetectCooldown;
+            defaultBulletCooldown = _enemyModel.alienBulletCooldown;
+        }
 
         SetScreenBounds();
         Entering();

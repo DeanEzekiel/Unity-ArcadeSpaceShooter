@@ -11,7 +11,7 @@ public class GameController : ASingleton<GameController>
     [SerializeField]
     private GameView _view;
 
-    public GameModel_SO GameModel;
+    public GameModel_SO Model;
     #endregion // MVC
 
     #region Unity Callbacks
@@ -23,10 +23,10 @@ public class GameController : ASingleton<GameController>
     }
     private void Start()
     {
-        GameModel.CachedTimeInterval = GameModel.MaxSpawnTime;
+        Model.CachedTimeInterval = Model.MaxSpawnTime;
         Controller.Player.Reset();
-        GameModel.ResetRound();
-        OnStartRound();
+        Model.ResetRound();
+        OnStartRoundTimer();
     }
 
     private void Update()
@@ -46,6 +46,8 @@ public class GameController : ASingleton<GameController>
         GameView.PauseGame += PauseGame;
         GameView.ResumeGame += ResumeGame;
 
+        TimerController.StartRound += OnStartRound;
+
         Controller.Enemy.ResetEnemySettings();
     }
 
@@ -56,6 +58,8 @@ public class GameController : ASingleton<GameController>
         GameView.RestartGame -= RestartGame;
         GameView.PauseGame -= PauseGame;
         GameView.ResumeGame -= ResumeGame;
+
+        TimerController.StartRound -= OnStartRound;
     }
     #endregion
 
@@ -161,10 +165,10 @@ public class GameController : ASingleton<GameController>
 
     private void NextRound()
     {
-        Debug.Log("GameMaster Reset Values");
+        Debug.Log("GameMaster Next Round");
         _view.InitViews();
 
-        OnStartRound();
+        OnStartRoundTimer();
     }
 
     private void RestartGame()
@@ -173,10 +177,10 @@ public class GameController : ASingleton<GameController>
         // reset player and enemy settings to initial values
         Controller.Player.Reset();
 
-        GameModel.ResetRound();
+        Model.ResetRound();
 
         Controller.Enemy.ResetEnemySettings();
-        GameModel.CachedTimeInterval = GameModel.MaxSpawnTime;
+        Model.CachedTimeInterval = Model.MaxSpawnTime;
 
         NextRound();
         GameView.Instance.SetSlidersMax();
@@ -192,40 +196,43 @@ public class GameController : ASingleton<GameController>
         Time.timeScale = 0;
     }
 
+    private void OnStartRoundTimer()
+    {
+        DeactivatePlayerControls();
+        Controller.Player.ResetPosition();
+        PlayTime();
+        AddRound();
+        ResetTimer();
+        Controller.Timer.StartRoundTimer(Model.Round);
+    }
+
     private void OnStartRound()
     {
-        ResetTimer();
         ActivatePlayerControls();
 
-        Controller.Player.ResetPosition();
-
-        PlayTime();
         GameView.Instance.SetSlidersMax();
-
-        AddRound();
-
         SpawnEnemies();
     }
 
     private void AddRound()
     {
-        GameModel.Round++;
+        Model.Round++;
     }
 
     private void SpawnEnemies()
     {
-        int currentRound = GameModel.Round;
+        int currentRound = Model.Round;
         int enemiesToSpawn = currentRound; // same as the current round
 
-        var cachedTime = GameModel.CachedTimeInterval;
+        var cachedTime = Model.CachedTimeInterval;
         if (currentRound > 1)
         {
-            cachedTime -= (cachedTime * GameModel.SpawnTimePercentDeduction);
+            cachedTime -= (cachedTime * Model.SpawnTimePercentDeduction);
         }
-        GameModel.CachedTimeInterval = Mathf.Clamp(
+        Model.CachedTimeInterval = Mathf.Clamp(
             cachedTime,
-            GameModel.MinSpawnTime,
-            GameModel.MaxSpawnTime
+            Model.MinSpawnTime,
+            Model.MaxSpawnTime
             );
 
         // max enemies to spawn at a given time
@@ -235,8 +242,8 @@ public class GameController : ASingleton<GameController>
             enemiesToSpawn = Controller.Enemy.CountSpawnPoints;
         }
 
-        Debug.Log("Spawn Time Interval: " + GameModel.CachedTimeInterval);
-        Controller.Enemy.SpawnSettings(GameModel.CachedTimeInterval, enemiesToSpawn);
+        Debug.Log("Spawn Time Interval: " + Model.CachedTimeInterval);
+        Controller.Enemy.SpawnSettings(Model.CachedTimeInterval, enemiesToSpawn);
         Controller.Enemy.StartSpawning();
     }
 
