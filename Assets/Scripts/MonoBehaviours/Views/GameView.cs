@@ -27,7 +27,7 @@ public class GameView : ASingleton<GameView>
     [SerializeField]
     private Button ShopQuitButton;
     [SerializeField]
-    private Button ShopPlayAgainButton;
+    private Button ShopNextRoundButton;
 
     [Header("Pause Panel - Buttons")]
     [SerializeField]
@@ -61,7 +61,7 @@ public class GameView : ASingleton<GameView>
 
     #region Events
 
-    public static event Action RestartScene;
+    public static event Action NextRound;
     public static event Action RestartGame;
     public static event Action PauseGame;
     public static event Action ResumeGame;
@@ -75,7 +75,7 @@ public class GameView : ASingleton<GameView>
         GOverRestartButton.onClick.AddListener(OnRestartGame);
 
         ShopQuitButton.onClick.AddListener(OnQuitGame);
-        ShopPlayAgainButton.onClick.AddListener(OnPlayAgain);
+        ShopNextRoundButton.onClick.AddListener(OnNextRound);
 
         FrozenResumeButton.onClick.AddListener(OnResumeGame);
 
@@ -149,10 +149,10 @@ public class GameView : ASingleton<GameView>
         #endif
     }
 
-    private void OnPlayAgain()
+    private void OnNextRound()
     {
         //Restart Scene
-        RestartScene?.Invoke();
+        NextRound?.Invoke();
         // TODO LoadScene should be managed by the Controller
         SceneManager.LoadScene("GameplayScene");
     }

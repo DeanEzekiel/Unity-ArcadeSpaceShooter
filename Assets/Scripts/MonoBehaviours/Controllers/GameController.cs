@@ -41,7 +41,7 @@ public class GameController : ASingleton<GameController>
 
     private void OnEnable()
     {
-        GameView.RestartScene += ResetValues;
+        GameView.NextRound += NextRound;
         GameView.RestartGame += RestartGame;
         GameView.PauseGame += PauseGame;
         GameView.ResumeGame += ResumeGame;
@@ -52,7 +52,7 @@ public class GameController : ASingleton<GameController>
     private void OnDisable()
     {
 
-        GameView.RestartScene -= ResetValues;
+        GameView.NextRound -= NextRound;
         GameView.RestartGame -= RestartGame;
         GameView.PauseGame -= PauseGame;
         GameView.ResumeGame -= ResumeGame;
@@ -159,7 +159,7 @@ public class GameController : ASingleton<GameController>
         _view.ShowGamePausedUI(false);
     }
 
-    private void ResetValues()
+    private void NextRound()
     {
         Debug.Log("GameMaster Reset Values");
         _view.InitViews();
@@ -178,7 +178,7 @@ public class GameController : ASingleton<GameController>
         Controller.Enemy.ResetEnemySettings();
         GameModel.CachedTimeInterval = GameModel.MaxSpawnTime;
 
-        ResetValues();
+        NextRound();
         GameView.Instance.SetSlidersMax();
     }
 
