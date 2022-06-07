@@ -1702,7 +1702,15 @@ PrefabInstance:
     m_TransformParent: {fileID: 36191688}
     m_Modifications:
     - target: {fileID: 37116662, guid: bf6332b14828043ceaeedc6d05ed41c6, type: 3}
+      propertyPath: _enemyModel
+      value: 
+      objectReference: {fileID: 11400000, guid: 2414580afae7a48c1897da9f9a4f59bc, type: 2}
+    - target: {fileID: 37116662, guid: bf6332b14828043ceaeedc6d05ed41c6, type: 3}
       propertyPath: enemySettings
+      value: 
+      objectReference: {fileID: 11400000, guid: 2414580afae7a48c1897da9f9a4f59bc, type: 2}
+    - target: {fileID: 139024756, guid: bf6332b14828043ceaeedc6d05ed41c6, type: 3}
+      propertyPath: _enemyModel
       value: 
       objectReference: {fileID: 11400000, guid: 2414580afae7a48c1897da9f9a4f59bc, type: 2}
     - target: {fileID: 139024756, guid: bf6332b14828043ceaeedc6d05ed41c6, type: 3}
@@ -1854,7 +1862,15 @@ PrefabInstance:
     m_TransformParent: {fileID: 36191688}
     m_Modifications:
     - target: {fileID: 37116662, guid: bf6332b14828043ceaeedc6d05ed41c6, type: 3}
+      propertyPath: _enemyModel
+      value: 
+      objectReference: {fileID: 11400000, guid: 2414580afae7a48c1897da9f9a4f59bc, type: 2}
+    - target: {fileID: 37116662, guid: bf6332b14828043ceaeedc6d05ed41c6, type: 3}
       propertyPath: enemySettings
+      value: 
+      objectReference: {fileID: 11400000, guid: 2414580afae7a48c1897da9f9a4f59bc, type: 2}
+    - target: {fileID: 139024756, guid: bf6332b14828043ceaeedc6d05ed41c6, type: 3}
+      propertyPath: _enemyModel
       value: 
       objectReference: {fileID: 11400000, guid: 2414580afae7a48c1897da9f9a4f59bc, type: 2}
     - target: {fileID: 139024756, guid: bf6332b14828043ceaeedc6d05ed41c6, type: 3}
@@ -3175,7 +3191,15 @@ PrefabInstance:
     m_TransformParent: {fileID: 36191688}
     m_Modifications:
     - target: {fileID: 37116662, guid: bf6332b14828043ceaeedc6d05ed41c6, type: 3}
+      propertyPath: _enemyModel
+      value: 
+      objectReference: {fileID: 11400000, guid: 2414580afae7a48c1897da9f9a4f59bc, type: 2}
+    - target: {fileID: 37116662, guid: bf6332b14828043ceaeedc6d05ed41c6, type: 3}
       propertyPath: enemySettings
+      value: 
+      objectReference: {fileID: 11400000, guid: 2414580afae7a48c1897da9f9a4f59bc, type: 2}
+    - target: {fileID: 139024756, guid: bf6332b14828043ceaeedc6d05ed41c6, type: 3}
+      propertyPath: _enemyModel
       value: 
       objectReference: {fileID: 11400000, guid: 2414580afae7a48c1897da9f9a4f59bc, type: 2}
     - target: {fileID: 139024756, guid: bf6332b14828043ceaeedc6d05ed41c6, type: 3}
