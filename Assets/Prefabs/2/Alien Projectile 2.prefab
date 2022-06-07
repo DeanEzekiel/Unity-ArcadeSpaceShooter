@@ -113,3 +113,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointWhenKilled: 0
+  EnemyModel: {fileID: 11400000, guid: 94eca8c01406e4d74b3fa6a67fc1dde9, type: 2}

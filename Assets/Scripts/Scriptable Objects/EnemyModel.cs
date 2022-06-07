@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "EnemySettings",
-    menuName = "ScriptableObjects/New EnemySettings")]
-public class EnemySettings : ScriptableObject
+[CreateAssetMenu(fileName = "Enemy Model",
+    menuName = "ScriptableObjects/New Enemy Model")]
+public class EnemyModel : ScriptableObject
 {
     [Header("Enemy Specs")]
     public int life = 1;
@@ -25,12 +25,12 @@ public class EnemySettings : ScriptableObject
     public int coinDropRate = 40;
     public int coinLifetime = 3;
 
-    public EnemySettings Clone()
+    public EnemyModel Clone()
     {
         return this;
     }
 
-    public EnemySettings DeepClone(EnemySettings other)
+    public EnemyModel DeepClone(EnemyModel other)
     {
         other.life = this.life;
         other.asteroidSpeedMin = this.asteroidSpeedMin;

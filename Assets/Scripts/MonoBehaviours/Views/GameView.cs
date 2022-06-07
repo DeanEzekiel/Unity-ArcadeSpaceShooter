@@ -9,6 +9,14 @@ using UnityEngine.SceneManagement;
 public class GameView : ASingleton<GameView>
 {
     #region Inspector Variables
+    [Header("Panels")]
+    [SerializeField]
+    private GameObject uiGameOver;
+    [SerializeField]
+    private GameObject uiGamePaused;
+    [SerializeField]
+    private GameObject uiShop;
+
     [Header("Game Over - Buttons")]
     [SerializeField]
     private Button GOverQuitButton;
@@ -45,6 +53,21 @@ public class GameView : ASingleton<GameView>
 
     #endregion
 
+    #region Accessors
+    public bool IsGameOverUIActive => uiGameOver.activeInHierarchy;
+    public bool IsGamePausedUIActive => uiGamePaused.activeInHierarchy;
+    public bool IsShopUIActive => uiShop.activeInHierarchy;
+    #endregion
+
+    #region Events
+
+    public static event Action RestartScene;
+    public static event Action RestartGame;
+    public static event Action PauseGame;
+    public static event Action ResumeGame;
+
+    #endregion
+
     #region Unity Callbacks
     private void Start()
     {
@@ -71,23 +94,47 @@ public class GameView : ASingleton<GameView>
         }
 
         // TODO separate this from Update
-        Lives.text = GameMaster.Instance.Controller.Player.Life.ToString();
-        Coins.text = GameMaster.Instance.Controller.Player.Coins.ToString();
-        Rockets.text = GameMaster.Instance.Controller.Player.RocketCount.ToString();
-        ShieldPoints.text = $"{Mathf.Round(GameMaster.Instance.Controller.Player.ShieldPoint)}" +
-            $" / {GameMaster.Instance.Controller.Player.ShieldMax}";
+        Lives.text = GameController.Instance.Controller.Player.Life.ToString();
+        Coins.text = GameController.Instance.Controller.Player.Coins.ToString();
+        Rockets.text = GameController.Instance.Controller.Player.RocketCount.ToString();
+        ShieldPoints.text = $"{Mathf.Round(GameController.Instance.Controller.Player.ShieldPoint)}" +
+            $" / {GameController.Instance.Controller.Player.ShieldMax}";
 
-        ShieldSlider.value = GameMaster.Instance.Controller.Player.ShieldPoint;
-        TimerSlider.value = GameMaster.Instance.Controller.Timer.TimeLeft;
+        ShieldSlider.value = GameController.Instance.Controller.Player.ShieldPoint;
+        TimerSlider.value = GameController.Instance.Controller.Timer.TimeLeft;
     }
 
     #endregion
 
+    #region Public Methods
+    public void InitViews()
+    {
+        uiGameOver.SetActive(false);
+        uiGamePaused.SetActive(false);
+        uiShop.SetActive(false);
+    }
+
     public void SetSlidersMax()
     {
-        TimerSlider.maxValue = GameMaster.Instance.Controller.Timer.TimePerRound;
-        ShieldSlider.maxValue = GameMaster.Instance.Controller.Player.ShieldMax;
+        TimerSlider.maxValue = GameController.Instance.Controller.Timer.TimePerRound;
+        ShieldSlider.maxValue = GameController.Instance.Controller.Player.ShieldMax;
     }
+
+    public void ShowGameOverUI(bool value)
+    {
+        uiGameOver.SetActive(value);
+    }
+
+    public void ShowGamePausedUI(bool value)
+    {
+        uiGamePaused.SetActive(value);
+    }
+
+    public void ShowShopUI(bool value)
+    {
+        uiShop.SetActive(value);
+    }
+    #endregion // Public Methods
 
     #region Button Actions
     private void OnQuitGame()
@@ -127,15 +174,6 @@ public class GameView : ASingleton<GameView>
     {
         ResumeGame?.Invoke();
     }
-
-    #endregion
-
-    #region Events
-
-    public static event Action RestartScene;
-    public static event Action RestartGame;
-    public static event Action PauseGame;
-    public static event Action ResumeGame;
 
     #endregion
 }

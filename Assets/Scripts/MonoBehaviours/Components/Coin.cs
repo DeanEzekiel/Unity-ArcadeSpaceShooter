@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
+    [SerializeField]
+    EnemyModel enemyModel;
     // Update is called once per frame
     void Update()
     {
-        Destroy(gameObject, GameMaster.Instance.enemySettings.coinLifetime);
+        Destroy(gameObject, enemyModel.coinLifetime);
     }
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag(Tags.Player))
         {
-            GameMaster.Instance.CoinCollected();
+            GameController.Instance.CoinCollected();
             Destroy(gameObject);
         }
     }

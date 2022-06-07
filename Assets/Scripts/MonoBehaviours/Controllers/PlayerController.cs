@@ -167,7 +167,7 @@ public class PlayerController : ControllerHelper
 
     private void Rotate()
     {
-        if (GameMaster.Instance.gameSettings.playerControls ==
+        if (GameController.Instance.GameModel.playerControls ==
             ControlOption.MotionFacing)
         {
             //rotate based on movement direction & need to adjust by 90 degrees
@@ -183,7 +183,7 @@ public class PlayerController : ControllerHelper
                 _view.Rotate(quaternion);
             }
         }
-        else if (GameMaster.Instance.gameSettings.playerControls ==
+        else if (GameController.Instance.GameModel.playerControls ==
             ControlOption.CursorFacing)
         {
             //no need to adjust 90 degrees

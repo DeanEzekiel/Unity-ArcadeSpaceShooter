@@ -2,13 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySpawnController : ControllerHelper
+public class EnemyController : ControllerHelper
 {
+    #region MVC
+    [SerializeField]
+    private EnemyModel _model;
+
+    [SerializeField]
+    private EnemyModel _modelInit;
+    #endregion // MVC
+
     #region Inspector Fields
     [SerializeField]
     private List<Transform> spawnPoints;
     [SerializeField]
-    private List<GameObject> enemyPrefabs;
+    private List<AEnemy> enemyPrefabs;
     #endregion // Fields
 
     #region Private Fields
@@ -33,6 +41,11 @@ public class EnemySpawnController : ControllerHelper
     public void StopSpawning()
     {
         StopAllCoroutines();
+    }
+
+    public void ResetEnemySettings()
+    {
+        _model = _modelInit.DeepClone(_model);
     }
     #endregion // Public API
 

@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class AlienBullet : AProjectile
 {
+    [SerializeField]
+    protected EnemyModel EnemyModel;
     private void Start()
     {
-        speed = GameMaster.Instance.enemySettings.alienBulletSpeed;
-        lifetime = GameMaster.Instance.enemySettings.alienBulletLifetime;
+        SetSpecs(EnemyModel.alienBulletSpeed, EnemyModel.alienBulletLifetime);
     }
 }

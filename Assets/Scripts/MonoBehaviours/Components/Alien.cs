@@ -11,8 +11,6 @@ public class Alien : AEnemy
     private GameObject projectile;
     [SerializeField]
     private AlienForwardDetector detector;
-    [SerializeField]
-    private EnemySettings enemySettings;
 
     //states - start
     [SerializeField]
@@ -55,28 +53,14 @@ public class Alien : AEnemy
     #region Unity Callbacks
     private void Start()
     {
-        try
-        {
-            movementSpeed = GameMaster.Instance.enemySettings.alienSpeed;
-            hit = false;
-            pointWhenKilled = GameMaster.Instance.enemySettings.alienPoints;
-            thinkingCooldown = GameMaster.Instance.enemySettings.alienDetectCooldown;
-            shootTimer = GameMaster.Instance.enemySettings.alienBulletCooldown;
+        movementSpeed = EnemyModel.alienSpeed;
+        hit = false;
+        pointWhenKilled = EnemyModel.alienPoints;
+        thinkingCooldown = EnemyModel.alienDetectCooldown;
+        shootTimer = EnemyModel.alienBulletCooldown;
 
-            defaultThinkCooldown = GameMaster.Instance.enemySettings.alienDetectCooldown;
-            defaultBulletCooldown = GameMaster.Instance.enemySettings.alienBulletCooldown;
-        }
-        catch
-        {
-            movementSpeed = enemySettings.alienSpeed;
-            hit = false;
-            pointWhenKilled = enemySettings.alienPoints;
-            thinkingCooldown = enemySettings.alienDetectCooldown;
-            shootTimer = enemySettings.alienBulletCooldown;
-
-            defaultThinkCooldown = enemySettings.alienDetectCooldown;
-            defaultBulletCooldown = enemySettings.alienBulletCooldown;
-        }
+        defaultThinkCooldown = EnemyModel.alienDetectCooldown;
+        defaultBulletCooldown = EnemyModel.alienBulletCooldown;
 
         SetScreenBounds();
         Entering();

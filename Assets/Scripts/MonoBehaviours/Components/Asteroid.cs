@@ -8,7 +8,7 @@ public class Asteroid : AEnemy
     private void OnEnable()
     {
         hit = false;
-        pointWhenKilled = GameMaster.Instance.enemySettings.asteroidPoints;
+        pointWhenKilled = EnemyModel.asteroidPoints;
         Move();
         Rotate();
         SetMovementSpeed();
@@ -56,8 +56,8 @@ public class Asteroid : AEnemy
     private void SetMovementSpeed()
     {
         movementSpeed = UnityEngine.Random.Range(
-            GameMaster.Instance.enemySettings.asteroidSpeedMin,
-            GameMaster.Instance.enemySettings.asteroidSpeedMax);
+            EnemyModel.asteroidSpeedMin,
+            EnemyModel.asteroidSpeedMax);
     }
 
     /// <summary>

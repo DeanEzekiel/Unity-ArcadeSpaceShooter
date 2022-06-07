@@ -11,7 +11,10 @@ public abstract class AEnemy : ACollidable
     public int randomDirection;
     public bool hit;
 
-    public GameObject coin;
+    public Coin coin;
+
+    [SerializeField]
+    protected EnemyModel EnemyModel;
 
     public virtual void OnDestroy()
     {
@@ -19,7 +22,7 @@ public abstract class AEnemy : ACollidable
         {
             int randomNumber = UnityEngine.Random.Range(1, 101); //from 1 - 100
 
-            if (randomNumber <= GameMaster.Instance.enemySettings.coinDropRate)
+            if (randomNumber <= EnemyModel.coinDropRate)
             {
                 Instantiate(coin, transform.position, coin.transform.rotation);
             }

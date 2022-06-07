@@ -31,7 +31,7 @@ public class PlayerRocket : AProjectile
     public override void OnBump(int addScore)
     {
         //add score - points from the directly hit
-        GameMaster.Instance.AddScore(addScore);
+        GameController.Instance.AddScore(addScore);
         //don't destroy it yet
 
         hit = true; //once hit, it will stop moving
@@ -59,7 +59,7 @@ public class PlayerRocket : AProjectile
             if (isEnemy)
             {
                 //add points
-                GameMaster.Instance.AddScore(enemy.pointWhenKilled);
+                GameController.Instance.AddScore(enemy.pointWhenKilled);
                 enemy.hit = true; //enemy is hit because of the explosion
                 Destroy(obj.collider.gameObject);//destroy that object
                 //if the hit is true, on destroy > generate a coin randomly

@@ -3,50 +3,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameMaster : ASingleton<GameMaster>
+public class GameController : ASingleton<GameController>
 {
-    #region Fields
-    [SerializeField]
-    private GameObject GameOverUI;
-    [SerializeField]
-    private GameObject GamePausedUI;
-    [SerializeField]
-    private GameObject ShopUI;
-
-    public GameSettings gameSettings;
-    public EnemySettings enemySettings;
-
-    [SerializeField]
-    private EnemySettings initialEnemySettings;
-
+    #region MVC
     public ControllerList Controller;
 
     [SerializeField]
-    private float maxSpawnTime = 5f;
-    [SerializeField]
-    private float minSpawnTime = 2f;
-    [SerializeField]
-    private float spawnTimePercentDeduction = 0.10f;
+    private GameView _view;
 
-    private float cachedTimeInterval = 0f;
-
-    private int round;
-    #endregion // Fields
+    public GameModel_SO GameModel;
+    #endregion // MVC
 
     #region Unity Callbacks
     protected override void Awake()
     {
         base.Awake();
 
-        GameOverUI.SetActive(false);
-        GamePausedUI.SetActive(false);
-        ShopUI.SetActive(false);
+        _view.InitViews();
     }
     private void Start()
     {
-        cachedTimeInterval = maxSpawnTime;
-        OnStartRound();
+        GameModel.CachedTimeInterval = GameModel.MaxSpawnTime;
         Controller.Player.Reset();
+        GameModel.ResetRound();
+        OnStartRound();
     }
 
     private void Update()
@@ -66,7 +46,7 @@ public class GameMaster : ASingleton<GameMaster>
         GameView.PauseGame += PauseGame;
         GameView.ResumeGame += ResumeGame;
 
-        enemySettings = initialEnemySettings.DeepClone(enemySettings);
+        Controller.Enemy.ResetEnemySettings();
     }
 
     private void OnDisable()
@@ -103,7 +83,7 @@ public class GameMaster : ASingleton<GameMaster>
     {
         if (Controller.Timer.TimeLeft <= 0 && Controller.Player.Life >= 1)
         {
-            Controller.EnemySpawn.StopSpawning();
+            Controller.Enemy.StopSpawning();
 
             ShowShop();
             PauseTime();
@@ -119,8 +99,8 @@ public class GameMaster : ASingleton<GameMaster>
     }
     private void GameOver()
     {
-        Controller.EnemySpawn.StopSpawning();
-        GameOverUI.SetActive(true);
+        Controller.Enemy.StopSpawning();
+        _view.ShowGameOverUI(true);
 
         //destroy Player, Asteroid, Enemy, Projectiles
         Controller.Player.HideView();
@@ -136,7 +116,7 @@ public class GameMaster : ASingleton<GameMaster>
     }
     private void ShowShop()
     {
-        ShopUI.SetActive(true);
+        _view.ShowShopUI(true);
 
         Controller.Shop.UpdateViewTexts();
         Controller.Shop.CheckMaxAllowed();
@@ -163,11 +143,11 @@ public class GameMaster : ASingleton<GameMaster>
     private void PauseGame()
     {
         Debug.Log("GameMaster Pause Game");
-        if (!GameOverUI.activeInHierarchy && !ShopUI.activeInHierarchy)
+        if (!_view.IsGameOverUIActive && !_view.IsShopUIActive)
         {
             PauseTime();
             DeactivatePlayerControls();
-            GamePausedUI.SetActive(true);
+            _view.ShowGamePausedUI(true);
         }
     }
 
@@ -176,15 +156,13 @@ public class GameMaster : ASingleton<GameMaster>
         Debug.Log("GameMaster Resume Game");
         PlayTime();
         ActivatePlayerControls();
-        GamePausedUI.SetActive(false);
+        _view.ShowGamePausedUI(false);
     }
 
     private void ResetValues()
     {
         Debug.Log("GameMaster Reset Values");
-        GameOverUI.SetActive(false);
-        GamePausedUI.SetActive(false);
-        ShopUI.SetActive(false);
+        _view.InitViews();
 
         OnStartRound();
     }
@@ -195,10 +173,10 @@ public class GameMaster : ASingleton<GameMaster>
         // reset player and enemy settings to initial values
         Controller.Player.Reset();
 
-        round = 0;
+        GameModel.ResetRound();
 
-        enemySettings = initialEnemySettings.DeepClone(enemySettings);
-        cachedTimeInterval = maxSpawnTime;
+        Controller.Enemy.ResetEnemySettings();
+        GameModel.CachedTimeInterval = GameModel.MaxSpawnTime;
 
         ResetValues();
         GameView.Instance.SetSlidersMax();
@@ -231,30 +209,35 @@ public class GameMaster : ASingleton<GameMaster>
 
     private void AddRound()
     {
-        round++;
+        GameModel.Round++;
     }
 
     private void SpawnEnemies()
     {
-        int currentRound = round;
+        int currentRound = GameModel.Round;
         int enemiesToSpawn = currentRound; // same as the current round
 
+        var cachedTime = GameModel.CachedTimeInterval;
         if (currentRound > 1)
         {
-            cachedTimeInterval -= (cachedTimeInterval * spawnTimePercentDeduction);
+            cachedTime -= (cachedTime * GameModel.SpawnTimePercentDeduction);
         }
-        cachedTimeInterval = Mathf.Clamp(cachedTimeInterval, minSpawnTime, maxSpawnTime);
+        GameModel.CachedTimeInterval = Mathf.Clamp(
+            cachedTime,
+            GameModel.MinSpawnTime,
+            GameModel.MaxSpawnTime
+            );
 
         // max enemies to spawn at a given time
         // should be the number of spawnpoints available
-        if (enemiesToSpawn > Controller.EnemySpawn.CountSpawnPoints)
+        if (enemiesToSpawn > Controller.Enemy.CountSpawnPoints)
         {
-            enemiesToSpawn = Controller.EnemySpawn.CountSpawnPoints;
+            enemiesToSpawn = Controller.Enemy.CountSpawnPoints;
         }
 
-        Debug.Log("Spawn Time Interval: " + cachedTimeInterval);
-        Controller.EnemySpawn.SpawnSettings(cachedTimeInterval, enemiesToSpawn);
-        Controller.EnemySpawn.StartSpawning();
+        Debug.Log("Spawn Time Interval: " + GameModel.CachedTimeInterval);
+        Controller.Enemy.SpawnSettings(GameModel.CachedTimeInterval, enemiesToSpawn);
+        Controller.Enemy.StartSpawning();
     }
 
     #endregion
