@@ -12,7 +12,7 @@ public class AlienForwardDetector : MonoBehaviour
     public bool CanDetect = false;
     private int prevObstacleHash;
 
-    protected EnemyModel EnemyModel => GameController.Instance.Controller.Enemy.Model;
+    protected EnemyModel_SO EnemyModel => GameController.Instance.Controller.Enemy.Model;
     //private Action shoot;
     //private Action think;
 

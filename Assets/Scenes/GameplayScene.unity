@@ -5449,7 +5449,7 @@ MonoBehaviour:
   GOverQuitButton: {fileID: 7409140332464342898}
   GOverRestartButton: {fileID: 7409140333588973855}
   ShopQuitButton: {fileID: 7409140333086392344}
-  ShopPlayAgainButton: {fileID: 7409140334399017505}
+  ShopNextRoundButton: {fileID: 7409140334399017505}
   FrozenResumeButton: {fileID: 7409140333777941918}
   HUDPauseButton: {fileID: 7409140332701569007}
   Lives: {fileID: 7409140334090513759}

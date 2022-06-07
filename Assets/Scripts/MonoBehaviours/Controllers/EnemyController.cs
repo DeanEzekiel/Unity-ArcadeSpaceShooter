@@ -6,10 +6,10 @@ public class EnemyController : ControllerHelper
 {
     #region MVC
     [SerializeField]
-    private EnemyModel _model;
+    private EnemyModel_SO _model;
 
     [SerializeField]
-    private EnemyModel _modelInit;
+    private EnemyModel_SO _modelInit;
     #endregion // MVC
 
     #region Inspector Fields
@@ -27,7 +27,7 @@ public class EnemyController : ControllerHelper
     #region Accessors
     public int CountSpawnPoints => spawnPoints.Count;
 
-    public EnemyModel Model => _model;
+    public EnemyModel_SO Model => _model;
     #endregion // Accessors
 
     #region Public API

@@ -4,7 +4,7 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "Enemy Model",
     menuName = "ScriptableObjects/New Enemy Model")]
-public class EnemyModel : ScriptableObject
+public class EnemyModel_SO : ScriptableObject
 {
     [Header("Enemy Specs")]
     public int life = 1;
@@ -25,12 +25,12 @@ public class EnemyModel : ScriptableObject
     public int coinDropRate = 40;
     public int coinLifetime = 3;
 
-    public EnemyModel Clone()
+    public EnemyModel_SO Clone()
     {
         return this;
     }
 
-    public EnemyModel DeepClone(EnemyModel other)
+    public EnemyModel_SO DeepClone(EnemyModel_SO other)
     {
         other.life = this.life;
         other.asteroidSpeedMin = this.asteroidSpeedMin;

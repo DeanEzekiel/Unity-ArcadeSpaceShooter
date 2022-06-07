@@ -13,7 +13,7 @@ public abstract class AEnemy : ACollidable
 
     public Coin coin;
 
-    protected EnemyModel EnemyModel => GameController.Instance.Controller.Enemy.Model;
+    protected EnemyModel_SO EnemyModel => GameController.Instance.Controller.Enemy.Model;
 
     public virtual void OnDestroy()
     {

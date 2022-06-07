@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    protected EnemyModel EnemyModel => GameController.Instance.Controller.Enemy.Model;
+    protected EnemyModel_SO EnemyModel => GameController.Instance.Controller.Enemy.Model;
     // Update is called once per frame
     void Update()
     {
