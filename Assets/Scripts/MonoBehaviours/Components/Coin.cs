@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    [SerializeField]
-    EnemyModel enemyModel;
+    protected EnemyModel EnemyModel => GameController.Instance.Controller.Enemy.Model;
     // Update is called once per frame
     void Update()
     {
-        Destroy(gameObject, enemyModel.coinLifetime);
+        Destroy(gameObject, EnemyModel.coinLifetime);
     }
     void OnTriggerEnter2D(Collider2D other)
     {

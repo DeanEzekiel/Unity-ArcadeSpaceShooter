@@ -24,9 +24,13 @@ public class EnemyController : ControllerHelper
     private int _spawnNumber;
     #endregion // Private Fields
 
-    #region Public API
+    #region Accessors
     public int CountSpawnPoints => spawnPoints.Count;
 
+    public EnemyModel Model => _model;
+    #endregion // Accessors
+
+    #region Public API
     public void SpawnSettings(float spawnTime, int spawnNumber)
     {
         _spawnTime = spawnTime;

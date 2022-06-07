@@ -1780,7 +1780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e69f114b34632436b8efb9723a4de2db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemySpawn: {fileID: 1353142719}
+  Enemy: {fileID: 1353142719}
   Shop: {fileID: 911884467}
   Player: {fileID: 425486062}
   Timer: {fileID: 1710149222}
@@ -3650,7 +3650,7 @@ GameObject:
   - component: {fileID: 1353142718}
   - component: {fileID: 1353142719}
   m_Layer: 0
-  m_Name: Enemy Spawn Controller
+  m_Name: Enemy Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

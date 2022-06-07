@@ -13,8 +13,7 @@ public abstract class AEnemy : ACollidable
 
     public Coin coin;
 
-    [SerializeField]
-    protected EnemyModel EnemyModel;
+    protected EnemyModel EnemyModel => GameController.Instance.Controller.Enemy.Model;
 
     public virtual void OnDestroy()
     {
