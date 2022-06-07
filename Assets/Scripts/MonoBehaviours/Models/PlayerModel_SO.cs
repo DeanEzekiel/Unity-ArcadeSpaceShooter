@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PlayerModel",
-    menuName = "ScriptableObjects/New PlayerModel")]
+[CreateAssetMenu(fileName = "Player Model",
+    menuName = "ScriptableObjects/New Player Model")]
 public class PlayerModel_SO : ScriptableObject
 {
     //TODO fix the names of the fields
