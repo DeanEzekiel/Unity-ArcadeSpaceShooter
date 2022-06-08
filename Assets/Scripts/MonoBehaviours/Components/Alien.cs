@@ -9,8 +9,6 @@ public class Alien : AEnemy
     [SerializeField]
     private Transform spawnPoint;
     [SerializeField]
-    private GameObject projectile;
-    [SerializeField]
     private AlienForwardDetector detector;
 
     [SerializeField]
@@ -57,45 +55,19 @@ public class Alien : AEnemy
     #region Unity Callbacks
     private void Start()
     {
-        try
-        {
-            movementSpeed = EnemyModel.alienSpeed;
-            hit = false;
-            pointWhenKilled = EnemyModel.alienPoints;
-            thinkingCooldown = EnemyModel.alienDetectCooldown;
-            shootTimer = EnemyModel.alienBulletCooldown;
+        // need its own private _enemyModel for the Welcome Scene
+        movementSpeed = _enemyModel.alienSpeed;
+        hit = false;
+        pointWhenKilled = _enemyModel.alienPoints;
+        thinkingCooldown = _enemyModel.alienDetectCooldown;
+        shootTimer = _enemyModel.alienBulletCooldown;
 
-            defaultThinkCooldown = EnemyModel.alienDetectCooldown;
-            defaultBulletCooldown = EnemyModel.alienBulletCooldown;
-        }
-        catch (Exception)
-        {
-            // need its own private _enemyModel for the Welcome Scene
-            movementSpeed = _enemyModel.alienSpeed;
-            hit = false;
-            pointWhenKilled = _enemyModel.alienPoints;
-            thinkingCooldown = _enemyModel.alienDetectCooldown;
-            shootTimer = _enemyModel.alienBulletCooldown;
-
-            defaultThinkCooldown = _enemyModel.alienDetectCooldown;
-            defaultBulletCooldown = _enemyModel.alienBulletCooldown;
-        }
+        defaultThinkCooldown = _enemyModel.alienDetectCooldown;
+        defaultBulletCooldown = _enemyModel.alienBulletCooldown;
 
         SetScreenBounds();
         Entering();
     }
-
-    //private void OnEnable()
-    //{
-    //    detector.RegisterShooter(Shoot);
-    //    detector.RegisterThinker(Thinking);
-    //}
-
-    //private void OnDisable()
-    //{
-    //    detector.UnregisterShooter(Shoot);
-    //    detector.UnregisterThinker(Thinking);
-    //}
 
     private void Update()
     {
@@ -142,6 +114,21 @@ public class Alien : AEnemy
     #endregion
 
     #region Methods
+    public override void Activate()
+    {
+        base.Activate();
+        movementSpeed = Controller.AlienSpeed;
+        hit = false;
+        pointWhenKilled = Controller.AlienPoints;
+        thinkingCooldown = Controller.AlienDetectCooldown;
+        shootTimer = Controller.AlienBulletCooldown;
+
+        defaultThinkCooldown = Controller.AlienDetectCooldown;
+        defaultBulletCooldown = Controller.AlienBulletCooldown;
+
+        SetScreenBounds();
+        Entering();
+    }
     public override void OnBump(int addScore)
     {
         hit = true;
@@ -273,7 +260,13 @@ public class Alien : AEnemy
 
         if (shootTimer <= 0)
         {
-            Instantiate(projectile, spawnPoint.position, spawnPoint.rotation);
+            //Instantiate(projectile, spawnPoint.position, spawnPoint.rotation);
+            var bullet = Controller.GetBullet();
+            bullet.transform.position = spawnPoint.position;
+            bullet.transform.rotation = spawnPoint.rotation;
+            bullet.SetSpecs(Controller.AlienBulletSpeed, Controller.AlienBulletLifetime);
+            bullet.Activate();
+
             shootTimer = defaultBulletCooldown;
             //print("Shoot Now");
         }

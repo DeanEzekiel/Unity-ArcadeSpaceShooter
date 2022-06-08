@@ -16,11 +16,12 @@ public class AProjectile : ACollidable
     public virtual void Activate()
     {
         gameObject.SetActive(true);
-        Invoke(nameof(Deactivate), 5f);
+        StartCoroutine(C_DeactivateAfterSec());
     }
 
-    protected void Deactivate()
+    protected IEnumerator C_DeactivateAfterSec()
     {
+        yield return new WaitForSeconds(lifetime);
         gameObject.SetActive(false);
     }
 

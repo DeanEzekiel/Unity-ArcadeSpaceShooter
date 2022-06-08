@@ -11,19 +11,33 @@ public abstract class AEnemy : ACollidable
     public int randomDirection;
     public bool hit;
 
-    public Coin coin;
+    protected EnemyController Controller;
 
-    protected EnemyModel_SO EnemyModel => GameController.Instance.Controller.Enemy.Model;
+    public void RegisterController(EnemyController controller)
+    {
+        if(Controller == null)
+        {
+            Controller = controller;
+        }
+    }
 
-    public virtual void OnDestroy()
+    public virtual void Activate()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public virtual void OnDisable()
     {
         if (hit)
         {
             int randomNumber = UnityEngine.Random.Range(1, 101); //from 1 - 100
 
-            if (randomNumber <= EnemyModel.coinDropRate)
+            if (randomNumber <= Controller.CoinDropRate)
             {
-                Instantiate(coin, transform.position, coin.transform.rotation);
+                //Instantiate(coin, transform.position, coin.transform.rotation);
+                var coin = Controller.GetCoin();
+                coin.transform.position = transform.position;
+                coin.Activate(Controller.CoinLifetime);
             }
         }
     }

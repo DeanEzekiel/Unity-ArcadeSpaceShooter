@@ -105,6 +105,7 @@ public class GameController : ASingleton<GameController>
     }
     private void GameOver()
     {
+        DeactivatePlayerControls();
         _view.InitViews();
         Controller.Enemy.StopSpawning();
         _view.ShowGameOverUI(true);
@@ -131,12 +132,12 @@ public class GameController : ASingleton<GameController>
 
         //destroy Player, Asteroid, Enemy, Projectiles
         Controller.Player.HideView();
-        DestroyWithTag(Tags.Asteroid);
-        DestroyWithTag(Tags.Alien);
-        DestroyWithTag(Tags.PlayerProjectile);
-        DestroyWithTag(Tags.Rocket);
-        DestroyWithTag(Tags.AlienProjectile);
-        DestroyWithTag(Tags.Coin);
+        DeactivateObjWithTag(Tags.Asteroid);
+        DeactivateObjWithTag(Tags.Alien);
+        DeactivateObjWithTag(Tags.PlayerProjectile);
+        DeactivateObjWithTag(Tags.Rocket);
+        DeactivateObjWithTag(Tags.AlienProjectile);
+        DeactivateObjWithTag(Tags.Coin);
 
         //Time Stops so that timer won't tick
         PauseTime();
@@ -161,21 +162,21 @@ public class GameController : ASingleton<GameController>
         DeactivatePlayerControls();
 
         //remove all aliens, asteroids and projectiles
-        DestroyWithTag(Tags.Asteroid);
-        DestroyWithTag(Tags.Alien);
-        DestroyWithTag(Tags.PlayerProjectile);
-        DestroyWithTag(Tags.Rocket);
-        DestroyWithTag(Tags.AlienProjectile);
-        DestroyWithTag(Tags.Coin);
+        DeactivateObjWithTag(Tags.Asteroid);
+        DeactivateObjWithTag(Tags.Alien);
+        DeactivateObjWithTag(Tags.PlayerProjectile);
+        DeactivateObjWithTag(Tags.Rocket);
+        DeactivateObjWithTag(Tags.AlienProjectile);
+        DeactivateObjWithTag(Tags.Coin);
     }
-    private void DestroyWithTag(string destroyTag)
+    private void DeactivateObjWithTag(string destroyTag)
     {
         GameObject[] destroyObject;
         destroyObject = GameObject.FindGameObjectsWithTag(destroyTag);
-        foreach (GameObject oneObject in destroyObject)
+        foreach (GameObject obj in destroyObject)
         {
             //Destroy(oneObject);
-            oneObject.SetActive(false);
+            obj.SetActive(false);
         }
     }
 
