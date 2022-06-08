@@ -173,7 +173,10 @@ public class GameController : ASingleton<GameController>
         GameObject[] destroyObject;
         destroyObject = GameObject.FindGameObjectsWithTag(destroyTag);
         foreach (GameObject oneObject in destroyObject)
-            Destroy(oneObject);
+        {
+            //Destroy(oneObject);
+            oneObject.SetActive(false);
+        }
     }
 
     private void PauseGame()

@@ -13,9 +13,19 @@ public class AProjectile : ACollidable
         lifetime = lifetimeVal;
     }
 
+    public virtual void Activate()
+    {
+        gameObject.SetActive(true);
+        Invoke(nameof(Deactivate), 5f);
+    }
+
+    protected void Deactivate()
+    {
+        gameObject.SetActive(false);
+    }
+
     protected virtual void Update()
     {
         transform.Translate(new Vector3(1, 0, 0) * speed * Time.deltaTime);
-        Destroy(gameObject, lifetime);
     }
 }

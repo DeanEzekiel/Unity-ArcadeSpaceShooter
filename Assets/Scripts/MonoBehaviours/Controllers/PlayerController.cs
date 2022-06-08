@@ -9,9 +9,11 @@ public class PlayerController : ControllerHelper
 
     [SerializeField]
     private PlayerModel_SO _model;
-
     [SerializeField]
     private PlayerModel_SO _modelDefault;
+
+    [SerializeField]
+    private PlayerPoolModel _modelPool;
     #endregion // MVC
 
     #region Private Fields
@@ -50,6 +52,10 @@ public class PlayerController : ControllerHelper
     #endregion // Accessors
 
     #region Unity Callbacks
+    private void Start()
+    {
+        _modelPool.PoolObjects();
+    }
     private void Update()
     {
         if (PlayerControlsActive)
@@ -157,6 +163,18 @@ public class PlayerController : ControllerHelper
             );
     }
     #endregion
+
+    #region Public Methods for Pooling
+    public PlayerBullet GetPlayerBullet()
+    {
+        return _modelPool.GetPlayerBullet();
+    }
+
+    public PlayerRocket GetPlayerRocket()
+    {
+        return _modelPool.GetPlayerRocket();
+    }
+    #endregion // Public Methods for Pooling
 
     #region Class Implementation
     private void Move()

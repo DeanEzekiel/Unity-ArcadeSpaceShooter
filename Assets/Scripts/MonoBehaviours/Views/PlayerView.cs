@@ -59,8 +59,14 @@ public class PlayerView : ACollidable
 
     public void Shoot(PlayerController controller)
     {
-        var bullet = Instantiate(projectile, spawnPoint.position, spawnPoint.rotation);
+        //var bullet = Instantiate(projectile, spawnPoint.position, spawnPoint.rotation);
+        //bullet.SetSpecs(controller.BulletSpeed, controller.BulletLifetime);
+
+        var bullet = controller.GetPlayerBullet();
+        bullet.transform.position = spawnPoint.position;
+        bullet.transform.rotation = spawnPoint.rotation;
         bullet.SetSpecs(controller.BulletSpeed, controller.BulletLifetime);
+        bullet.Activate();
     }
 
     public void ToggleShield(bool value)
@@ -70,8 +76,14 @@ public class PlayerView : ACollidable
 
     public void ShootRocket(PlayerController controller)
     {
-        var bullet = Instantiate(rocket, spawnPoint.position, spawnPoint.rotation);
-        bullet.SetSpecs(controller.RocketSpeed, controller.RocketLifetime, controller.RocketBlastRadius);
+        //var bullet = Instantiate(rocket, spawnPoint.position, spawnPoint.rotation);
+        //bullet.SetSpecs(controller.RocketSpeed, controller.RocketLifetime, controller.RocketBlastRadius);
+
+        var rocket = controller.GetPlayerRocket();
+        rocket.transform.position = spawnPoint.position;
+        rocket.transform.rotation = spawnPoint.rotation;
+        rocket.SetSpecs(controller.RocketSpeed, controller.RocketLifetime, controller.RocketBlastRadius);
+        rocket.Activate();
     }
     #endregion
 }
