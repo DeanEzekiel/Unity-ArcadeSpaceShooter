@@ -47,6 +47,9 @@ public class GameView : ASingleton<GameView>
     private TextMeshProUGUI ShieldPoints;
 
     [SerializeField]
+    private TextMeshProUGUI Score;
+
+    [SerializeField]
     private Slider ShieldSlider;
     [SerializeField]
     private Slider TimerSlider;
@@ -99,6 +102,7 @@ public class GameView : ASingleton<GameView>
         Rockets.text = GameController.Instance.Controller.Player.RocketCount.ToString();
         ShieldPoints.text = $"{Mathf.Round(GameController.Instance.Controller.Player.ShieldPoint)}" +
             $" / {GameController.Instance.Controller.Player.ShieldMax}";
+        Score.text = GameController.Instance.Controller.Player.Score.ToString();
 
         ShieldSlider.value = GameController.Instance.Controller.Player.ShieldPoint;
         TimerSlider.value = GameController.Instance.Controller.Timer.TimeLeft;

@@ -28,6 +28,8 @@ public class PlayerController : ControllerHelper
     public int Life => _model.life;
     public int LifeMax => _model.lifeMax;
     public int Coins => _model.coins;
+    public int Score => _model.score;
+
     public int RocketCount => _model.rocketCount;
     public int RocketMax => _model.rocketMax;
     public float ShieldPoint => _model.shieldPoint;
