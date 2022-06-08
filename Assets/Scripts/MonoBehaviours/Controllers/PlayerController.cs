@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class PlayerController : ControllerHelper
@@ -21,6 +20,10 @@ public class PlayerController : ControllerHelper
     private Vector3 movementDirection;
     #endregion
 
+    #region Events
+    public static event Action NoLives;
+    #endregion // Events
+
     #region Accessors
     public bool PlayerControlsActive { get; private set; } = true;
     // TODO - remove the Model Accessor when the MVC Refactor is done
@@ -28,7 +31,10 @@ public class PlayerController : ControllerHelper
     public int Life => _model.life;
     public int LifeMax => _model.lifeMax;
     public int Coins => _model.coins;
+    public int CoinMultiplier => _model.coinMultiplier;
     public int Score => _model.score;
+
+    public int TotalScore => Score + (Coins * CoinMultiplier);
 
     public int RocketCount => _model.rocketCount;
     public int RocketMax => _model.rocketMax;
@@ -277,12 +283,17 @@ public class PlayerController : ControllerHelper
 
     private void OnBump(int addScore)
     {
+        //score
+        _model.score += addScore;
         if (_model.shieldOn == false)
         {
             _model.life--;
+
+            if (_model.life == 0)
+            {
+                NoLives?.Invoke();
+            }
         }
-        //score
-        _model.score += addScore;
     }
     #endregion
 }

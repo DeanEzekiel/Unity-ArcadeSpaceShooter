@@ -9,6 +9,7 @@ public class PlayerModel_SO : ScriptableObject
     public int life = 3;
     public int score = 0;
     public int coins = 0;
+    public int coinMultiplier = 25;
 
     [Space]
     public int rocketCount = 3;

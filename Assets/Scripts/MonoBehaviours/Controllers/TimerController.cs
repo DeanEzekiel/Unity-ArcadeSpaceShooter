@@ -16,6 +16,7 @@ public class TimerController : ControllerHelper
 
     #region Events
     public static event Action StartRound;
+    public static event Action TimeEnd;
     #endregion // Events
 
     #region Private Fields
@@ -67,13 +68,19 @@ public class TimerController : ControllerHelper
     private void TimerCountdown()
     {
         _model.TimeLeft -= Time.deltaTime;
+
+        if (TimeLeft <= 0 && Controller.Player.Life >= 1)
+        {
+            StopTimer();
+            TimeEnd?.Invoke();
+        }
     }
 
     private IEnumerator C_RoundStartCountdown()
     {
         _roundCountdown = _model.RoundCountdownSec;
         _view_RoundStart.ShowCountdown(true);
-        hasRoundStarted = false;
+        StopTimer();
 
         do
         {
@@ -85,7 +92,7 @@ public class TimerController : ControllerHelper
 
         if (_roundCountdown <= 0)
         {
-            hasRoundStarted = true;
+            StartTimer();
             _view_RoundStart.ShowCountdown(false);
             StartRound?.Invoke();
         }
