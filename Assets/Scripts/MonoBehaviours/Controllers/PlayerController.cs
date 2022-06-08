@@ -247,26 +247,29 @@ public class PlayerController : ControllerHelper
 
     private void ShieldPointsCalc()
     {
-        if (_model.shieldOn && _model.shieldPoint > 0)
+        if (Controller.Timer.HasRoundStarted)
         {
-            _model.shieldPoint -= (_model.shieldMax /
-                _model.shieldDepleteSec * Time.deltaTime);
-        }
-        else if (!_model.shieldOn && _model.shieldPoint <
-            _model.shieldMax)
-        {
-            _model.shieldPoint += (_model.shieldMax /
-                _model.shieldReplenishSec * Time.deltaTime);
-        }
+            if (_model.shieldOn && _model.shieldPoint > 0)
+            {
+                _model.shieldPoint -= (_model.shieldMax /
+                    _model.shieldDepleteSec * Time.deltaTime);
+            }
+            else if (!_model.shieldOn && _model.shieldPoint <
+                _model.shieldMax)
+            {
+                _model.shieldPoint += (_model.shieldMax /
+                    _model.shieldReplenishSec * Time.deltaTime);
+            }
 
-        if (_model.shieldPoint > _model.shieldMax)
-        {
-            _model.shieldPoint = _model.shieldMax;
-        }
-        else if (_model.shieldPoint <= 0)
-        {
-            _model.shieldPoint = 0;
-            ToggleShield(); //this will activate/deactivate the shield
+            if (_model.shieldPoint > _model.shieldMax)
+            {
+                _model.shieldPoint = _model.shieldMax;
+            }
+            else if (_model.shieldPoint <= 0)
+            {
+                _model.shieldPoint = 0;
+                ToggleShield(); //this will activate/deactivate the shield
+            }
         }
     }
 

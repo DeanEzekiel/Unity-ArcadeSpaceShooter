@@ -27,6 +27,7 @@ public class TimerController : ControllerHelper
     #region Accessors
     public float TimeLeft => _model.TimeLeft;
     public float TimePerRound => _model.TimePerRound;
+    public bool HasRoundStarted => hasRoundStarted;
     #endregion // Accessors
 
     #region Unity Callbacks
