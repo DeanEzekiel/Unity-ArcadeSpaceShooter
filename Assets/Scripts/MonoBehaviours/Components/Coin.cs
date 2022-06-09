@@ -4,17 +4,31 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    // Update is called once per frame
-    void Update()
+    /// <summary>
+    /// Activates the coin in the scene and deactivates it after the set seconds.
+    /// </summary>
+    /// <param name="sec">Seconds it will take to deactivate the coin.</param>
+    public void Activate(int sec)
     {
-        Destroy(gameObject, GameMaster.Instance.enemySettings.coinLifetime);
+        gameObject.SetActive(true);
+        StartCoroutine(C_Deactivate(sec));
+    }
+    private void Deactivate()
+    {
+        gameObject.SetActive(false);
+    }
+    private IEnumerator C_Deactivate(int sec)
+    {
+        yield return new WaitForSeconds(sec);
+        Deactivate();
     }
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag(Tags.Player))
         {
-            GameMaster.Instance.playerSettings.coins++;
-            Destroy(gameObject);
+            GameController.Instance.CoinCollected();
+            //Destroy(gameObject);
+            Deactivate();
         }
     }
 }

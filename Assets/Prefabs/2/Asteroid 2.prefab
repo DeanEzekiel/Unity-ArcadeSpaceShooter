@@ -135,4 +135,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointWhenKilled: 0
-  coin: {fileID: 461249811778526348, guid: 3d3cfa38734074ba0b1a57dde797ebe0, type: 3}
+  rotationZ: 0
+  directionX: 0
+  directionY: 0
+  movementSpeed: 0
+  randomDirection: 0
+  hit: 0
+  coin: {fileID: 8205053727231953616, guid: 3d3cfa38734074ba0b1a57dde797ebe0, type: 3}
+  EnemyModel: {fileID: 11400000, guid: 94eca8c01406e4d74b3fa6a67fc1dde9, type: 2}

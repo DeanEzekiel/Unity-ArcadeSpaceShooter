@@ -2,5 +2,5 @@ using UnityEngine;
 
 public class ControllerHelper : MonoBehaviour
 {
-    protected ControllerList Controller => GameMaster.Instance.Controller;
+    protected ControllerList Controller => GameController.Instance.Controller;
 }

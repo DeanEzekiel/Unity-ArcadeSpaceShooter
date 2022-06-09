@@ -4,6 +4,6 @@ using UnityEngine;
 
 public abstract class ACharacter : ACollidable
 {
-    protected abstract void Move();
-    protected abstract void Rotate();
+    protected virtual void Move() { }
+    protected virtual void Rotate() { }
 }

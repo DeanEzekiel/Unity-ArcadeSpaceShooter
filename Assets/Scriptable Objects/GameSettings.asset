@@ -12,5 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54cc0bd35e7544a18a42ff7622cb110c, type: 3}
   m_Name: GameSettings
   m_EditorClassIdentifier: 
-  playerControls: 1
+  playerControls: 0
   mode: 1
+  MaxSpawnTime: 5
+  MinSpawnTime: 2
+  SpawnTimePercentDeduction: 0.1
+  CachedTimeInterval: 4.5
+  Round: 2

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBoundaries : ASingleton<PlayerBoundaries>
+public class PlayerBoundaries : MonoBehaviour
 {
 
     #region Private Fields

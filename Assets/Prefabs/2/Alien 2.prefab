@@ -72,7 +72,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Think: 0
   CanDetect: 0
-  enemySettings: {fileID: 11400000, guid: 94eca8c01406e4d74b3fa6a67fc1dde9, type: 2}
+  _enemyModel: {fileID: 0}
 --- !u!1 &2819149905931771922
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,11 +325,9 @@ MonoBehaviour:
   movementSpeed: 0
   randomDirection: 0
   hit: 0
-  coin: {fileID: 461249811778526348, guid: 3d3cfa38734074ba0b1a57dde797ebe0, type: 3}
   spawnPoint: {fileID: 2819149905931771923}
-  projectile: {fileID: 8053420734468972113, guid: 2d5545c6c98dc4e90b4e4162c7bd2848, type: 3}
   detector: {fileID: 139024756}
-  enemySettings: {fileID: 11400000, guid: 94eca8c01406e4d74b3fa6a67fc1dde9, type: 2}
+  _enemyModel: {fileID: 11400000, guid: 2414580afae7a48c1897da9f9a4f59bc, type: 2}
   rotating: 0
   moving: 0
   entering: 0

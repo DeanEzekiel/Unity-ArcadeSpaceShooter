@@ -4,27 +4,32 @@ using UnityEngine;
 
 public class Asteroid : AEnemy
 {
-    #region Unity Calllbacks
-    private void OnEnable()
-    {
-        hit = false;
-        pointWhenKilled = GameMaster.Instance.enemySettings.asteroidPoints;
-        Move();
-        Rotate();
-        SetMovementSpeed();
-    }
+    private bool _isActivated = false;
 
+    #region Unity Calllbacks
     private void Update()
     {
-        transform.Translate(new Vector3(directionX, directionY, 0)
-            * movementSpeed * Time.deltaTime, Space.World);
+        if (_isActivated)
+        {
+            transform.Translate(new Vector3(directionX, directionY, 0)
+                * movementSpeed * Time.deltaTime, Space.World);
+        }
     }
 
     public void OnTriggerExit2D(Collider2D collision)
     {
         //when exiting the background, destroy this game object
         if (collision.gameObject.CompareTag(Tags.Background))
-            Destroy(gameObject);
+        {
+            //Destroy(gameObject);
+            gameObject.SetActive(false);
+        }
+    }
+
+    public override void OnDisable()
+    {
+        base.OnDisable();
+        _isActivated = false;
     }
     #endregion
 
@@ -38,6 +43,17 @@ public class Asteroid : AEnemy
         // must move towards the game view -- opposite of the spawn point
         directionX *= FlipSign(transform.position.x);
         directionY *= FlipSign(transform.position.y);
+    }
+
+    public override void Activate()
+    {
+        base.Activate();
+        hit = false;
+        pointWhenKilled = Controller.AsteroidPoints;
+        Move();
+        Rotate();
+        SetMovementSpeed();
+        _isActivated = true;
     }
 
     public override void OnBump(int addScore)
@@ -56,8 +72,8 @@ public class Asteroid : AEnemy
     private void SetMovementSpeed()
     {
         movementSpeed = UnityEngine.Random.Range(
-            GameMaster.Instance.enemySettings.asteroidSpeedMin,
-            GameMaster.Instance.enemySettings.asteroidSpeedMax);
+            Controller.AsteroidSpeedMin,
+            Controller.AsteroidSpeedMax);
     }
 
     /// <summary>
