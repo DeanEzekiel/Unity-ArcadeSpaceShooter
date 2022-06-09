@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using Crosstales.BWF.Manager;
 
 public class GameView : ASingleton<GameView>
 {
@@ -91,6 +92,10 @@ public class GameView : ASingleton<GameView>
     [SerializeField]
     private string _txtTotal = "Total Score: ";
 
+    [Header("Bad Word Filter")]
+    [SerializeField]
+    private List<string> languages = new List<string>();
+
     #endregion
 
     #region Accessors
@@ -138,6 +143,22 @@ public class GameView : ASingleton<GameView>
             Debug.Log("Escape key was pressed");
             //Pause Game
             OnPauseGame();
+        }
+
+        if (uiGameOver.activeInHierarchy)
+        {
+            if (Time.frameCount % 5 == 0)
+            {
+                if (BadWordManager.Contains(playerNameInput.text, languages.ToArray())
+                    || string.IsNullOrEmpty(playerNameInput.text))
+                {
+                    GOverSaveHighScore.interactable = false;
+                }
+                else
+                {
+                    GOverSaveHighScore.interactable = true;
+                }
+            }
         }
 
         // TODO separate this from Update
