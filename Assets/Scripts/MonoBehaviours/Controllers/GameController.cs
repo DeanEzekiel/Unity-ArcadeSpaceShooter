@@ -115,7 +115,7 @@ public class GameController : ASingleton<GameController>
         int playerTotalScore = Controller.Player.TotalScore;
         string playerTotalScoreText = playerTotalScore.ToString();
 
-        if (playerTotalScore >= PlayerPrefs.GetInt(PlayerPrefKeys.iHighScore))
+        if (playerTotalScore > PlayerPrefs.GetInt(PlayerPrefKeys.iHighScore))
         {
             _view.ShowGameOverPassBoard(true);
             _view.ShowInputHiScoreName(true);
