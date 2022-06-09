@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : ControllerHelper
 {
@@ -20,10 +21,14 @@ public class PlayerController : ControllerHelper
     private float shootTimer = 0;
     private float blasterTimer = 0;
     private Vector3 movementDirection;
+
+
+    private PlayerControls playerControls;
     #endregion
 
     #region Events
     public static event Action NoLives;
+    public static event Action PausePressed;
     #endregion // Events
 
     #region Accessors
@@ -52,6 +57,10 @@ public class PlayerController : ControllerHelper
     #endregion // Accessors
 
     #region Unity Callbacks
+    private void Awake()
+    {
+        playerControls = new PlayerControls();
+    }
     private void Start()
     {
         _modelPool.PoolObjects();
@@ -66,6 +75,11 @@ public class PlayerController : ControllerHelper
 
             ShieldAbility();
             BlasterAbility();
+
+            if (playerControls.PlayerKeyboard.Pause.WasPressedThisFrame())
+            {
+                OnPausePress();
+            }
         }
 
         ShieldPointsCalc();
@@ -74,11 +88,15 @@ public class PlayerController : ControllerHelper
     private void OnEnable()
     {
         PlayerView.Bumped += OnBump;
+
+        playerControls.Enable();
     }
 
     private void OnDisable()
     {
         PlayerView.Bumped -= OnBump;
+
+        playerControls.Disable();
     }
     #endregion
 
@@ -177,11 +195,19 @@ public class PlayerController : ControllerHelper
     #endregion // Public Methods for Pooling
 
     #region Class Implementation
+    private void OnPausePress()
+    {
+        PausePressed?.Invoke();
+    }
     private void Move()
     {
-        //Movement
-        float horizontalMove = Input.GetAxis("Horizontal");
-        float verticalMove = Input.GetAxis("Vertical");
+        // Movement -- Old Input
+        //float horizontalMove = Input.GetAxis("Horizontal");
+        //float verticalMove = Input.GetAxis("Vertical");
+
+        // New Input System
+        float horizontalMove = playerControls.PlayerKeyboard.Horizontal.ReadValue<float>();
+        float verticalMove = playerControls.PlayerKeyboard.Vertical.ReadValue<float>();
 
         //Vector3 move = new Vector3(horizontalMove, verticalMove, 0);
         movementDirection = new Vector3(horizontalMove, verticalMove, 0);
@@ -213,7 +239,8 @@ public class PlayerController : ControllerHelper
             ControlOption.CursorFacing)
         {
             //no need to adjust 90 degrees
-            var mouse = Input.mousePosition;
+            //var mouse = Input.mousePosition; // old input
+            var mouse = Mouse.current.position.ReadValue();
             var screenPnt = Camera.main.WorldToScreenPoint(_view.transform.position);
             var offset = new Vector2(mouse.x - screenPnt.x,
                 mouse.y - screenPnt.y);
@@ -230,7 +257,8 @@ public class PlayerController : ControllerHelper
 
         if (shootTimer <= 0)
         {
-            if (Input.GetButton("Fire1"))
+            //if (Input.GetButton("Fire1")) // old input
+            if (playerControls.PlayerKeyboard.Shoot.IsPressed())
             {
                 _view.Shoot(this);
                 shootTimer = _model.playerBulletCooldown;
@@ -240,7 +268,9 @@ public class PlayerController : ControllerHelper
     private void ShieldAbility()
     {
         //check if player can toggle the shield
-        if (Input.GetButtonDown("Jump"))
+        //if (Input.GetButtonDown("Jump")) // old input
+        //if (Keyboard.current.spaceKey.wasPressedThisFrame) // this works too
+        if (playerControls.PlayerKeyboard.Guard.WasPressedThisFrame())
         {
             ToggleShield();
         }
@@ -259,8 +289,9 @@ public class PlayerController : ControllerHelper
 
         if (blasterTimer <= 0)
         {
-            if (Input.GetButtonUp("Fire2"))
-            {
+            //if (Input.GetButtonUp("Fire2")) // old input
+            if (playerControls.PlayerKeyboard.Blast.WasReleasedThisFrame())
+                {
                 if (_model.rocketCount > 0)
                 {
                     _model.rocketCount--;

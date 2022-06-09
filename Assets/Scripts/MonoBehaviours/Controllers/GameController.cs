@@ -38,6 +38,7 @@ public class GameController : ASingleton<GameController>
         GameView.QuitGamePlay += GoToMainMenu;
         GameView.SetGameOver += GameOver;
         PlayerController.NoLives += GameOver;
+        PlayerController.PausePressed += PauseGame;
 
         TimerController.StartRound += OnStartRound;
         TimerController.TimeEnd += OnTimeEnd;
@@ -57,6 +58,7 @@ public class GameController : ASingleton<GameController>
         GameView.QuitGamePlay -= GoToMainMenu;
         GameView.SetGameOver -= GameOver;
         PlayerController.NoLives -= GameOver;
+        PlayerController.PausePressed -= PauseGame;
 
         TimerController.StartRound -= OnStartRound;
         TimerController.TimeEnd -= OnTimeEnd;

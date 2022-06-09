@@ -138,13 +138,6 @@ public class GameView : ASingleton<GameView>
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Debug.Log("Escape key was pressed");
-            //Pause Game
-            OnPauseGame();
-        }
-
         if (uiGameOver.activeInHierarchy)
         {
             if (Time.frameCount % 5 == 0)
