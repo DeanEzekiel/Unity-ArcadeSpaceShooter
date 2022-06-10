@@ -260,6 +260,94 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Gamepad input"",
+            ""id"": ""4ee3292b-987b-4db8-ab38-870df77f693d"",
+            ""actions"": [
+                {
+                    ""name"": ""Move"",
+                    ""type"": ""Value"",
+                    ""id"": ""e028fb52-d15d-4d52-9aa7-45ae2413c4da"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""f8accf4c-0acc-48d4-ad90-ec7363b45e17"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Blast"",
+                    ""type"": ""Button"",
+                    ""id"": ""fe6e0724-08c0-4a46-a1c7-5901e7a0e038"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Guard"",
+                    ""type"": ""Button"",
+                    ""id"": ""4b3b98ba-f5bc-4d4b-b213-b2cbfe71cd92"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""336cde41-834f-4561-871c-560760bf0036"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""afbd72e4-a3c9-40af-a5c3-3e098e50ca4d"",
+                    ""path"": ""<Gamepad>/rightStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2844b811-ac8a-4fd2-9c1d-c1554c36beca"",
+                    ""path"": ""<Gamepad>/rightStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Blast"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""aa3e06ab-0a42-4e16-b3b0-4f2cd7012dd1"",
+                    ""path"": ""<Gamepad>/rightStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Guard"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -272,6 +360,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_PCInput_Guard = m_PCInput.FindAction("Guard", throwIfNotFound: true);
         m_PCInput_Blast = m_PCInput.FindAction("Blast", throwIfNotFound: true);
         m_PCInput_Pause = m_PCInput.FindAction("Pause", throwIfNotFound: true);
+        // Gamepad input
+        m_Gamepadinput = asset.FindActionMap("Gamepad input", throwIfNotFound: true);
+        m_Gamepadinput_Move = m_Gamepadinput.FindAction("Move", throwIfNotFound: true);
+        m_Gamepadinput_Shoot = m_Gamepadinput.FindAction("Shoot", throwIfNotFound: true);
+        m_Gamepadinput_Blast = m_Gamepadinput.FindAction("Blast", throwIfNotFound: true);
+        m_Gamepadinput_Guard = m_Gamepadinput.FindAction("Guard", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -400,6 +494,63 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         }
     }
     public PCInputActions @PCInput => new PCInputActions(this);
+
+    // Gamepad input
+    private readonly InputActionMap m_Gamepadinput;
+    private IGamepadinputActions m_GamepadinputActionsCallbackInterface;
+    private readonly InputAction m_Gamepadinput_Move;
+    private readonly InputAction m_Gamepadinput_Shoot;
+    private readonly InputAction m_Gamepadinput_Blast;
+    private readonly InputAction m_Gamepadinput_Guard;
+    public struct GamepadinputActions
+    {
+        private @PlayerControls m_Wrapper;
+        public GamepadinputActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Move => m_Wrapper.m_Gamepadinput_Move;
+        public InputAction @Shoot => m_Wrapper.m_Gamepadinput_Shoot;
+        public InputAction @Blast => m_Wrapper.m_Gamepadinput_Blast;
+        public InputAction @Guard => m_Wrapper.m_Gamepadinput_Guard;
+        public InputActionMap Get() { return m_Wrapper.m_Gamepadinput; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(GamepadinputActions set) { return set.Get(); }
+        public void SetCallbacks(IGamepadinputActions instance)
+        {
+            if (m_Wrapper.m_GamepadinputActionsCallbackInterface != null)
+            {
+                @Move.started -= m_Wrapper.m_GamepadinputActionsCallbackInterface.OnMove;
+                @Move.performed -= m_Wrapper.m_GamepadinputActionsCallbackInterface.OnMove;
+                @Move.canceled -= m_Wrapper.m_GamepadinputActionsCallbackInterface.OnMove;
+                @Shoot.started -= m_Wrapper.m_GamepadinputActionsCallbackInterface.OnShoot;
+                @Shoot.performed -= m_Wrapper.m_GamepadinputActionsCallbackInterface.OnShoot;
+                @Shoot.canceled -= m_Wrapper.m_GamepadinputActionsCallbackInterface.OnShoot;
+                @Blast.started -= m_Wrapper.m_GamepadinputActionsCallbackInterface.OnBlast;
+                @Blast.performed -= m_Wrapper.m_GamepadinputActionsCallbackInterface.OnBlast;
+                @Blast.canceled -= m_Wrapper.m_GamepadinputActionsCallbackInterface.OnBlast;
+                @Guard.started -= m_Wrapper.m_GamepadinputActionsCallbackInterface.OnGuard;
+                @Guard.performed -= m_Wrapper.m_GamepadinputActionsCallbackInterface.OnGuard;
+                @Guard.canceled -= m_Wrapper.m_GamepadinputActionsCallbackInterface.OnGuard;
+            }
+            m_Wrapper.m_GamepadinputActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Move.started += instance.OnMove;
+                @Move.performed += instance.OnMove;
+                @Move.canceled += instance.OnMove;
+                @Shoot.started += instance.OnShoot;
+                @Shoot.performed += instance.OnShoot;
+                @Shoot.canceled += instance.OnShoot;
+                @Blast.started += instance.OnBlast;
+                @Blast.performed += instance.OnBlast;
+                @Blast.canceled += instance.OnBlast;
+                @Guard.started += instance.OnGuard;
+                @Guard.performed += instance.OnGuard;
+                @Guard.canceled += instance.OnGuard;
+            }
+        }
+    }
+    public GamepadinputActions @Gamepadinput => new GamepadinputActions(this);
     public interface IPCInputActions
     {
         void OnHorizontal(InputAction.CallbackContext context);
@@ -408,5 +559,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnGuard(InputAction.CallbackContext context);
         void OnBlast(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+    }
+    public interface IGamepadinputActions
+    {
+        void OnMove(InputAction.CallbackContext context);
+        void OnShoot(InputAction.CallbackContext context);
+        void OnBlast(InputAction.CallbackContext context);
+        void OnGuard(InputAction.CallbackContext context);
     }
 }

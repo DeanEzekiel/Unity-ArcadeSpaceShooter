@@ -206,8 +206,20 @@ public class PlayerController : ControllerHelper
         //float verticalMove = Input.GetAxis("Vertical");
 
         // New Input System
-        float horizontalMove = playerControls.PCInput.Horizontal.ReadValue<float>();
-        float verticalMove = playerControls.PCInput.Vertical.ReadValue<float>();
+        float horizontalMove;
+        float verticalMove;
+
+        if(GameController.Instance.Model.playerControls == ControlOption.MobileControl)
+        {
+            Vector2 input = playerControls.Gamepadinput.Move.ReadValue<Vector2>();
+            horizontalMove = input.x;
+            verticalMove = input.y;
+        }
+        else
+        {
+            horizontalMove = playerControls.PCInput.Horizontal.ReadValue<float>();
+            verticalMove = playerControls.PCInput.Vertical.ReadValue<float>();
+        }
 
         //Vector3 move = new Vector3(horizontalMove, verticalMove, 0);
         movementDirection = new Vector3(horizontalMove, verticalMove, 0);
@@ -220,7 +232,9 @@ public class PlayerController : ControllerHelper
     private void Rotate()
     {
         if (GameController.Instance.Model.playerControls ==
-            ControlOption.MotionFacing)
+            ControlOption.MotionFacing ||
+            GameController.Instance.Model.playerControls ==
+            ControlOption.MobileControl)
         {
             //rotate based on movement direction & need to adjust by 90 degrees
             if (movementDirection != Vector3.zero)
@@ -258,7 +272,8 @@ public class PlayerController : ControllerHelper
         if (shootTimer <= 0)
         {
             //if (Input.GetButton("Fire1")) // old input
-            if (playerControls.PCInput.Shoot.IsPressed())
+            if (playerControls.PCInput.Shoot.IsPressed() ||
+                playerControls.Gamepadinput.Shoot.WasPressedThisFrame())
             {
                 _view.Shoot(this);
                 shootTimer = _model.playerBulletCooldown;
@@ -270,7 +285,8 @@ public class PlayerController : ControllerHelper
         //check if player can toggle the shield
         //if (Input.GetButtonDown("Jump")) // old input
         //if (Keyboard.current.spaceKey.wasPressedThisFrame) // this works too
-        if (playerControls.PCInput.Guard.WasPressedThisFrame())
+        if (playerControls.PCInput.Guard.WasPressedThisFrame() ||
+            playerControls.Gamepadinput.Guard.WasPressedThisFrame())
         {
             ToggleShield();
         }
@@ -290,7 +306,8 @@ public class PlayerController : ControllerHelper
         if (blasterTimer <= 0)
         {
             //if (Input.GetButtonUp("Fire2")) // old input
-            if (playerControls.PCInput.Blast.WasReleasedThisFrame())
+            if (playerControls.PCInput.Blast.WasReleasedThisFrame() ||
+                playerControls.Gamepadinput.Blast.WasPressedThisFrame())
                 {
                 if (_model.rocketCount > 0)
                 {
