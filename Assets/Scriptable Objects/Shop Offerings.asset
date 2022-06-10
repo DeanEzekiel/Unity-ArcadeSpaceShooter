@@ -27,7 +27,7 @@ MonoBehaviour:
     ItemPurposeValue: 1
   - ItemName: Refill Rockets
     ItemDescription: Refill to current rocket carrying capacity.
-    ItemCost: 8
+    ItemCost: 1
     ItemIcon: {fileID: 21300000, guid: 0a09dd4ae4bc34f6eb99716d8e0c7619, type: 3}
     ItemPurpose: 2
     ItemPurposeValue: 0
