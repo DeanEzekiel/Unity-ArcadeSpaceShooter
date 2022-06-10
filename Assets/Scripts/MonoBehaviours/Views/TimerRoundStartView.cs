@@ -7,6 +7,8 @@ public class TimerRoundStartView : MonoBehaviour
     [SerializeField]
     private GameObject _roundCountdownPanel;
     [SerializeField]
+    private GameObject _uiBG;
+    [SerializeField]
     private TextMeshProUGUI _txtCountdown;
     [SerializeField]
     private TextMeshProUGUI _txtRound;
@@ -21,6 +23,7 @@ public class TimerRoundStartView : MonoBehaviour
     public void ShowCountdown(bool value)
     {
         _roundCountdownPanel.SetActive(value);
+        _uiBG.SetActive(value);
     }
 
     public void SetTextCountdown(int sec)

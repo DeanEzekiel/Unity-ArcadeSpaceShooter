@@ -38,6 +38,7 @@ public class GameController : ASingleton<GameController>
         GameView.QuitGamePlay += GoToMainMenu;
         GameView.SetGameOver += GameOver;
         PlayerController.NoLives += GameOver;
+        PlayerController.PausePressed += PauseGame;
 
         TimerController.StartRound += OnStartRound;
         TimerController.TimeEnd += OnTimeEnd;
@@ -57,6 +58,7 @@ public class GameController : ASingleton<GameController>
         GameView.QuitGamePlay -= GoToMainMenu;
         GameView.SetGameOver -= GameOver;
         PlayerController.NoLives -= GameOver;
+        PlayerController.PausePressed -= PauseGame;
 
         TimerController.StartRound -= OnStartRound;
         TimerController.TimeEnd -= OnTimeEnd;
@@ -106,6 +108,7 @@ public class GameController : ASingleton<GameController>
     private void GameOver()
     {
         DeactivatePlayerControls();
+        Controller.Player.ShowOnscreenControls(false);
         _view.InitViews();
         Controller.Enemy.StopSpawning();
         _view.ShowGameOverUI(true);
@@ -115,7 +118,7 @@ public class GameController : ASingleton<GameController>
         int playerTotalScore = Controller.Player.TotalScore;
         string playerTotalScoreText = playerTotalScore.ToString();
 
-        if (playerTotalScore >= PlayerPrefs.GetInt(PlayerPrefKeys.iHighScore))
+        if (playerTotalScore > PlayerPrefs.GetInt(PlayerPrefKeys.iHighScore))
         {
             _view.ShowGameOverPassBoard(true);
             _view.ShowInputHiScoreName(true);
@@ -154,6 +157,7 @@ public class GameController : ASingleton<GameController>
     private void ShowShop()
     {
         _view.ShowShopUI(true);
+        Controller.Player.ShowOnscreenControls(false);
 
         Controller.Shop.UpdateViewTexts();
         Controller.Shop.CheckMaxAllowed();
@@ -235,6 +239,7 @@ public class GameController : ASingleton<GameController>
     private void OnStartRoundTimer()
     {
         DeactivatePlayerControls();
+        Controller.Player.ShowOnscreenControls(true);
         Controller.Player.ResetPosition();
         PlayTime();
         AddRound();

@@ -1,11 +1,14 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : ControllerHelper
 {
     #region MVC
     [SerializeField]
     private PlayerView _view;
+    [SerializeField]
+    private PlayerView_MobileControls _viewOnscreenControls;
 
     [SerializeField]
     private PlayerModel_SO _model;
@@ -20,10 +23,14 @@ public class PlayerController : ControllerHelper
     private float shootTimer = 0;
     private float blasterTimer = 0;
     private Vector3 movementDirection;
+
+    private PlayerControls playerControls;
+    private float _cachedShieldPoint;
     #endregion
 
     #region Events
     public static event Action NoLives;
+    public static event Action PausePressed;
     #endregion // Events
 
     #region Accessors
@@ -52,6 +59,10 @@ public class PlayerController : ControllerHelper
     #endregion // Accessors
 
     #region Unity Callbacks
+    private void Awake()
+    {
+        playerControls = new PlayerControls();
+    }
     private void Start()
     {
         _modelPool.PoolObjects();
@@ -66,6 +77,11 @@ public class PlayerController : ControllerHelper
 
             ShieldAbility();
             BlasterAbility();
+
+            if (playerControls.PCInput.Pause.WasPressedThisFrame())
+            {
+                OnPausePress();
+            }
         }
 
         ShieldPointsCalc();
@@ -74,11 +90,15 @@ public class PlayerController : ControllerHelper
     private void OnEnable()
     {
         PlayerView.Bumped += OnBump;
+
+        playerControls.Enable();
     }
 
     private void OnDisable()
     {
         PlayerView.Bumped -= OnBump;
+
+        playerControls.Disable();
     }
     #endregion
 
@@ -103,6 +123,17 @@ public class PlayerController : ControllerHelper
     public void AllowPlayerControls(bool value)
     {
         PlayerControlsActive = value;
+    }
+
+    public void ShowOnscreenControls(bool value)
+    {
+        if (GameController.Instance.Model.playerControls == ControlOption.MobileControl)
+        {
+            _viewOnscreenControls.gameObject.SetActive(value);
+            ResetJoystickPos();
+            CheckRemainingRockets();
+            CheckRemainingShieldPoints();
+        }
     }
 
     public void ShowView()
@@ -145,6 +176,7 @@ public class PlayerController : ControllerHelper
     {
         _model.rocketCount =
             _model.rocketMax;
+        CheckRemainingRockets();
     }
     public void AddShieldPoints(float value)
     {
@@ -177,11 +209,31 @@ public class PlayerController : ControllerHelper
     #endregion // Public Methods for Pooling
 
     #region Class Implementation
+    private void OnPausePress()
+    {
+        PausePressed?.Invoke();
+    }
     private void Move()
     {
-        //Movement
-        float horizontalMove = Input.GetAxis("Horizontal");
-        float verticalMove = Input.GetAxis("Vertical");
+        // Movement -- Old Input
+        //float horizontalMove = Input.GetAxis("Horizontal");
+        //float verticalMove = Input.GetAxis("Vertical");
+
+        // New Input System
+        float horizontalMove;
+        float verticalMove;
+
+        if(GameController.Instance.Model.playerControls == ControlOption.MobileControl)
+        {
+            Vector2 input = playerControls.Gamepadinput.Move.ReadValue<Vector2>();
+            horizontalMove = input.x;
+            verticalMove = input.y;
+        }
+        else
+        {
+            horizontalMove = playerControls.PCInput.Horizontal.ReadValue<float>();
+            verticalMove = playerControls.PCInput.Vertical.ReadValue<float>();
+        }
 
         //Vector3 move = new Vector3(horizontalMove, verticalMove, 0);
         movementDirection = new Vector3(horizontalMove, verticalMove, 0);
@@ -194,7 +246,9 @@ public class PlayerController : ControllerHelper
     private void Rotate()
     {
         if (GameController.Instance.Model.playerControls ==
-            ControlOption.MotionFacing)
+            ControlOption.MotionFacing ||
+            GameController.Instance.Model.playerControls ==
+            ControlOption.MobileControl)
         {
             //rotate based on movement direction & need to adjust by 90 degrees
             if (movementDirection != Vector3.zero)
@@ -213,7 +267,8 @@ public class PlayerController : ControllerHelper
             ControlOption.CursorFacing)
         {
             //no need to adjust 90 degrees
-            var mouse = Input.mousePosition;
+            //var mouse = Input.mousePosition; // old input
+            var mouse = Mouse.current.position.ReadValue();
             var screenPnt = Camera.main.WorldToScreenPoint(_view.transform.position);
             var offset = new Vector2(mouse.x - screenPnt.x,
                 mouse.y - screenPnt.y);
@@ -230,7 +285,9 @@ public class PlayerController : ControllerHelper
 
         if (shootTimer <= 0)
         {
-            if (Input.GetButton("Fire1"))
+            //if (Input.GetButton("Fire1")) // old input
+            if (playerControls.PCInput.Shoot.IsPressed() ||
+                playerControls.Gamepadinput.Shoot.IsPressed())
             {
                 _view.Shoot(this);
                 shootTimer = _model.playerBulletCooldown;
@@ -240,7 +297,10 @@ public class PlayerController : ControllerHelper
     private void ShieldAbility()
     {
         //check if player can toggle the shield
-        if (Input.GetButtonDown("Jump"))
+        //if (Input.GetButtonDown("Jump")) // old input
+        //if (Keyboard.current.spaceKey.wasPressedThisFrame) // this works too
+        if (playerControls.PCInput.Guard.WasPressedThisFrame() ||
+            playerControls.Gamepadinput.Guard.WasPressedThisFrame())
         {
             ToggleShield();
         }
@@ -259,13 +319,17 @@ public class PlayerController : ControllerHelper
 
         if (blasterTimer <= 0)
         {
-            if (Input.GetButtonUp("Fire2"))
-            {
+            //if (Input.GetButtonUp("Fire2")) // old input
+            if (playerControls.PCInput.Blast.WasReleasedThisFrame() ||
+                playerControls.Gamepadinput.Blast.WasReleasedThisFrame())
+                {
                 if (_model.rocketCount > 0)
                 {
                     _model.rocketCount--;
                     _view.ShootRocket(this);
                     blasterTimer = _model.rocketCooldown;
+
+                    CheckRemainingRockets();
                 }
             }
         }
@@ -296,6 +360,8 @@ public class PlayerController : ControllerHelper
                 _model.shieldPoint = 0;
                 ToggleShield(); //this will activate/deactivate the shield
             }
+
+            CheckRemainingShieldPoints();
         }
     }
 
@@ -312,6 +378,39 @@ public class PlayerController : ControllerHelper
                 NoLives?.Invoke();
             }
         }
+    }
+
+    private void CheckRemainingRockets()
+    {
+        if (_model.rocketCount > 0)
+        {
+            _viewOnscreenControls.BlastInteractable(true);
+        }
+        else
+        {
+            _viewOnscreenControls.BlastInteractable(false);
+        }
+    }
+
+    private void CheckRemainingShieldPoints()
+    {
+        if (_cachedShieldPoint != _model.shieldPoint)
+        {
+            if (_model.shieldPoint > 0)
+            {
+                _viewOnscreenControls.GuardInteractable(true);
+            }
+            else
+            {
+                _viewOnscreenControls.GuardInteractable(false);
+            }
+            _cachedShieldPoint = _model.shieldPoint;
+        }
+    }
+
+    private void ResetJoystickPos()
+    {
+        _viewOnscreenControls.ResetJoystickPos();
     }
     #endregion
 }

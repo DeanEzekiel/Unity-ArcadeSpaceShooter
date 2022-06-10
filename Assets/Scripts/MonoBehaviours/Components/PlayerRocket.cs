@@ -10,13 +10,29 @@ public class PlayerRocket : AProjectile
     [SerializeField]
     private GameObject blast;
 
+    private SpriteRenderer spriteRenderer;
+    private CapsuleCollider2D capsuleCollider;
+
     public void SetSpecs(float speedVal, float lifetimeVal, float radiusVal)
     {
         speed = speedVal;
         lifetime = lifetimeVal;
         blastRadius = radiusVal;
+    }
 
+    public void Initialize()
+    {
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        capsuleCollider = gameObject.GetComponent<CapsuleCollider2D>();
+    }
+
+    public override void Activate()
+    {
+        hit = false;
         blast.SetActive(false);
+        spriteRenderer.enabled = true;
+        capsuleCollider.enabled = true;
+        base.Activate();
     }
 
     protected override void Update()
@@ -37,10 +53,8 @@ public class PlayerRocket : AProjectile
         blast.SetActive(true); //blast becomes visible
 
         //rocket's sprite and collider becomes invisible & untouchable
-        SpriteRenderer sr = gameObject.GetComponent<SpriteRenderer>();
-        sr.enabled = false;
-        CapsuleCollider2D capsule = gameObject.GetComponent<CapsuleCollider2D>();
-        capsule.enabled = false;
+        spriteRenderer.enabled = false;
+        capsuleCollider.enabled = false;
 
         Explode();
     }

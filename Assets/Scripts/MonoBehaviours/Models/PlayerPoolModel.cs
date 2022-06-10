@@ -93,6 +93,7 @@ public class PlayerPoolModel : MonoBehaviour
         {
             tmp = Instantiate(_rocketPrefab);
             tmp.transform.SetParent(_poolRocketParent);
+            tmp.Initialize();
             tmp.gameObject.SetActive(false);
 
             _listRocket.Add(tmp);

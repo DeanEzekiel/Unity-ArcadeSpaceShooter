@@ -19,6 +19,8 @@ public class GameView : ASingleton<GameView>
     private GameObject uiShop;
     [SerializeField]
     private GameObject uiHUD;
+    [SerializeField]
+    private GameObject uiBG;
 
     [SerializeField]
     private GameObject uiGOverNewHiBoard;
@@ -138,13 +140,6 @@ public class GameView : ASingleton<GameView>
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Debug.Log("Escape key was pressed");
-            //Pause Game
-            OnPauseGame();
-        }
-
         if (uiGameOver.activeInHierarchy)
         {
             if (Time.frameCount % 5 == 0)
@@ -181,6 +176,7 @@ public class GameView : ASingleton<GameView>
         uiGameOver.SetActive(false);
         uiGamePaused.SetActive(false);
         uiShop.SetActive(false);
+        uiBG.SetActive(false);
     }
 
     public void SetSlidersMax()
@@ -192,6 +188,7 @@ public class GameView : ASingleton<GameView>
     public void ShowGameOverUI(bool value)
     {
         uiGameOver.SetActive(value);
+        uiBG.SetActive(value);
     }
 
     public void ShowGameOverPassBoard(bool value)
@@ -226,11 +223,13 @@ public class GameView : ASingleton<GameView>
     public void ShowGamePausedUI(bool value)
     {
         uiGamePaused.SetActive(value);
+        uiBG.SetActive(value);
     }
 
     public void ShowShopUI(bool value)
     {
         uiShop.SetActive(value);
+        uiBG.SetActive(value);
     }
 
     public void ShowHUD(bool value)
