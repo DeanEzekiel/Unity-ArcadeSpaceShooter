@@ -7,6 +7,8 @@ public class PlayerController : ControllerHelper
     #region MVC
     [SerializeField]
     private PlayerView _view;
+    [SerializeField]
+    private GameObject _viewOnscreenControls;
 
     [SerializeField]
     private PlayerModel_SO _model;
@@ -121,6 +123,14 @@ public class PlayerController : ControllerHelper
     public void AllowPlayerControls(bool value)
     {
         PlayerControlsActive = value;
+    }
+
+    public void ShowOnscreenControls(bool value)
+    {
+        if (GameController.Instance.Model.playerControls == ControlOption.MobileControl)
+        {
+            _viewOnscreenControls.SetActive(value);
+        }
     }
 
     public void ShowView()
