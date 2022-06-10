@@ -76,7 +76,7 @@ public class PlayerController : ControllerHelper
             ShieldAbility();
             BlasterAbility();
 
-            if (playerControls.PlayerKeyboard.Pause.WasPressedThisFrame())
+            if (playerControls.PCInput.Pause.WasPressedThisFrame())
             {
                 OnPausePress();
             }
@@ -206,8 +206,8 @@ public class PlayerController : ControllerHelper
         //float verticalMove = Input.GetAxis("Vertical");
 
         // New Input System
-        float horizontalMove = playerControls.PlayerKeyboard.Horizontal.ReadValue<float>();
-        float verticalMove = playerControls.PlayerKeyboard.Vertical.ReadValue<float>();
+        float horizontalMove = playerControls.PCInput.Horizontal.ReadValue<float>();
+        float verticalMove = playerControls.PCInput.Vertical.ReadValue<float>();
 
         //Vector3 move = new Vector3(horizontalMove, verticalMove, 0);
         movementDirection = new Vector3(horizontalMove, verticalMove, 0);
@@ -258,7 +258,7 @@ public class PlayerController : ControllerHelper
         if (shootTimer <= 0)
         {
             //if (Input.GetButton("Fire1")) // old input
-            if (playerControls.PlayerKeyboard.Shoot.IsPressed())
+            if (playerControls.PCInput.Shoot.IsPressed())
             {
                 _view.Shoot(this);
                 shootTimer = _model.playerBulletCooldown;
@@ -270,7 +270,7 @@ public class PlayerController : ControllerHelper
         //check if player can toggle the shield
         //if (Input.GetButtonDown("Jump")) // old input
         //if (Keyboard.current.spaceKey.wasPressedThisFrame) // this works too
-        if (playerControls.PlayerKeyboard.Guard.WasPressedThisFrame())
+        if (playerControls.PCInput.Guard.WasPressedThisFrame())
         {
             ToggleShield();
         }
@@ -290,7 +290,7 @@ public class PlayerController : ControllerHelper
         if (blasterTimer <= 0)
         {
             //if (Input.GetButtonUp("Fire2")) // old input
-            if (playerControls.PlayerKeyboard.Blast.WasReleasedThisFrame())
+            if (playerControls.PCInput.Blast.WasReleasedThisFrame())
                 {
                 if (_model.rocketCount > 0)
                 {

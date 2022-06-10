@@ -2,7 +2,7 @@
     "name": "PlayerControls",
     "maps": [
         {
-            "name": "Player Keyboard",
+            "name": "PC Input",
             "id": "af044b05-7646-40db-a158-d0da75faaca3",
             "actions": [
                 {

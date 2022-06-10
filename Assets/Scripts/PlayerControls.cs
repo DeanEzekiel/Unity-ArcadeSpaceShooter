@@ -24,7 +24,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     ""name"": ""PlayerControls"",
     ""maps"": [
         {
-            ""name"": ""Player Keyboard"",
+            ""name"": ""PC Input"",
             ""id"": ""af044b05-7646-40db-a158-d0da75faaca3"",
             ""actions"": [
                 {
@@ -264,14 +264,14 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     ],
     ""controlSchemes"": []
 }");
-        // Player Keyboard
-        m_PlayerKeyboard = asset.FindActionMap("Player Keyboard", throwIfNotFound: true);
-        m_PlayerKeyboard_Horizontal = m_PlayerKeyboard.FindAction("Horizontal", throwIfNotFound: true);
-        m_PlayerKeyboard_Vertical = m_PlayerKeyboard.FindAction("Vertical", throwIfNotFound: true);
-        m_PlayerKeyboard_Shoot = m_PlayerKeyboard.FindAction("Shoot", throwIfNotFound: true);
-        m_PlayerKeyboard_Guard = m_PlayerKeyboard.FindAction("Guard", throwIfNotFound: true);
-        m_PlayerKeyboard_Blast = m_PlayerKeyboard.FindAction("Blast", throwIfNotFound: true);
-        m_PlayerKeyboard_Pause = m_PlayerKeyboard.FindAction("Pause", throwIfNotFound: true);
+        // PC Input
+        m_PCInput = asset.FindActionMap("PC Input", throwIfNotFound: true);
+        m_PCInput_Horizontal = m_PCInput.FindAction("Horizontal", throwIfNotFound: true);
+        m_PCInput_Vertical = m_PCInput.FindAction("Vertical", throwIfNotFound: true);
+        m_PCInput_Shoot = m_PCInput.FindAction("Shoot", throwIfNotFound: true);
+        m_PCInput_Guard = m_PCInput.FindAction("Guard", throwIfNotFound: true);
+        m_PCInput_Blast = m_PCInput.FindAction("Blast", throwIfNotFound: true);
+        m_PCInput_Pause = m_PCInput.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -328,54 +328,54 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Player Keyboard
-    private readonly InputActionMap m_PlayerKeyboard;
-    private IPlayerKeyboardActions m_PlayerKeyboardActionsCallbackInterface;
-    private readonly InputAction m_PlayerKeyboard_Horizontal;
-    private readonly InputAction m_PlayerKeyboard_Vertical;
-    private readonly InputAction m_PlayerKeyboard_Shoot;
-    private readonly InputAction m_PlayerKeyboard_Guard;
-    private readonly InputAction m_PlayerKeyboard_Blast;
-    private readonly InputAction m_PlayerKeyboard_Pause;
-    public struct PlayerKeyboardActions
+    // PC Input
+    private readonly InputActionMap m_PCInput;
+    private IPCInputActions m_PCInputActionsCallbackInterface;
+    private readonly InputAction m_PCInput_Horizontal;
+    private readonly InputAction m_PCInput_Vertical;
+    private readonly InputAction m_PCInput_Shoot;
+    private readonly InputAction m_PCInput_Guard;
+    private readonly InputAction m_PCInput_Blast;
+    private readonly InputAction m_PCInput_Pause;
+    public struct PCInputActions
     {
         private @PlayerControls m_Wrapper;
-        public PlayerKeyboardActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Horizontal => m_Wrapper.m_PlayerKeyboard_Horizontal;
-        public InputAction @Vertical => m_Wrapper.m_PlayerKeyboard_Vertical;
-        public InputAction @Shoot => m_Wrapper.m_PlayerKeyboard_Shoot;
-        public InputAction @Guard => m_Wrapper.m_PlayerKeyboard_Guard;
-        public InputAction @Blast => m_Wrapper.m_PlayerKeyboard_Blast;
-        public InputAction @Pause => m_Wrapper.m_PlayerKeyboard_Pause;
-        public InputActionMap Get() { return m_Wrapper.m_PlayerKeyboard; }
+        public PCInputActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Horizontal => m_Wrapper.m_PCInput_Horizontal;
+        public InputAction @Vertical => m_Wrapper.m_PCInput_Vertical;
+        public InputAction @Shoot => m_Wrapper.m_PCInput_Shoot;
+        public InputAction @Guard => m_Wrapper.m_PCInput_Guard;
+        public InputAction @Blast => m_Wrapper.m_PCInput_Blast;
+        public InputAction @Pause => m_Wrapper.m_PCInput_Pause;
+        public InputActionMap Get() { return m_Wrapper.m_PCInput; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(PlayerKeyboardActions set) { return set.Get(); }
-        public void SetCallbacks(IPlayerKeyboardActions instance)
+        public static implicit operator InputActionMap(PCInputActions set) { return set.Get(); }
+        public void SetCallbacks(IPCInputActions instance)
         {
-            if (m_Wrapper.m_PlayerKeyboardActionsCallbackInterface != null)
+            if (m_Wrapper.m_PCInputActionsCallbackInterface != null)
             {
-                @Horizontal.started -= m_Wrapper.m_PlayerKeyboardActionsCallbackInterface.OnHorizontal;
-                @Horizontal.performed -= m_Wrapper.m_PlayerKeyboardActionsCallbackInterface.OnHorizontal;
-                @Horizontal.canceled -= m_Wrapper.m_PlayerKeyboardActionsCallbackInterface.OnHorizontal;
-                @Vertical.started -= m_Wrapper.m_PlayerKeyboardActionsCallbackInterface.OnVertical;
-                @Vertical.performed -= m_Wrapper.m_PlayerKeyboardActionsCallbackInterface.OnVertical;
-                @Vertical.canceled -= m_Wrapper.m_PlayerKeyboardActionsCallbackInterface.OnVertical;
-                @Shoot.started -= m_Wrapper.m_PlayerKeyboardActionsCallbackInterface.OnShoot;
-                @Shoot.performed -= m_Wrapper.m_PlayerKeyboardActionsCallbackInterface.OnShoot;
-                @Shoot.canceled -= m_Wrapper.m_PlayerKeyboardActionsCallbackInterface.OnShoot;
-                @Guard.started -= m_Wrapper.m_PlayerKeyboardActionsCallbackInterface.OnGuard;
-                @Guard.performed -= m_Wrapper.m_PlayerKeyboardActionsCallbackInterface.OnGuard;
-                @Guard.canceled -= m_Wrapper.m_PlayerKeyboardActionsCallbackInterface.OnGuard;
-                @Blast.started -= m_Wrapper.m_PlayerKeyboardActionsCallbackInterface.OnBlast;
-                @Blast.performed -= m_Wrapper.m_PlayerKeyboardActionsCallbackInterface.OnBlast;
-                @Blast.canceled -= m_Wrapper.m_PlayerKeyboardActionsCallbackInterface.OnBlast;
-                @Pause.started -= m_Wrapper.m_PlayerKeyboardActionsCallbackInterface.OnPause;
-                @Pause.performed -= m_Wrapper.m_PlayerKeyboardActionsCallbackInterface.OnPause;
-                @Pause.canceled -= m_Wrapper.m_PlayerKeyboardActionsCallbackInterface.OnPause;
+                @Horizontal.started -= m_Wrapper.m_PCInputActionsCallbackInterface.OnHorizontal;
+                @Horizontal.performed -= m_Wrapper.m_PCInputActionsCallbackInterface.OnHorizontal;
+                @Horizontal.canceled -= m_Wrapper.m_PCInputActionsCallbackInterface.OnHorizontal;
+                @Vertical.started -= m_Wrapper.m_PCInputActionsCallbackInterface.OnVertical;
+                @Vertical.performed -= m_Wrapper.m_PCInputActionsCallbackInterface.OnVertical;
+                @Vertical.canceled -= m_Wrapper.m_PCInputActionsCallbackInterface.OnVertical;
+                @Shoot.started -= m_Wrapper.m_PCInputActionsCallbackInterface.OnShoot;
+                @Shoot.performed -= m_Wrapper.m_PCInputActionsCallbackInterface.OnShoot;
+                @Shoot.canceled -= m_Wrapper.m_PCInputActionsCallbackInterface.OnShoot;
+                @Guard.started -= m_Wrapper.m_PCInputActionsCallbackInterface.OnGuard;
+                @Guard.performed -= m_Wrapper.m_PCInputActionsCallbackInterface.OnGuard;
+                @Guard.canceled -= m_Wrapper.m_PCInputActionsCallbackInterface.OnGuard;
+                @Blast.started -= m_Wrapper.m_PCInputActionsCallbackInterface.OnBlast;
+                @Blast.performed -= m_Wrapper.m_PCInputActionsCallbackInterface.OnBlast;
+                @Blast.canceled -= m_Wrapper.m_PCInputActionsCallbackInterface.OnBlast;
+                @Pause.started -= m_Wrapper.m_PCInputActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_PCInputActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_PCInputActionsCallbackInterface.OnPause;
             }
-            m_Wrapper.m_PlayerKeyboardActionsCallbackInterface = instance;
+            m_Wrapper.m_PCInputActionsCallbackInterface = instance;
             if (instance != null)
             {
                 @Horizontal.started += instance.OnHorizontal;
@@ -399,8 +399,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
             }
         }
     }
-    public PlayerKeyboardActions @PlayerKeyboard => new PlayerKeyboardActions(this);
-    public interface IPlayerKeyboardActions
+    public PCInputActions @PCInput => new PCInputActions(this);
+    public interface IPCInputActions
     {
         void OnHorizontal(InputAction.CallbackContext context);
         void OnVertical(InputAction.CallbackContext context);
