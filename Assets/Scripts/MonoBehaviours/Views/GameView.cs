@@ -19,6 +19,8 @@ public class GameView : ASingleton<GameView>
     private GameObject uiShop;
     [SerializeField]
     private GameObject uiHUD;
+    [SerializeField]
+    private GameObject uiBG;
 
     [SerializeField]
     private GameObject uiGOverNewHiBoard;
@@ -174,6 +176,7 @@ public class GameView : ASingleton<GameView>
         uiGameOver.SetActive(false);
         uiGamePaused.SetActive(false);
         uiShop.SetActive(false);
+        uiBG.SetActive(false);
     }
 
     public void SetSlidersMax()
@@ -185,6 +188,7 @@ public class GameView : ASingleton<GameView>
     public void ShowGameOverUI(bool value)
     {
         uiGameOver.SetActive(value);
+        uiBG.SetActive(value);
     }
 
     public void ShowGameOverPassBoard(bool value)
@@ -219,11 +223,13 @@ public class GameView : ASingleton<GameView>
     public void ShowGamePausedUI(bool value)
     {
         uiGamePaused.SetActive(value);
+        uiBG.SetActive(value);
     }
 
     public void ShowShopUI(bool value)
     {
         uiShop.SetActive(value);
+        uiBG.SetActive(value);
     }
 
     public void ShowHUD(bool value)
