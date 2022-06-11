@@ -17,5 +17,5 @@ MonoBehaviour:
   MaxSpawnTime: 5
   MinSpawnTime: 2
   SpawnTimePercentDeduction: 0.1
-  CachedTimeInterval: 5
-  Round: 1
+  CachedTimeInterval: 3.6450002
+  Round: 4

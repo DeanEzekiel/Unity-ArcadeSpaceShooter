@@ -31,7 +31,6 @@ public class GameController : ASingleton<GameController>
     {
         GameView.NextRound += NextRound;
         GameView.RestartGame += RestartGame;
-        GameView.PauseGame += PauseGame;
         GameView.ResumeGame += ResumeGame;
         GameView.SaveHighScoreName += SaveHighScore;
 
@@ -51,7 +50,6 @@ public class GameController : ASingleton<GameController>
 
         GameView.NextRound -= NextRound;
         GameView.RestartGame -= RestartGame;
-        GameView.PauseGame -= PauseGame;
         GameView.ResumeGame -= ResumeGame;
         GameView.SaveHighScoreName -= SaveHighScore;
 
@@ -191,6 +189,7 @@ public class GameController : ASingleton<GameController>
         {
             PauseTime();
             DeactivatePlayerControls();
+            Controller.Player.ShowOnscreenControls(false);
             _view.ShowGamePausedUI(true);
         }
     }
@@ -200,6 +199,7 @@ public class GameController : ASingleton<GameController>
         Debug.Log("GameMaster Resume Game");
         PlayTime();
         ActivatePlayerControls();
+        Controller.Player.ShowOnscreenControls(true);
         _view.ShowGamePausedUI(false);
     }
 

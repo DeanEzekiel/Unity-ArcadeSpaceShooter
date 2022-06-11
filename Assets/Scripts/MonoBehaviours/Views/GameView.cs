@@ -67,9 +67,6 @@ public class GameView : ASingleton<GameView>
 
     [Header("HUD")]
     [SerializeField]
-    private Button HUDPauseButton;
-
-    [SerializeField]
     private TextMeshProUGUI Lives;
     [SerializeField]
     private TextMeshProUGUI Coins;
@@ -110,7 +107,6 @@ public class GameView : ASingleton<GameView>
 
     public static event Action NextRound;
     public static event Action RestartGame;
-    public static event Action PauseGame;
     public static event Action ResumeGame;
 
     public static event Action SetGameOver;
@@ -132,8 +128,6 @@ public class GameView : ASingleton<GameView>
         ShopNextRoundButton.onClick.AddListener(OnNextRound);
 
         FrozenResumeButton.onClick.AddListener(OnResumeGame);
-
-        HUDPauseButton.onClick.AddListener(OnPauseGame);
 
         SetSlidersMax();
     }
@@ -276,11 +270,6 @@ public class GameView : ASingleton<GameView>
             playerNameHolder.text = playerNameInput.text;
             SaveHighScoreName?.Invoke(playerNameInput.text);
         }
-    }
-
-    private void OnPauseGame()
-    {
-        PauseGame?.Invoke();
     }
 
     private void OnResumeGame()
