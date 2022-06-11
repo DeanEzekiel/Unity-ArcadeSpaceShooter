@@ -232,7 +232,9 @@ public class PlayerController : ControllerHelper
     private void Rotate()
     {
         if (GameController.Instance.Model.playerControls ==
-            ControlOption.MotionFacing)
+            ControlOption.MotionFacing ||
+            GameController.Instance.Model.playerControls ==
+            ControlOption.MobileControl)
         {
             //rotate based on movement direction & need to adjust by 90 degrees
             if (movementDirection != Vector3.zero)
