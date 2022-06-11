@@ -78,7 +78,7 @@ public class PlayerController : ControllerHelper
             ShieldAbility();
             BlasterAbility();
 
-            if (playerControls.PCInput.Pause.WasPressedThisFrame())
+            if (playerControls.Input.Pause.WasPressedThisFrame())
             {
                 OnPausePress();
             }
@@ -127,13 +127,10 @@ public class PlayerController : ControllerHelper
 
     public void ShowOnscreenControls(bool value)
     {
-        if (GameController.Instance.Model.playerControls == ControlOption.MobileControl)
-        {
-            _viewOnscreenControls.gameObject.SetActive(value);
-            ResetJoystickPos();
-            CheckRemainingRockets();
-            CheckRemainingShieldPoints();
-        }
+        _viewOnscreenControls.gameObject.SetActive(value);
+        ResetJoystickPos();
+        CheckRemainingRockets();
+        CheckRemainingShieldPoints();
     }
 
     public void ShowView()
@@ -220,20 +217,9 @@ public class PlayerController : ControllerHelper
         //float verticalMove = Input.GetAxis("Vertical");
 
         // New Input System
-        float horizontalMove;
-        float verticalMove;
-
-        if(GameController.Instance.Model.playerControls == ControlOption.MobileControl)
-        {
-            Vector2 input = playerControls.Gamepadinput.Move.ReadValue<Vector2>();
-            horizontalMove = input.x;
-            verticalMove = input.y;
-        }
-        else
-        {
-            horizontalMove = playerControls.PCInput.Horizontal.ReadValue<float>();
-            verticalMove = playerControls.PCInput.Vertical.ReadValue<float>();
-        }
+        Vector2 input = playerControls.Input.Move.ReadValue<Vector2>();
+        float horizontalMove = input.x;
+        float verticalMove = input.y;
 
         //Vector3 move = new Vector3(horizontalMove, verticalMove, 0);
         movementDirection = new Vector3(horizontalMove, verticalMove, 0);
@@ -246,9 +232,7 @@ public class PlayerController : ControllerHelper
     private void Rotate()
     {
         if (GameController.Instance.Model.playerControls ==
-            ControlOption.MotionFacing ||
-            GameController.Instance.Model.playerControls ==
-            ControlOption.MobileControl)
+            ControlOption.MotionFacing)
         {
             //rotate based on movement direction & need to adjust by 90 degrees
             if (movementDirection != Vector3.zero)
@@ -286,8 +270,7 @@ public class PlayerController : ControllerHelper
         if (shootTimer <= 0)
         {
             //if (Input.GetButton("Fire1")) // old input
-            if (playerControls.PCInput.Shoot.IsPressed() ||
-                playerControls.Gamepadinput.Shoot.IsPressed())
+            if (playerControls.Input.Shoot.IsPressed())
             {
                 _view.Shoot(this);
                 shootTimer = _model.playerBulletCooldown;
@@ -299,8 +282,7 @@ public class PlayerController : ControllerHelper
         //check if player can toggle the shield
         //if (Input.GetButtonDown("Jump")) // old input
         //if (Keyboard.current.spaceKey.wasPressedThisFrame) // this works too
-        if (playerControls.PCInput.Guard.WasPressedThisFrame() ||
-            playerControls.Gamepadinput.Guard.WasPressedThisFrame())
+        if (playerControls.Input.Guard.WasPressedThisFrame())
         {
             ToggleShield();
         }
@@ -320,8 +302,7 @@ public class PlayerController : ControllerHelper
         if (blasterTimer <= 0)
         {
             //if (Input.GetButtonUp("Fire2")) // old input
-            if (playerControls.PCInput.Blast.WasReleasedThisFrame() ||
-                playerControls.Gamepadinput.Blast.WasReleasedThisFrame())
+            if (playerControls.Input.Blast.WasReleasedThisFrame())
                 {
                 if (_model.rocketCount > 0)
                 {

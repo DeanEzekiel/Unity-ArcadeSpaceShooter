@@ -31,7 +31,6 @@ public class GameController : ASingleton<GameController>
     {
         GameView.NextRound += NextRound;
         GameView.RestartGame += RestartGame;
-        GameView.PauseGame += PauseGame;
         GameView.ResumeGame += ResumeGame;
         GameView.SaveHighScoreName += SaveHighScore;
 
@@ -51,7 +50,6 @@ public class GameController : ASingleton<GameController>
 
         GameView.NextRound -= NextRound;
         GameView.RestartGame -= RestartGame;
-        GameView.PauseGame -= PauseGame;
         GameView.ResumeGame -= ResumeGame;
         GameView.SaveHighScoreName -= SaveHighScore;
 
