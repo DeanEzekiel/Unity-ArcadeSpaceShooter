@@ -145,12 +145,19 @@ public class PlayerController : ControllerHelper
 
     public void CoinCollected()
     {
+        // TODO should the coins be clamped to MAX 99?
         _model.coins++;
     }
 
     public void SpendCoins(int cost)
     {
         _model.coins -= cost;
+    }
+
+    public void AddCoins(int value)
+    {
+        // TODO should the coins be clamped to MAX 99?
+        _model.coins += value;
     }
 
     public void AddLife(int value)

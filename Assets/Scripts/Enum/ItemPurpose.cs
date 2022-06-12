@@ -5,4 +5,5 @@ public enum ItemPurpose
     RefillRockets,
     AddShieldPoints,
     ShortenShieldRegen,
+    AddCoins,
 }
