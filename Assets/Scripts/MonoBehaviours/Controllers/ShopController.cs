@@ -35,6 +35,11 @@ public class ShopController : ControllerHelper
     private string BUY_AD_TEXT = "Watch";
     #endregion // Inspector Fields
 
+    #region Private Fields
+    private ItemPurpose _cachedPurpose;
+    private float _cachedValue;
+    #endregion
+
     #region View Dictionary
     Dictionary<ItemPurpose, ShopItemView> _dictShopItem
         = new Dictionary<ItemPurpose, ShopItemView>();
@@ -50,11 +55,13 @@ public class ShopController : ControllerHelper
     private void OnEnable()
     {
         ShopItemView.PurchaseClick += OnPurchase;
+        AdsHelper.AdShowSuccess += SetItemAdWatched;
     }
 
     private void OnDisable()
     {
         ShopItemView.PurchaseClick -= OnPurchase;
+        AdsHelper.AdShowSuccess -= SetItemAdWatched;
     }
 
     #endregion // Unity Callbacks
@@ -143,14 +150,18 @@ public class ShopController : ControllerHelper
         }
     }
 
-    public void SetItemAdWatched(ItemPurpose purpose)
+    public void SetItemAdWatched()
     {
-        var inShop = _dictShopItem.TryGetValue(purpose, out ShopItemView item);
+        var inShop = _dictShopItem.TryGetValue(_cachedPurpose, out ShopItemView item);
 
         if ((!item.IsAdWatched) && inShop)
         {
             item.IsAdWatched = true;
             item.DisablePurchasing(REASON_DONE_AD);
+
+            ApplyUpgrade(_cachedPurpose, _cachedValue);
+            UpdateViewTexts();
+            CheckMaxAllowed();
         }
     }
     #endregion // Public Methods
@@ -237,16 +248,18 @@ public class ShopController : ControllerHelper
     {
         if (isAd)
         {
-            // TODO -- CALL THIS AFTER THE AD IS PLAYED
-            SetItemAdWatched(purpose);
+            _cachedPurpose = purpose;
+            _cachedValue = value;
+            Services.Instance.Ads.LoadAd();
         }
         else
         {
             CollectPayment(cost);
+
+            ApplyUpgrade(purpose, value);
+            UpdateViewTexts();
+            CheckMaxAllowed();
         }
-        ApplyUpgrade(purpose, value);
-        UpdateViewTexts();
-        CheckMaxAllowed();
     }
 
     private void CollectPayment(int cost)

@@ -93,7 +93,7 @@ public class GameController : ASingleton<GameController>
         Controller.Enemy.StopSpawning();
 
         ShowShop();
-        PauseTime();
+        //PauseTime();
     }
     private void ActivatePlayerControls()
     {
