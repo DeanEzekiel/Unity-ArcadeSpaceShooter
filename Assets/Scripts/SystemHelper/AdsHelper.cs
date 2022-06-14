@@ -173,6 +173,7 @@ public class AdsHelper : MonoBehaviour
         AdShowMessage?.Invoke(message);
         //GameUIView.Instance.ShowAdResult(message);
         //AnalyticsHelper.Instance.SetCustomEvent(AnalyticsKeys.eventAdFailed);
+        Services.Instance.Analytics.SetCustomEvent(AnalyticsKeys.eAdFailed);
     }
 
     private void ShowAd()
@@ -186,6 +187,7 @@ public class AdsHelper : MonoBehaviour
         AdShowMessage?.Invoke(_successLoadMsg);
         AdShowSuccess?.Invoke();
         //AnalyticsHelper.Instance.SetCustomEvent(AnalyticsKeys.eventAdSuccess);
+        Services.Instance.Analytics.SetCustomEvent(AnalyticsKeys.eAdFinished);
     }
     #endregion
 }

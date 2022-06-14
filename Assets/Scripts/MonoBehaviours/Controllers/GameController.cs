@@ -92,6 +92,12 @@ public class GameController : ASingleton<GameController>
     {
         Controller.Enemy.StopSpawning();
 
+        // Log the Round
+        Services.Instance.Analytics.SetCustomEvent(
+            AnalyticsKeys.eRoundCleared,
+            AnalyticsKeys.pRound,
+            Model.Round);
+
         ShowShop();
         //PauseTime();
     }
@@ -105,6 +111,12 @@ public class GameController : ASingleton<GameController>
     }
     private void GameOver()
     {
+        // Log Game Over
+        Services.Instance.Analytics.SetCustomEvent(
+            AnalyticsKeys.eGameOver,
+            AnalyticsKeys.pRound,
+            Model.Round);
+
         DeactivatePlayerControls();
         Controller.Player.ShowOnscreenControls(false);
         _view.InitViews();

@@ -471,6 +471,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5774085416708425058}
+  - component: {fileID: 6187335063358843952}
+  - component: {fileID: 1406014941341760334}
   m_Layer: 0
   m_Name: Analytics
   m_TagString: Untagged
@@ -492,6 +494,31 @@ Transform:
   m_Father: {fileID: 5774085417212210394}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6187335063358843952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5774085416708425059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70bd94b2bd0574f5bbffe5794803a244, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isInitialized: 0
+--- !u!114 &1406014941341760334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5774085416708425059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e3e3d3934ad24de5bc78a16b47c651f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5774085417105483550
 GameObject:
   m_ObjectHideFlags: 0
@@ -604,6 +631,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Ads: {fileID: 5774085417105483548}
+  Analytics: {fileID: 6187335063358843952}
   _popUp: {fileID: 2475417057581384367}
   _shortMessage: {fileID: 1179357551102920620}
   _btnClose: {fileID: 7373255686489104805}
