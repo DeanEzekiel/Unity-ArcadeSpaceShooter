@@ -14,17 +14,10 @@ public struct AnalyticsKeys
     public static readonly string eAdFailed = "Ad_Failed";
     /// <summary>
     /// Needs a string parameter. Name of the parameter is stored in pItem
-    /// Values are saved: vLife, vRechargeRockets, vUpgradeRocket, vUpgradeShieldRecharge, vUpgradeShieldCap
+    /// The value will be the enum ItemPurpose
     /// </summary>
     public static readonly string eShopPurchase = "Shop_Purchase"; // w/ param
 
     public static readonly string pRound = "Round";
     public static readonly string pItem = "Item";
-
-    public static readonly string vLife = "Plus 1 Life";
-    public static readonly string vRechargeRockets = "Recharge Rockets";
-    public static readonly string vUpgradeRocketMax = "Upgrade Rocket Ammo Max";
-    public static readonly string vUpgradeShieldRecharge = "Upgrade Shield Recharge Rate";
-    public static readonly string vAddShieldPoints = "Add Shield Points";
-    public static readonly string vAddCoins = "Add Coins";
 }

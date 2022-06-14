@@ -266,32 +266,10 @@ public class ShopController : ControllerHelper
 
     private void LogPurchase(ItemPurpose purpose)
     {
-        string value = "";
-        switch (purpose)
-        {
-            case ItemPurpose.AddLife:
-                value = AnalyticsKeys.vLife;
-                break;
-            case ItemPurpose.AddRocketMax:
-                value = AnalyticsKeys.vUpgradeRocketMax;
-                break;
-            case ItemPurpose.RefillRockets:
-                value = AnalyticsKeys.vRechargeRockets;
-                break;
-            case ItemPurpose.AddShieldPoints:
-                value = AnalyticsKeys.vAddShieldPoints;
-                break;
-            case ItemPurpose.ShortenShieldRegen:
-                value = AnalyticsKeys.vUpgradeShieldRecharge;
-                break;
-            case ItemPurpose.AddCoins:
-                value = AnalyticsKeys.vAddCoins;
-                break;
-        }
         Services.Instance.Analytics.SetCustomEvent(
             AnalyticsKeys.eShopPurchase,
             AnalyticsKeys.pItem,
-            value);
+            purpose.ToString());
     }
 
     private void CollectPayment(int cost)
