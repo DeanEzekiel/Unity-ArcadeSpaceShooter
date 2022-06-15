@@ -13,35 +13,53 @@ MonoBehaviour:
   m_Name: Shop Offerings
   m_EditorClassIdentifier: 
   Items:
+  - ItemName: +5 Coins (FREE)
+    ItemDescription: Watch an ad to get coins for free.
+    ItemIcon: {fileID: 21300000, guid: c5616c84b14514750bd5bf1954c6a065, type: 3}
+    ItemCost: 0
+    CostIcon: {fileID: 21300000, guid: aa23e41f956ca49fdbcee7c7d8c84263, type: 3}
+    ItemPurpose: 5
+    ItemPurposeValue: 5
+    WatchAd: 1
   - ItemName: +1 Life
     ItemDescription: Survive one more hit by getting +1 life.
-    ItemCost: 8
     ItemIcon: {fileID: 21300000, guid: f78052bf1b7ad4bd994caaa4be833b3a, type: 3}
+    ItemCost: 8
+    CostIcon: {fileID: 21300000, guid: 7d246de05724f914a891bb7e83f2e400, type: 3}
     ItemPurpose: 0
     ItemPurposeValue: 1
+    WatchAd: 0
   - ItemName: +1 Rocket Max
     ItemDescription: Lets your ship able to carry one more rocket.
-    ItemCost: 5
     ItemIcon: {fileID: 21300000, guid: 0a09dd4ae4bc34f6eb99716d8e0c7619, type: 3}
+    ItemCost: 5
+    CostIcon: {fileID: 21300000, guid: 7d246de05724f914a891bb7e83f2e400, type: 3}
     ItemPurpose: 1
     ItemPurposeValue: 1
+    WatchAd: 0
   - ItemName: Refill Rockets
     ItemDescription: Refill to current rocket carrying capacity.
-    ItemCost: 1
     ItemIcon: {fileID: 21300000, guid: 0a09dd4ae4bc34f6eb99716d8e0c7619, type: 3}
+    ItemCost: 1
+    CostIcon: {fileID: 21300000, guid: 7d246de05724f914a891bb7e83f2e400, type: 3}
     ItemPurpose: 2
     ItemPurposeValue: 0
+    WatchAd: 0
   - ItemName: +10 Shield Points
     ItemDescription: Lengthens shield use by adding 10 points.
-    ItemCost: 2
     ItemIcon: {fileID: 21300000, guid: b885cf119743a48ea9c40aeb9187d38f, type: 3}
+    ItemCost: 2
+    CostIcon: {fileID: 21300000, guid: 7d246de05724f914a891bb7e83f2e400, type: 3}
     ItemPurpose: 3
     ItemPurposeValue: 10
+    WatchAd: 0
   - ItemName: -0.5 Shield Regen
     ItemDescription: Reduces shield recharge time by half a second.
-    ItemCost: 5
     ItemIcon: {fileID: 21300000, guid: b885cf119743a48ea9c40aeb9187d38f, type: 3}
+    ItemCost: 5
+    CostIcon: {fileID: 21300000, guid: 7d246de05724f914a891bb7e83f2e400, type: 3}
     ItemPurpose: 4
     ItemPurposeValue: 0.5
+    WatchAd: 0
   RocketMaxAllowed: 5
   ShieldRegenSecMinAllowed: 2

@@ -21,11 +21,24 @@ public class ShopController : ControllerHelper
     [SerializeField]
     private Transform _shopItemsContainer;
 
+    [Space]
     [SerializeField]
     private string REASON_FULL = "Full";
     [SerializeField]
     private string REASON_LOW_FUNDS = "Low funds";
+    [SerializeField]
+    private string REASON_DONE_AD = "Claimed";
+
+    [SerializeField]
+    private string BUY_TEXT = "Buy";
+    [SerializeField]
+    private string BUY_AD_TEXT = "Watch";
     #endregion // Inspector Fields
+
+    #region Private Fields
+    private ItemPurpose _cachedPurpose;
+    private float _cachedValue;
+    #endregion
 
     #region View Dictionary
     Dictionary<ItemPurpose, ShopItemView> _dictShopItem
@@ -42,11 +55,13 @@ public class ShopController : ControllerHelper
     private void OnEnable()
     {
         ShopItemView.PurchaseClick += OnPurchase;
+        AdsHelper.AdShowSuccess += SetItemAdWatched;
     }
 
     private void OnDisable()
     {
         ShopItemView.PurchaseClick -= OnPurchase;
+        AdsHelper.AdShowSuccess -= SetItemAdWatched;
     }
 
     #endregion // Unity Callbacks
@@ -118,9 +133,41 @@ public class ShopController : ControllerHelper
     {
         return Controller.Player.ShieldReplenishSec;
     }
+
+    /// <summary>
+    /// Resets the Is Ad Watched value of the Shop Items that are free when playing an Ad.
+    /// Must be called when showing the Shop UI.
+    /// </summary>
+    public void CheckAdItems()
+    {
+        foreach (ItemPurpose key in _dictShopItem.Keys)
+        {
+            if (_dictShopItem[key].IsAd)
+            {
+                _dictShopItem[key].IsAdWatched = false;
+                _dictShopItem[key].EnablePurchasing(BUY_AD_TEXT);
+            }
+        }
+    }
+
+    public void SetItemAdWatched()
+    {
+        var inShop = _dictShopItem.TryGetValue(_cachedPurpose, out ShopItemView item);
+
+        if ((!item.IsAdWatched) && inShop)
+        {
+            item.IsAdWatched = true;
+            item.DisablePurchasing(REASON_DONE_AD);
+
+            ApplyUpgrade(_cachedPurpose, _cachedValue);
+            UpdateViewTexts();
+            CheckMaxAllowed();
+        }
+    }
     #endregion // Public Methods
 
     #region Class Implementation
+    // FLOAT VALUE
     private void SetItemAvailability(ItemPurpose purpose, float value, float compareValue)
     {
         var inShop = _dictShopItem.TryGetValue(purpose, out ShopItemView item);
@@ -134,10 +181,11 @@ public class ShopController : ControllerHelper
         }
         else if (inShop)
         {
-            item.EnablePurchasing();
+            item.EnablePurchasing(BUY_TEXT);
         }
     }
 
+    // INT VALUE
     private void SetItemAvailability(ItemPurpose purpose, int value, int compareValue)
     {
         var inShop = _dictShopItem.TryGetValue(purpose, out ShopItemView item);
@@ -151,7 +199,7 @@ public class ShopController : ControllerHelper
         }
         else if (inShop)
         {
-            item.EnablePurchasing();
+            item.EnablePurchasing(BUY_TEXT);
         }
     }
 
@@ -175,22 +223,53 @@ public class ShopController : ControllerHelper
 
             ShopItem shopItem = _shopModel.Items[i];
 
-            itemView.SetText(shopItem.ItemName, shopItem.ItemDescription, shopItem.ItemCost);
-            itemView.SetIcon(shopItem.ItemIcon);
+            itemView.SetIcon(shopItem.ItemIcon, shopItem.CostIcon);
             itemView.SetButtonPurpose(shopItem.ItemPurpose, shopItem.ItemPurposeValue);
-            itemView.EnablePurchasing();
+
+            if (shopItem.WatchAd)
+            {
+                itemView.SetText(shopItem.ItemName, shopItem.ItemDescription);
+                itemView.SetAd();
+                itemView.IsAdWatched = false;
+                itemView.EnablePurchasing(BUY_AD_TEXT);
+            }
+            else
+            {
+                itemView.SetText(shopItem.ItemName, shopItem.ItemDescription, shopItem.ItemCost);
+                itemView.EnablePurchasing(BUY_TEXT);
+            }
 
             // register the purpose of this Shop Item View
             _dictShopItem.Add(shopItem.ItemPurpose, itemView);
         }
     }
 
-    private void OnPurchase(ItemPurpose purpose, float value, int cost)
+    private void OnPurchase(ItemPurpose purpose, float value, int cost, bool isAd)
     {
-        CollectPayment(cost);
-        ApplyUpgrade(purpose, value);
-        UpdateViewTexts();
-        CheckMaxAllowed();
+        if (isAd)
+        {
+            _cachedPurpose = purpose;
+            _cachedValue = value;
+            Services.Instance.Ads.LoadAd();
+        }
+        else
+        {
+            CollectPayment(cost);
+
+            ApplyUpgrade(purpose, value);
+            UpdateViewTexts();
+            CheckMaxAllowed();
+        }
+
+        LogPurchase(purpose);
+    }
+
+    private void LogPurchase(ItemPurpose purpose)
+    {
+        Services.Instance.Analytics.SetCustomEvent(
+            AnalyticsKeys.eShopPurchase,
+            AnalyticsKeys.pItem,
+            purpose.ToString());
     }
 
     private void CollectPayment(int cost)
@@ -221,6 +300,10 @@ public class ShopController : ControllerHelper
         {
             Controller.Player.ShortenShieldRegen(value,
                 _shopModel.ShieldRegenSecMinAllowed);
+        }
+        else if (purpose == ItemPurpose.AddCoins)
+        {
+            Controller.Player.AddCoins((int)value);
         }
         else
         {

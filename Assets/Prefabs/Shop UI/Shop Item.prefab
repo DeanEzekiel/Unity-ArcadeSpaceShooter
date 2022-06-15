@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7d246de05724f914a891bb7e83f2e400, type: 3}
+  m_Sprite: {fileID: 21300000, guid: aa23e41f956ca49fdbcee7c7d8c84263, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -177,7 +177,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 8
+  m_text: Ad
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0b51dbee9f2f047cebc9e85675fb05d5, type: 2}
   m_sharedMaterial: {fileID: -4171563015097924827, guid: 0b51dbee9f2f047cebc9e85675fb05d5, type: 2}
@@ -646,7 +646,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 7
-  m_Spacing: 0
+  m_Spacing: 5
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -787,7 +787,7 @@ GameObject:
   - component: {fileID: 4581018298008614687}
   - component: {fileID: 4581018298008614684}
   m_Layer: 5
-  m_Name: Static Text
+  m_Name: Cost Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1175,9 +1175,13 @@ MonoBehaviour:
   _icon: {fileID: 4581018297193698846}
   _title: {fileID: 4581018296712552767}
   _description: {fileID: 4581018297177870684}
+  _costText: {fileID: 4581018298008614684}
   _cost: {fileID: 4581018296708326101}
+  _costIcon: {fileID: 4581018296341809667}
   _purchaseButton: {fileID: 4581018297575234856}
   _purchaseButtonText: {fileID: 4581018298101220664}
+  Cost: 0
+  IsAdWatched: 0
 --- !u!114 &-5468075900393626761
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -92,8 +92,14 @@ public class GameController : ASingleton<GameController>
     {
         Controller.Enemy.StopSpawning();
 
+        // Log the Round
+        Services.Instance.Analytics.SetCustomEvent(
+            AnalyticsKeys.eRoundCleared,
+            AnalyticsKeys.pRound,
+            Model.Round);
+
         ShowShop();
-        PauseTime();
+        //PauseTime();
     }
     private void ActivatePlayerControls()
     {
@@ -105,6 +111,12 @@ public class GameController : ASingleton<GameController>
     }
     private void GameOver()
     {
+        // Log Game Over
+        Services.Instance.Analytics.SetCustomEvent(
+            AnalyticsKeys.eGameOver,
+            AnalyticsKeys.pRound,
+            Model.Round);
+
         DeactivatePlayerControls();
         Controller.Player.ShowOnscreenControls(false);
         _view.InitViews();
@@ -159,6 +171,7 @@ public class GameController : ASingleton<GameController>
 
         Controller.Shop.UpdateViewTexts();
         Controller.Shop.CheckMaxAllowed();
+        Controller.Shop.CheckAdItems();
 
         //disable player controls while shop is active or just use a bool
         DeactivatePlayerControls();
@@ -208,6 +221,11 @@ public class GameController : ASingleton<GameController>
         Debug.Log("GameMaster Next Round");
         _view.InitViews();
 
+        DeactivatePlayerControls();
+        Controller.Player.ShowOnscreenControls(true);
+        Controller.Player.ResetPosition();
+        AddRound();
+
         OnStartRoundTimer();
     }
 
@@ -238,11 +256,7 @@ public class GameController : ASingleton<GameController>
 
     private void OnStartRoundTimer()
     {
-        DeactivatePlayerControls();
-        Controller.Player.ShowOnscreenControls(true);
-        Controller.Player.ResetPosition();
         PlayTime();
-        AddRound();
         ResetTimer();
         Controller.Timer.StartRoundTimer(Model.Round);
     }

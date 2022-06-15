@@ -252,7 +252,7 @@ public class GameView : ASingleton<GameView>
         //Restart Scene
         NextRound?.Invoke();
         // TODO LoadScene should be managed by the Controller
-        SceneManager.LoadScene("GameplayScene");
+        //SceneManager.LoadScene("GameplayScene");
     }
 
     private void OnRestartGame()
@@ -260,7 +260,7 @@ public class GameView : ASingleton<GameView>
         //Restart Game
         RestartGame?.Invoke();
         // TODO LoadScene should be managed by the Controller
-        SceneManager.LoadScene("GameplayScene");
+        //SceneManager.LoadScene("GameplayScene");
     }
 
     private void OnSaveHighScore()
