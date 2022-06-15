@@ -170,8 +170,8 @@ public class GameController : ASingleton<GameController>
         Controller.Player.ShowOnscreenControls(false);
 
         Controller.Shop.UpdateViewTexts();
-        Controller.Shop.CheckMaxAllowed();
         Controller.Shop.CheckAdItems();
+        Controller.Shop.CheckMaxAllowed();
 
         //disable player controls while shop is active or just use a bool
         DeactivatePlayerControls();

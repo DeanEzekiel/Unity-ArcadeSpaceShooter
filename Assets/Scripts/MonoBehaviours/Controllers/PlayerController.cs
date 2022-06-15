@@ -40,6 +40,7 @@ public class PlayerController : ControllerHelper
     public int Life => _model.life;
     public int LifeMax => _model.lifeMax;
     public int Coins => _model.coins;
+    public int CoinsMax => _model.coinsMax;
     public int CoinMultiplier => _model.coinMultiplier;
     public int Score => _model.score;
 
@@ -146,7 +147,12 @@ public class PlayerController : ControllerHelper
     public void CoinCollected()
     {
         // TODO should the coins be clamped to MAX 99?
-        _model.coins++;
+        //_model.coins++;
+
+        _model.coins = Mathf.Clamp(
+            _model.coins + 1,
+            _model.coins,
+            _model.coinsMax);
     }
 
     public void SpendCoins(int cost)
@@ -157,7 +163,12 @@ public class PlayerController : ControllerHelper
     public void AddCoins(int value)
     {
         // TODO should the coins be clamped to MAX 99?
-        _model.coins += value;
+        //_model.coins += value;
+
+        _model.coins = Mathf.Clamp(
+            _model.coins + value,
+            _model.coins,
+            _model.coinsMax);
     }
 
     public void AddLife(int value)

@@ -17,6 +17,7 @@ public class PlayerModel_SO : ScriptableObject
 
     [Header("Player Specs")]
     public int lifeMax = 3;
+    public int coinsMax = 99;
     public float playerSpeed = 6;
     public float playerRotationSpeed = 720;
     [Space]
