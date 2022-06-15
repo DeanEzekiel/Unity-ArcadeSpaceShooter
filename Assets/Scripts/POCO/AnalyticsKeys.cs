@@ -17,7 +17,12 @@ public struct AnalyticsKeys
     /// The value will be the enum ItemPurpose
     /// </summary>
     public static readonly string eShopPurchase = "Shop_Purchase"; // w/ param
+    /// <summary>
+    /// Needs a string parameter. Name of the parameter is stored in pError
+    /// </summary>
+    public static readonly string eErrorCaught = "Error_Caught"; // w/ param
 
     public static readonly string pRound = "Round";
     public static readonly string pItem = "Item";
+    public static readonly string pError = "Error_Message";
 }
