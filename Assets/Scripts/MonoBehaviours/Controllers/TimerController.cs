@@ -9,6 +9,8 @@ public class TimerController : ControllerHelper
     #region MVC
     [SerializeField]
     private TimerRoundStartView _view_RoundStart;
+    [SerializeField]
+    private TimerRoundEndView _view_RoundEnd;
 
     [SerializeField]
     private TimerModel_SO _model;
@@ -17,12 +19,14 @@ public class TimerController : ControllerHelper
     #region Events
     public static event Action StartRound;
     public static event Action TimeEnd;
+    public static event Action EndRound;
     #endregion // Events
 
     #region Private Fields
     private bool hasRoundStarted = false;
 
     private int _roundCountdown;
+    private int _currentRound = 0;
     #endregion
 
     #region Accessors
@@ -59,6 +63,7 @@ public class TimerController : ControllerHelper
 
     public void StartRoundTimer(int round)
     {
+        _currentRound = round;
         _view_RoundStart.SetTextRound(round);
         StartCoroutine(C_RoundStartCountdown());
     }
@@ -73,12 +78,14 @@ public class TimerController : ControllerHelper
         {
             StopTimer();
             TimeEnd?.Invoke();
+
+            EndRoundTimer();
         }
     }
 
     private IEnumerator C_RoundStartCountdown()
     {
-        _roundCountdown = _model.RoundCountdownSec;
+        _roundCountdown = _model.RoundStartCountdownSec;
         _view_RoundStart.ShowCountdown(true);
         StopTimer();
 
@@ -96,6 +103,20 @@ public class TimerController : ControllerHelper
             _view_RoundStart.ShowCountdown(false);
             StartRound?.Invoke();
         }
+    }
+
+    private void EndRoundTimer()
+    {
+        _view_RoundEnd.SetTextRound(_currentRound);
+        _view_RoundEnd.ShowCountdown(true);
+        StartCoroutine(C_RoundEndCountdown());
+    }
+
+    private IEnumerator C_RoundEndCountdown()
+    {
+        yield return new WaitForSeconds(_model.RoundEndCountdownSec);
+        _view_RoundEnd.ShowCountdown(false);
+        EndRound?.Invoke();
     }
     #endregion // Implementation
 }

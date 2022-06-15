@@ -13,5 +13,7 @@ public class TimerModel_SO : ScriptableObject
     public float TimePerRound = 15f;
 
     [Tooltip("The number of seconds before the round starts.")]
-    public int RoundCountdownSec = 3;
+    public int RoundStartCountdownSec = 3;
+    [Tooltip("The number of seconds before showing the shop.")]
+    public int RoundEndCountdownSec = 3;
 }
