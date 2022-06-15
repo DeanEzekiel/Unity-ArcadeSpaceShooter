@@ -221,6 +221,11 @@ public class GameController : ASingleton<GameController>
         Debug.Log("GameMaster Next Round");
         _view.InitViews();
 
+        DeactivatePlayerControls();
+        Controller.Player.ShowOnscreenControls(true);
+        Controller.Player.ResetPosition();
+        AddRound();
+
         OnStartRoundTimer();
     }
 
@@ -251,11 +256,7 @@ public class GameController : ASingleton<GameController>
 
     private void OnStartRoundTimer()
     {
-        DeactivatePlayerControls();
-        Controller.Player.ShowOnscreenControls(true);
-        Controller.Player.ResetPosition();
         PlayTime();
-        AddRound();
         ResetTimer();
         Controller.Timer.StartRoundTimer(Model.Round);
     }
