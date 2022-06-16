@@ -2015,50 +2015,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1121486917748880475, guid: 939021704c75843c187914b54b78faf5, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1121486917748880475, guid: 939021704c75843c187914b54b78faf5, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1121486917748880475, guid: 939021704c75843c187914b54b78faf5, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 150
-      objectReference: {fileID: 0}
-    - target: {fileID: 1121486917748880475, guid: 939021704c75843c187914b54b78faf5, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -75
-      objectReference: {fileID: 0}
-    - target: {fileID: 1260316340256426411, guid: 939021704c75843c187914b54b78faf5, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1260316340256426411, guid: 939021704c75843c187914b54b78faf5, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1260316340256426411, guid: 939021704c75843c187914b54b78faf5, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 1260316340256426411, guid: 939021704c75843c187914b54b78faf5, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -25
-      objectReference: {fileID: 0}
-    - target: {fileID: 1835508558894265803, guid: 939021704c75843c187914b54b78faf5, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3300571274958670711, guid: 939021704c75843c187914b54b78faf5, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3843940263084226077, guid: 939021704c75843c187914b54b78faf5, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5914412313098294057, guid: 939021704c75843c187914b54b78faf5, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -2106,38 +2062,6 @@ PrefabInstance:
     - target: {fileID: 5914412313098294062, guid: 939021704c75843c187914b54b78faf5, type: 3}
       propertyPath: m_Name
       value: LevelLoader
-      objectReference: {fileID: 0}
-    - target: {fileID: 7261700124988218599, guid: 939021704c75843c187914b54b78faf5, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7261700124988218599, guid: 939021704c75843c187914b54b78faf5, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7261700124988218599, guid: 939021704c75843c187914b54b78faf5, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 150
-      objectReference: {fileID: 0}
-    - target: {fileID: 7261700124988218599, guid: 939021704c75843c187914b54b78faf5, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -25
-      objectReference: {fileID: 0}
-    - target: {fileID: 7689611937487608902, guid: 939021704c75843c187914b54b78faf5, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7689611937487608902, guid: 939021704c75843c187914b54b78faf5, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7689611937487608902, guid: 939021704c75843c187914b54b78faf5, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 250
-      objectReference: {fileID: 0}
-    - target: {fileID: 7689611937487608902, guid: 939021704c75843c187914b54b78faf5, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 939021704c75843c187914b54b78faf5, type: 3}
