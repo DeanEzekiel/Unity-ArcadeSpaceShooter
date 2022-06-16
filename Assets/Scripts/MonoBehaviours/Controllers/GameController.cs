@@ -24,7 +24,7 @@ public class GameController : ASingleton<GameController>
     }
     private void Start()
     {
-        InitGame();
+        //InitGame();
     }
 
     private void OnEnable()
@@ -42,6 +42,9 @@ public class GameController : ASingleton<GameController>
         TimerController.StartRound += OnStartRound;
         TimerController.TimeEnd += OnTimeEnd;
         TimerController.EndRound += ShowShop;
+
+        LevelLoader.MidTransition += MidTransition;
+        LevelLoader.TryInitGame += InitGame;
 
         Controller.Enemy.ResetEnemySettings();
     }
@@ -62,6 +65,9 @@ public class GameController : ASingleton<GameController>
         TimerController.StartRound -= OnStartRound;
         TimerController.TimeEnd -= OnTimeEnd;
         TimerController.EndRound -= ShowShop;
+
+        LevelLoader.MidTransition -= MidTransition;
+        LevelLoader.TryInitGame -= InitGame;
     }
     #endregion
 
@@ -305,10 +311,16 @@ public class GameController : ASingleton<GameController>
     private void GoToMainMenu()
     {
         DeactivatePlayerControls();
-        _view.InitViews();
+        //_view.InitViews(); // should wait for the MidTransition before removing the views
         _view.ShowHUD(false);
         PlayTime();
-        SceneManager.LoadScene("WelcomeScene");
+        //SceneManager.LoadScene("WelcomeScene");
+        LevelLoader.Instance.LoadScene(0, false);
+    }
+
+    private void MidTransition()
+    {
+        _view.InitViews();
     }
 
     #endregion
