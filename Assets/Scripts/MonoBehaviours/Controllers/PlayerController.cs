@@ -67,6 +67,14 @@ public class PlayerController : ControllerHelper
     private void Start()
     {
         _modelPool.PoolObjects();
+
+#if UNITY_EDITOR
+        _viewOnscreenControls.ShowKeyTexts(true);
+#elif UNITY_ANDROID || UNITY_IOS
+        _viewOnscreenControls.ShowKeyTexts(false);
+#else
+        _viewOnscreenControls.ShowKeyTexts(true);
+#endif
     }
     private void Update()
     {
