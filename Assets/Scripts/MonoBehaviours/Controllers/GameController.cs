@@ -210,6 +210,8 @@ public class GameController : ASingleton<GameController>
             DeactivatePlayerControls();
             Controller.Player.ShowOnscreenControls(false);
             _view.ShowGamePausedUI(true);
+
+            Controller.RandomNote.GetNote();
         }
     }
 
@@ -220,6 +222,8 @@ public class GameController : ASingleton<GameController>
         ActivatePlayerControls();
         Controller.Player.ShowOnscreenControls(true);
         _view.ShowGamePausedUI(false);
+
+        Controller.RandomNote.Abort();
     }
 
     private void NextRound()

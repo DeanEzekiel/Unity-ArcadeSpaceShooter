@@ -11,6 +11,8 @@ public class Services : ASingleton<Services>
     public AdsHelper Ads;
     [SerializeField]
     public AnalyticsHelper Analytics;
+    [SerializeField]
+    public HttpClientHelper HttpClient;
     #endregion // Services
 
     #region UI
@@ -28,6 +30,7 @@ public class Services : ASingleton<Services>
         base.Awake();
         Ads.AwakeInit();
         Analytics.AwakeInit();
+        HttpClient.AwakeInit();
     }
 
     private void Start()

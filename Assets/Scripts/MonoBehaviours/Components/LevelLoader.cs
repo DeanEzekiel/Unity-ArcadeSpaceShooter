@@ -26,6 +26,7 @@ public class LevelLoader : ASingleton<LevelLoader>
     private void Start()
     {
         _loadingGroup.SetActive(false);
+        TryInitGame?.Invoke();
     }
 
     public void LoadScene(int sceneIndex, bool initGameController)
