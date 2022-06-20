@@ -7,7 +7,7 @@ using Unity.Services.Core;
 using Unity.Services.Analytics;
 using System.Threading.Tasks;
 
-namespace AnalyticsImplementation
+namespace KornerGames.Analytics
 {
     public class AnalyticsSystem : MonoBehaviour
     {

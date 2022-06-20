@@ -6,4 +6,5 @@ public class ControllerList : MonoBehaviour
     public ShopController Shop;
     public PlayerController Player;
     public TimerController Timer;
+    public RandomNoteController RandomNote;
 }

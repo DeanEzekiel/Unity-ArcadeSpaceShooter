@@ -21,6 +21,13 @@ public class PlayerView_MobileControls : MonoBehaviour
     private GameObject _blastIcon;
     [SerializeField]
     private GameObject _guardIcon;
+
+    [SerializeField]
+    private GameObject _shootKey;
+    [SerializeField]
+    private GameObject _blastKey;
+    [SerializeField]
+    private GameObject _guardKey;
     #endregion // Inspector Fields
 
     #region Private Fields
@@ -29,6 +36,13 @@ public class PlayerView_MobileControls : MonoBehaviour
     #endregion // Private Fields
 
     #region Public Methods
+    public void ShowKeyTexts(bool value)
+    {
+        _shootKey.SetActive(value);
+        _blastKey.SetActive(value);
+        _guardKey.SetActive(value);
+    }
+
     public void ResetJoystickPos()
     {
         //_joystick.position = Vector2.zero;

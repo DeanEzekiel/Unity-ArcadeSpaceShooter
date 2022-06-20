@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Advertisements;
 
-namespace AdsImplementation
+namespace KornerGames.Ads
 {
     public class AdsSystem : MonoBehaviour,
         IUnityAdsInitializationListener,

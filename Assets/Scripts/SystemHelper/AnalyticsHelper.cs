@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using AnalyticsImplementation;
 using System.Threading.Tasks;
+using KornerGames.Analytics;
 
 public class AnalyticsHelper : MonoBehaviour
 {

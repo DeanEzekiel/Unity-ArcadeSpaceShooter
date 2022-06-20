@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
-using AdsImplementation;
 using System;
+using KornerGames.Ads;
 
 public class AdsHelper : MonoBehaviour
 {

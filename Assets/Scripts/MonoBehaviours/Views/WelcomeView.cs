@@ -98,14 +98,8 @@ public class WelcomeView : MonoBehaviour
 
     private void PlayNow()
     {
-        try
-        {
-            GameController.Instance.InitGame();
-        } catch (Exception)
-        {
-            Debug.Log("No Singleton yet");
-        }
-        SceneManager.LoadScene("GameplayScene");
+        //SceneManager.LoadScene("GameplayScene");
+        LevelLoader.Instance.LoadScene(1, true);
     }
 
     private void ExitGame()

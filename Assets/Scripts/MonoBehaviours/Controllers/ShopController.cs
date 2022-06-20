@@ -84,6 +84,9 @@ public class ShopController : ControllerHelper
         SetItemAvailability(ItemPurpose.ShortenShieldRegen,
             Controller.Player.ShieldReplenishSec,
             _shopModel.ShieldRegenSecMinAllowed);
+        SetItemAvailability(ItemPurpose.AddCoins,
+            Controller.Player.Coins,
+            Controller.Player.CoinsMax);
     }
 
     /// <summary>
@@ -175,6 +178,18 @@ public class ShopController : ControllerHelper
         {
             item.DisablePurchasing(REASON_FULL);
         }
+        else if (inShop && item.IsAd)
+        {
+            // handle Ads
+            if (item.IsAdWatched)
+            {
+                item.DisablePurchasing(REASON_DONE_AD);
+            }
+            else
+            {
+                item.EnablePurchasing(BUY_AD_TEXT);
+            }
+        }
         else if (inShop && (Controller.Player.Coins < item.Cost))
         {
             item.DisablePurchasing(REASON_LOW_FUNDS);
@@ -192,6 +207,18 @@ public class ShopController : ControllerHelper
         if ((value == compareValue) && inShop)
         {
             item.DisablePurchasing(REASON_FULL);
+        }
+        else if (inShop && item.IsAd)
+        {
+            // handle Ads
+            if (item.IsAdWatched)
+            {
+                item.DisablePurchasing(REASON_DONE_AD);
+            }
+            else
+            {
+                item.EnablePurchasing(BUY_AD_TEXT);
+            }
         }
         else if (inShop && (Controller.Player.Coins < item.Cost))
         {

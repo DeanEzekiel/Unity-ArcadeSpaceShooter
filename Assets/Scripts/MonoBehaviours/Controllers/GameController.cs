@@ -24,7 +24,7 @@ public class GameController : ASingleton<GameController>
     }
     private void Start()
     {
-        InitGame();
+        //InitGame();
     }
 
     private void OnEnable()
@@ -41,6 +41,10 @@ public class GameController : ASingleton<GameController>
 
         TimerController.StartRound += OnStartRound;
         TimerController.TimeEnd += OnTimeEnd;
+        TimerController.EndRound += ShowShop;
+
+        LevelLoader.MidTransition += MidTransition;
+        LevelLoader.TryInitGame += InitGame;
 
         Controller.Enemy.ResetEnemySettings();
     }
@@ -60,6 +64,10 @@ public class GameController : ASingleton<GameController>
 
         TimerController.StartRound -= OnStartRound;
         TimerController.TimeEnd -= OnTimeEnd;
+        TimerController.EndRound -= ShowShop;
+
+        LevelLoader.MidTransition -= MidTransition;
+        LevelLoader.TryInitGame -= InitGame;
     }
     #endregion
 
@@ -98,9 +106,25 @@ public class GameController : ASingleton<GameController>
             AnalyticsKeys.pRound,
             Model.Round);
 
-        ShowShop();
+        DeactivateControlsAndEnemies();
+        //ShowShop();
         //PauseTime();
     }
+    private void DeactivateControlsAndEnemies()
+    {
+        Controller.Player.ShowOnscreenControls(false);
+        //disable player controls while shop is active or just use a bool
+        DeactivatePlayerControls();
+
+        //remove all aliens, asteroids and projectiles
+        DeactivateObjWithTag(Tags.Asteroid);
+        DeactivateObjWithTag(Tags.Alien);
+        DeactivateObjWithTag(Tags.PlayerProjectile);
+        DeactivateObjWithTag(Tags.Rocket);
+        DeactivateObjWithTag(Tags.AlienProjectile);
+        DeactivateObjWithTag(Tags.Coin);
+    }
+
     private void ActivatePlayerControls()
     {
         Controller.Player.AllowPlayerControls(true);
@@ -117,9 +141,9 @@ public class GameController : ASingleton<GameController>
             AnalyticsKeys.pRound,
             Model.Round);
 
-        DeactivatePlayerControls();
-        Controller.Player.ShowOnscreenControls(false);
+        
         _view.InitViews();
+        _view.ShowHUD(false);
         Controller.Enemy.StopSpawning();
         _view.ShowGameOverUI(true);
 
@@ -145,12 +169,7 @@ public class GameController : ASingleton<GameController>
 
         //destroy Player, Asteroid, Enemy, Projectiles
         Controller.Player.HideView();
-        DeactivateObjWithTag(Tags.Asteroid);
-        DeactivateObjWithTag(Tags.Alien);
-        DeactivateObjWithTag(Tags.PlayerProjectile);
-        DeactivateObjWithTag(Tags.Rocket);
-        DeactivateObjWithTag(Tags.AlienProjectile);
-        DeactivateObjWithTag(Tags.Coin);
+        DeactivateControlsAndEnemies();
 
         //Time Stops so that timer won't tick
         PauseTime();
@@ -166,28 +185,17 @@ public class GameController : ASingleton<GameController>
 
     private void ShowShop()
     {
+        _view.ShowHUD(false);
         _view.ShowShopUI(true);
-        Controller.Player.ShowOnscreenControls(false);
 
         Controller.Shop.UpdateViewTexts();
-        Controller.Shop.CheckMaxAllowed();
         Controller.Shop.CheckAdItems();
-
-        //disable player controls while shop is active or just use a bool
-        DeactivatePlayerControls();
-
-        //remove all aliens, asteroids and projectiles
-        DeactivateObjWithTag(Tags.Asteroid);
-        DeactivateObjWithTag(Tags.Alien);
-        DeactivateObjWithTag(Tags.PlayerProjectile);
-        DeactivateObjWithTag(Tags.Rocket);
-        DeactivateObjWithTag(Tags.AlienProjectile);
-        DeactivateObjWithTag(Tags.Coin);
+        Controller.Shop.CheckMaxAllowed();
     }
-    private void DeactivateObjWithTag(string destroyTag)
+    private void DeactivateObjWithTag(string tag)
     {
         GameObject[] destroyObject;
-        destroyObject = GameObject.FindGameObjectsWithTag(destroyTag);
+        destroyObject = GameObject.FindGameObjectsWithTag(tag);
         foreach (GameObject obj in destroyObject)
         {
             //Destroy(oneObject);
@@ -204,6 +212,8 @@ public class GameController : ASingleton<GameController>
             DeactivatePlayerControls();
             Controller.Player.ShowOnscreenControls(false);
             _view.ShowGamePausedUI(true);
+
+            Controller.RandomNote.GetNote();
         }
     }
 
@@ -214,12 +224,15 @@ public class GameController : ASingleton<GameController>
         ActivatePlayerControls();
         Controller.Player.ShowOnscreenControls(true);
         _view.ShowGamePausedUI(false);
+
+        Controller.RandomNote.Abort();
     }
 
     private void NextRound()
     {
         Debug.Log("GameMaster Next Round");
         _view.InitViews();
+        _view.ShowHUD(true);
 
         DeactivatePlayerControls();
         Controller.Player.ShowOnscreenControls(true);
@@ -305,10 +318,16 @@ public class GameController : ASingleton<GameController>
     private void GoToMainMenu()
     {
         DeactivatePlayerControls();
-        _view.InitViews();
+        //_view.InitViews(); // should wait for the MidTransition before removing the views
         _view.ShowHUD(false);
         PlayTime();
-        SceneManager.LoadScene("WelcomeScene");
+        //SceneManager.LoadScene("WelcomeScene");
+        LevelLoader.Instance.LoadScene(0, false);
+    }
+
+    private void MidTransition()
+    {
+        _view.InitViews();
     }
 
     #endregion
