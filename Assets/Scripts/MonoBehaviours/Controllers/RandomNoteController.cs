@@ -46,7 +46,10 @@ public class RandomNoteController : ControllerHelper
 
     public void Abort()
     {
-        Services.Instance.HttpClient.Abort();
+        if (Services.Instance.HttpClient != null)
+        {
+            Services.Instance.HttpClient.Abort();
+        }
     }
     #endregion // Public Methods
 

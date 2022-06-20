@@ -394,7 +394,7 @@ RectTransform:
   m_Children:
   - {fileID: 7221048255110829976}
   m_Father: {fileID: 5774085417212210394}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -614,6 +614,7 @@ Transform:
   m_Children:
   - {fileID: 5774085417105483549}
   - {fileID: 5774085416708425058}
+  - {fileID: 1434214129528787150}
   - {fileID: 2865204409645972776}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -632,9 +633,68 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Ads: {fileID: 5774085417105483548}
   Analytics: {fileID: 6187335063358843952}
+  HttpClient: {fileID: 788117551308819590}
   _popUp: {fileID: 2475417057581384367}
   _shortMessage: {fileID: 1179357551102920620}
   _btnClose: {fileID: 7373255686489104805}
+--- !u!1 &7828165985184222829
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1434214129528787150}
+  - component: {fileID: 7176655504705494383}
+  - component: {fileID: 788117551308819590}
+  m_Layer: 0
+  m_Name: HttpClient
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1434214129528787150
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7828165985184222829}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5774085417212210394}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7176655504705494383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7828165985184222829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f684755036b941499e09a0e34b543e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &788117551308819590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7828165985184222829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e82ea0630d3ee452aa80c00dcac8e176, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _userAgent: Arcade Shooter by Korner Games
+  _accept: application/json
 --- !u!1 &8063986081091413014
 GameObject:
   m_ObjectHideFlags: 0
