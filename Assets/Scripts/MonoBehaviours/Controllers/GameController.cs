@@ -143,6 +143,7 @@ public class GameController : ASingleton<GameController>
 
         
         _view.InitViews();
+        _view.ShowHUD(false);
         Controller.Enemy.StopSpawning();
         _view.ShowGameOverUI(true);
 
@@ -184,6 +185,7 @@ public class GameController : ASingleton<GameController>
 
     private void ShowShop()
     {
+        _view.ShowHUD(false);
         _view.ShowShopUI(true);
 
         Controller.Shop.UpdateViewTexts();
@@ -230,6 +232,7 @@ public class GameController : ASingleton<GameController>
     {
         Debug.Log("GameMaster Next Round");
         _view.InitViews();
+        _view.ShowHUD(true);
 
         DeactivatePlayerControls();
         Controller.Player.ShowOnscreenControls(true);
