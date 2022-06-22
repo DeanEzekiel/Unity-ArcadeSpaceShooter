@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d88317c459674a0594cc8c914f9d7d3, type: 3}
+  m_Name: BGM Config
+  m_EditorClassIdentifier: 
+  Volume: 0
+  MainMenu:
+  - {fileID: 8300000, guid: ff5bec9866cae4acc940100e8dcd1dea, type: 3}
+  - {fileID: 8300000, guid: ce5b08a8c748a4011b434f7bcb5a08d2, type: 3}
+  Shop:
+  - {fileID: 8300000, guid: a7aafbe257c8d48abbb511e6bdb7e356, type: 3}
+  Gameplay:
+  - {fileID: 8300000, guid: 5e1bf21ec179e491f9331a9d40be986a, type: 3}
+  - {fileID: 8300000, guid: b8403902141e34b8d92ca91eeb744c1f, type: 3}
+  - {fileID: 8300000, guid: d64ea73d4748a4646a76a35cbf30f168, type: 3}

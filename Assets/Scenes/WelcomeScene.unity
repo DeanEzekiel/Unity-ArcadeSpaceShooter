@@ -972,6 +972,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 139817592}
+        m_TargetAssemblyTypeName: WelcomeView, Assembly-CSharp
+        m_MethodName: PlayClickSFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &580062825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1187,6 +1199,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 21300000, guid: 7814549130b6b456e8fa41c9cfbde971, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Sprite, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 139817592}
+        m_TargetAssemblyTypeName: WelcomeView, Assembly-CSharp
+        m_MethodName: PlayClickSFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2794,6 +2818,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 139817592}
+        m_TargetAssemblyTypeName: WelcomeView, Assembly-CSharp
+        m_MethodName: PlayClickSFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1171075827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3034,6 +3070,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 139817592}
+        m_TargetAssemblyTypeName: WelcomeView, Assembly-CSharp
+        m_MethodName: PlayClickSFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1353107571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3174,6 +3222,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 21300000, guid: cabd44f973d19429eb3eb7736b6eed5f, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Sprite, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 139817592}
+        m_TargetAssemblyTypeName: WelcomeView, Assembly-CSharp
+        m_MethodName: PlayClickSFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -4303,6 +4363,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 139817592}
+        m_TargetAssemblyTypeName: WelcomeView, Assembly-CSharp
+        m_MethodName: PlayClickSFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1991067686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4615,6 +4687,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3721865756290887032, guid: bf6332b14828043ceaeedc6d05ed41c6, type: 3}
   m_PrefabInstance: {fileID: 1649234677}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2650499539265935196
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2650499539439892465, guid: 131b340f9c92f40788dde931a84cb104, type: 3}
+      propertyPath: m_Name
+      value: Audio
+      objectReference: {fileID: 0}
+    - target: {fileID: 2650499539439892467, guid: 131b340f9c92f40788dde931a84cb104, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2650499539439892467, guid: 131b340f9c92f40788dde931a84cb104, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 468.99484
+      objectReference: {fileID: 0}
+    - target: {fileID: 2650499539439892467, guid: 131b340f9c92f40788dde931a84cb104, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 241.15007
+      objectReference: {fileID: 0}
+    - target: {fileID: 2650499539439892467, guid: 131b340f9c92f40788dde931a84cb104, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3221.2544
+      objectReference: {fileID: 0}
+    - target: {fileID: 2650499539439892467, guid: 131b340f9c92f40788dde931a84cb104, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2650499539439892467, guid: 131b340f9c92f40788dde931a84cb104, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2650499539439892467, guid: 131b340f9c92f40788dde931a84cb104, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2650499539439892467, guid: 131b340f9c92f40788dde931a84cb104, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2650499539439892467, guid: 131b340f9c92f40788dde931a84cb104, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2650499539439892467, guid: 131b340f9c92f40788dde931a84cb104, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2650499539439892467, guid: 131b340f9c92f40788dde931a84cb104, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 131b340f9c92f40788dde931a84cb104, type: 3}
 --- !u!1 &5578269518079096714
 GameObject:
   m_ObjectHideFlags: 0

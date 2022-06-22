@@ -52,9 +52,12 @@ public class WelcomeView : MonoBehaviour
 
 
     #endregion
-    // Start is called before the first frame update
+
+    #region Unity Callbacks
     void Start()
     {
+        PlayMenuBGM();
+
         pnlBanner.SetActive(true);
         pnlHome.SetActive(true);
         pnlHelp.SetActive(false);
@@ -66,9 +69,12 @@ public class WelcomeView : MonoBehaviour
 
         CheckHighScore();
     }
+    #endregion // Unity Callbacks
 
+    #region Implementation
     private void ShowHelp()
     {
+        PlayClickSFX();
         pnlHome.SetActive(false);
         pnlHelp.SetActive(true);
 
@@ -77,6 +83,7 @@ public class WelcomeView : MonoBehaviour
 
     private void ShowHome()
     {
+        PlayClickSFX();
         pnlHome.SetActive(true);
         pnlHelp.SetActive(false);
     }
@@ -98,12 +105,14 @@ public class WelcomeView : MonoBehaviour
 
     private void PlayNow()
     {
+        PlayClickSFX();
         //SceneManager.LoadScene("GameplayScene");
         LevelLoader.Instance.LoadScene(1, true);
     }
 
     private void ExitGame()
     {
+        PlayClickSFX();
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #elif UNITY_WEBPLAYER
@@ -112,4 +121,17 @@ public class WelcomeView : MonoBehaviour
         Application.Quit();
 #endif
     }
+
+    private void PlayMenuBGM()
+    {
+        AudioController.Instance.PlayBGM(BGM.MainMenu);
+    }
+    #endregion // Implementation
+
+    #region Public Methods
+    public void PlayClickSFX()
+    {
+        AudioController.Instance.PlaySFX(SFX.UIClick);
+    }
+    #endregion // Public Methods
 }
