@@ -234,6 +234,7 @@ public class PlayerController : ControllerHelper
     #region Class Implementation
     private void OnPausePress()
     {
+        AudioController.Instance.PlaySFX(SFX.UIClick);
         PausePressed?.Invoke();
     }
     private void Move()
@@ -301,6 +302,8 @@ public class PlayerController : ControllerHelper
             if (playerControls.Input.Shoot.IsPressed())
             {
                 _view.Shoot(this);
+                AudioController.Instance.PlaySFX(SFX.Player_Shoot);
+
                 shootTimer = _model.playerBulletCooldown;
             }
         }
@@ -322,6 +325,15 @@ public class PlayerController : ControllerHelper
         bool newValue = !_view.Shield.activeInHierarchy;
         _view.ToggleShield(newValue);
         _model.shieldOn = newValue;
+
+        if (newValue)
+        {
+            AudioController.Instance.PlaySFX(SFX.Player_Shield_Activate);
+        }
+        else
+        {
+            AudioController.Instance.PlaySFX(SFX.Player_Shield_Deactivate);
+        }
     }
     private void BlasterAbility()
     {
@@ -336,6 +348,8 @@ public class PlayerController : ControllerHelper
                 {
                     _model.rocketCount--;
                     _view.ShootRocket(this);
+                    AudioController.Instance.PlaySFX(SFX.Player_Rocket_Launch);
+
                     blasterTimer = _model.rocketCooldown;
 
                     CheckRemainingRockets();
@@ -376,6 +390,7 @@ public class PlayerController : ControllerHelper
 
     private void OnBump(int addScore)
     {
+        AudioController.Instance.PlaySFX(SFX.Hit_Crash);
         //score
         _model.score += addScore;
         if (_model.shieldOn == false)

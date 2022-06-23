@@ -40,9 +40,9 @@ public class AudioController : ASingleton<AudioController>
         SFX.Stop();
     }
 
-    public void PlayBGM(BGM type)
+    public void PlayBGM(BGM type, bool switchClipRegardless)
     {
-        BGM.Play(type);
+        BGM.Play(type, switchClipRegardless);
     }
 
     public void StopBGM()

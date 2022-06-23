@@ -30,6 +30,7 @@ public abstract class AEnemy : ACollidable
     {
         if (hit)
         {
+            AudioController.Instance.PlaySFX(SFX.Hit_Crash);
             int randomNumber = UnityEngine.Random.Range(1, 101); //from 1 - 100
 
             if (randomNumber <= Controller.CoinDropRate)

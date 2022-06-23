@@ -273,6 +273,7 @@ public class ShopController : ControllerHelper
 
     private void OnPurchase(ItemPurpose purpose, float value, int cost, bool isAd)
     {
+        AudioController.Instance.PlaySFX(SFX.UIClick);
         if (isAd)
         {
             _cachedPurpose = purpose;

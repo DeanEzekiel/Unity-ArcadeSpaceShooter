@@ -37,9 +37,9 @@ public class Services : ASingleton<Services>
     {
         // Ads Start
         Ads.StartInit();
-        ClosePopUp(); // initially set it to closed
+        HidePopup(); // initially set it to closed
 
-        _btnClose.onClick.AddListener(ClosePopUp);
+        _btnClose.onClick.AddListener(OnClosePopup);
         // End of Ads Start
 
         // Analytics Start
@@ -70,7 +70,13 @@ public class Services : ASingleton<Services>
         _shortMessage.text = message;
     }
 
-    private void ClosePopUp()
+    private void OnClosePopup()
+    {
+        AudioController.Instance.PlaySFX(SFX.UIClick);
+        HidePopup();
+    }
+
+    private void HidePopup()
     {
         _popUp.SetActive(false);
     }

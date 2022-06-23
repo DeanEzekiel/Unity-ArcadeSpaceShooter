@@ -267,6 +267,8 @@ public class Alien : AEnemy
             bullet.SetSpecs(Controller.AlienBulletSpeed, Controller.AlienBulletLifetime);
             bullet.Activate();
 
+            AudioController.Instance.PlaySFX(SFX.Enemy_Shoot);
+
             shootTimer = defaultBulletCooldown;
             //print("Shoot Now");
         }

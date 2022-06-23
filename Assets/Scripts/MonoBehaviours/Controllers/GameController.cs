@@ -135,6 +135,8 @@ public class GameController : ASingleton<GameController>
     }
     private void GameOver()
     {
+        AudioController.Instance.StopBGM();
+        AudioController.Instance.PlaySFX(SFX.GameOver);
         // Log Game Over
         Services.Instance.Analytics.SetCustomEvent(
             AnalyticsKeys.eGameOver,
@@ -187,6 +189,7 @@ public class GameController : ASingleton<GameController>
     {
         _view.ShowHUD(false);
         _view.ShowShopUI(true);
+        AudioController.Instance.PlayBGM(BGM.Shop, true);
 
         Controller.Shop.UpdateViewTexts();
         Controller.Shop.CheckAdItems();

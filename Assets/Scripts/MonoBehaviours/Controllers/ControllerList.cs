@@ -7,6 +7,4 @@ public class ControllerList : MonoBehaviour
     public PlayerController Player;
     public TimerController Timer;
     public RandomNoteController RandomNote;
-
-    public AudioController Audio => AudioController.Instance;
 }

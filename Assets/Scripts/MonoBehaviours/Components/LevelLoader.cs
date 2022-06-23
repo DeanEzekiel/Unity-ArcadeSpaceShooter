@@ -38,6 +38,7 @@ public class LevelLoader : ASingleton<LevelLoader>
     {
         // play the start transition anim
         _transition.SetTrigger("Start");
+        AudioController.Instance.PlaySFX(SFX.UITransition_Close);
 
         // wait to complete
         yield return new WaitForSeconds(_transitionTime);
@@ -68,6 +69,7 @@ public class LevelLoader : ASingleton<LevelLoader>
             }
 
             _transition.SetTrigger("End");
+            AudioController.Instance.PlaySFX(SFX.UITransition_Open);
         }
     }
 }

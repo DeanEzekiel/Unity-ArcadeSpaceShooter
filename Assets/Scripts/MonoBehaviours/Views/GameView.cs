@@ -235,6 +235,7 @@ public class GameView : ASingleton<GameView>
     #region Button Actions
     private void OnQuitGame()
     {
+        AudioController.Instance.PlaySFX(SFX.UIClick);
         if (IsGameOverUIActive)
         {
             // go to Main Menu
@@ -249,6 +250,7 @@ public class GameView : ASingleton<GameView>
 
     private void OnNextRound()
     {
+        AudioController.Instance.PlaySFX(SFX.UIClick);
         //Restart Scene
         NextRound?.Invoke();
         // TODO LoadScene should be managed by the Controller
@@ -257,6 +259,7 @@ public class GameView : ASingleton<GameView>
 
     private void OnRestartGame()
     {
+        AudioController.Instance.PlaySFX(SFX.UIClick);
         //Restart Game
         RestartGame?.Invoke();
         // TODO LoadScene should be managed by the Controller
@@ -265,6 +268,7 @@ public class GameView : ASingleton<GameView>
 
     private void OnSaveHighScore()
     {
+        AudioController.Instance.PlaySFX(SFX.UIClick);
         if (!string.IsNullOrEmpty(playerNameInput.text))
         {
             playerNameHolder.text = playerNameInput.text;
@@ -274,6 +278,7 @@ public class GameView : ASingleton<GameView>
 
     private void OnResumeGame()
     {
+        AudioController.Instance.PlaySFX(SFX.UIClick);
         ResumeGame?.Invoke();
     }
 

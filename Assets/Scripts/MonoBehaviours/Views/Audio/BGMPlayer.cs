@@ -25,31 +25,13 @@ public class BGMPlayer : MonoBehaviour
         audioSource.volume = newValue;
     }
 
-    public void Play(BGM type)
+    public void Play(BGM type, bool switchClipRegardless)
     {
-        if(currentBGM != type)
+        if (switchClipRegardless || (currentBGM != type))
         {
             Stop();
             currentBGM = type;
-
-            int random = 0;
-
-            switch (type)
-            {
-                case BGM.MainMenu:
-                    random = Random.Range(0, model.MainMenu.Count);
-                    audioSource.clip = model.MainMenu[random];
-                    break;
-                case BGM.Gameplay:
-                    random = Random.Range(0, model.Gameplay.Count);
-                    audioSource.clip = model.Gameplay[random];
-                    break;
-                case BGM.Shop:
-                    random = Random.Range(0, model.Shop.Count);
-                    audioSource.clip = model.Shop[random];
-                    break;
-            }
-
+            SetAudioClip(type);
             audioSource.Play();
         }
     }
@@ -60,6 +42,27 @@ public class BGMPlayer : MonoBehaviour
         {
             audioSource.Stop();
             currentBGM = BGM.None;
+        }
+    }
+
+    private void SetAudioClip(BGM type)
+    {
+        int random = 0;
+
+        switch (type)
+        {
+            case BGM.MainMenu:
+                random = Random.Range(0, model.MainMenu.Count);
+                audioSource.clip = model.MainMenu[random];
+                break;
+            case BGM.Gameplay:
+                random = Random.Range(0, model.Gameplay.Count);
+                audioSource.clip = model.Gameplay[random];
+                break;
+            case BGM.Shop:
+                random = Random.Range(0, model.Shop.Count);
+                audioSource.clip = model.Shop[random];
+                break;
         }
     }
 }

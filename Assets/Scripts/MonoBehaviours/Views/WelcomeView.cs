@@ -124,7 +124,7 @@ public class WelcomeView : MonoBehaviour
 
     private void PlayMenuBGM()
     {
-        AudioController.Instance.PlayBGM(BGM.MainMenu);
+        AudioController.Instance.PlayBGM(BGM.MainMenu, false);
     }
     #endregion // Implementation
 
