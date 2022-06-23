@@ -154,7 +154,6 @@ public class PlayerController : ControllerHelper
 
     public void CoinCollected()
     {
-        // TODO should the coins be clamped to MAX 99?
         //_model.coins++;
 
         _model.coins = Mathf.Clamp(
@@ -170,7 +169,6 @@ public class PlayerController : ControllerHelper
 
     public void AddCoins(int value)
     {
-        // TODO should the coins be clamped to MAX 99?
         //_model.coins += value;
 
         _model.coins = Mathf.Clamp(

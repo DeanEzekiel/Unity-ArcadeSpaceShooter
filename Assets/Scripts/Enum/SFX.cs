@@ -8,6 +8,7 @@ public enum SFX
     Enemy_Shoot,
 
     Hit_Crash,
+    Coin_Plus,
 
     Countdown_Counting,
     Countdown_End,

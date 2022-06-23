@@ -26,6 +26,7 @@ public class Coin : MonoBehaviour
     {
         if (other.gameObject.CompareTag(Tags.Player))
         {
+            AudioController.Instance.PlaySFX(SFX.Coin_Plus);
             GameController.Instance.CoinCollected();
             //Destroy(gameObject);
             Deactivate();

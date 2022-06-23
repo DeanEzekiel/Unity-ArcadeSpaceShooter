@@ -13,6 +13,8 @@ public class SFXConfig : ScriptableObject
     public AudioClip Player_Rocket_Launch;
     public AudioClip Player_Rocket_Impact;
     [Space]
+    public AudioClip Coin_Plus;
+    [Space]
     public AudioClip Countdown_Counting;
     public AudioClip Countdown_End;
     [Space]

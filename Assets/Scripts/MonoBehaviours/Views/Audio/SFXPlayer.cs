@@ -52,6 +52,9 @@ public class SFXPlayer : MonoBehaviour
             case SFX.Player_Rocket_Impact:
                 audioSource.PlayOneShot(model.Player_Rocket_Impact);
                 break;
+            case SFX.Coin_Plus:
+                audioSource.PlayOneShot(model.Coin_Plus);
+                break;
             case SFX.Countdown_Counting:
                 audioSource.PlayOneShot(model.Countdown_Counting);
                 break;
