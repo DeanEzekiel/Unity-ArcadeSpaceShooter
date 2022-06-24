@@ -21,11 +21,15 @@ public class GameView : ASingleton<GameView>
     private GameObject uiHUD;
     [SerializeField]
     private GameObject uiBG;
-
+    [Space]
     [SerializeField]
     private GameObject uiGOverNewHiBoard;
     [SerializeField]
     private GameObject uiGOverFailedBoard;
+    [SerializeField]
+    private GameObject uiFXNewHighScore;
+    [SerializeField]
+    private GameObject uiFXFailed;
 
     [Header("Gamer Over - Player Score")]
     [SerializeField]
@@ -188,6 +192,7 @@ public class GameView : ASingleton<GameView>
     public void ShowGameOverPassBoard(bool value)
     {
         uiGOverNewHiBoard.SetActive(value);
+        uiFXNewHighScore.SetActive(value);
     }
 
     public void ShowInputHiScoreName(bool value)
@@ -212,6 +217,7 @@ public class GameView : ASingleton<GameView>
     public void ShowGameOverFailBoard(bool value)
     {
         uiGOverFailedBoard.SetActive(value);
+        uiFXFailed.SetActive(value);
     }
 
     public void ShowGamePausedUI(bool value)
