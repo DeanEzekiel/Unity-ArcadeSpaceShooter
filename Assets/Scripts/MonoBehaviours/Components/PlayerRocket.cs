@@ -7,9 +7,6 @@ public class PlayerRocket : AProjectile
     private bool hit = false;
     private float blastRadius;
 
-    [SerializeField]
-    private GameObject blast;
-
     private SpriteRenderer spriteRenderer;
     private CapsuleCollider2D capsuleCollider;
 
@@ -29,7 +26,6 @@ public class PlayerRocket : AProjectile
     public override void Activate()
     {
         hit = false;
-        blast.SetActive(false);
         spriteRenderer.enabled = true;
         capsuleCollider.enabled = true;
         base.Activate();
@@ -50,7 +46,6 @@ public class PlayerRocket : AProjectile
         //don't destroy it yet
 
         hit = true; //once hit, it will stop moving
-        blast.SetActive(true); //blast becomes visible
 
         //rocket's sprite and collider becomes invisible & untouchable
         spriteRenderer.enabled = false;
