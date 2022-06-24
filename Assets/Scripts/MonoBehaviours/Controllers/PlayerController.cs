@@ -227,6 +227,11 @@ public class PlayerController : ControllerHelper
     {
         return _modelPool.GetPlayerRocket();
     }
+
+    public void ShowEffect(VFX vfxType, Vector3 position)
+    {
+        Controller.VFX.SpawnVFX(vfxType, position);
+    }
     #endregion // Public Methods for Pooling
 
     #region Class Implementation
@@ -324,6 +329,8 @@ public class PlayerController : ControllerHelper
         _view.ToggleShield(newValue);
         _model.shieldOn = newValue;
 
+        ShowEffect(VFX.ShieldToggle, _view.transform.position);
+
         if (newValue)
         {
             AudioController.Instance.PlaySFX(SFX.Player_Shield_Activate);
@@ -388,6 +395,7 @@ public class PlayerController : ControllerHelper
 
     private void OnBump(int addScore)
     {
+        ShowEffect(VFX.PlayerHit, _view.transform.position);
         AudioController.Instance.PlaySFX(SFX.Hit_Crash);
         //score
         _model.score += addScore;

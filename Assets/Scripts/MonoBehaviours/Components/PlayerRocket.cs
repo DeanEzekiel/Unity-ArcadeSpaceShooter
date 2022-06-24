@@ -61,6 +61,8 @@ public class PlayerRocket : AProjectile
 
     private void Explode()
     {
+        GameController.Instance.Controller.VFX.SpawnVFX(VFX.RocketImpact,
+            transform.position);
         AudioController.Instance.PlaySFX(SFX.Player_Rocket_Impact);
         LayerMask Interactables = LayerMask.GetMask(Layers.Interactables);
         RaycastHit2D[] radiusHit = Physics2D.CircleCastAll(transform.position,

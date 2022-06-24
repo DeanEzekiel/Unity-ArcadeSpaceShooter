@@ -28,6 +28,11 @@ public class Asteroid : AEnemy
 
     public override void OnDisable()
     {
+        if (hit)
+        {
+            Controller.ShowEffect(VFX.AsteroidHit, transform.position);
+        }
+
         base.OnDisable();
         _isActivated = false;
     }

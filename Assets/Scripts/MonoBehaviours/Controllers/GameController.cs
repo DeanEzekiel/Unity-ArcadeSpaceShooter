@@ -123,6 +123,8 @@ public class GameController : ASingleton<GameController>
         DeactivateObjWithTag(Tags.Rocket);
         DeactivateObjWithTag(Tags.AlienProjectile);
         DeactivateObjWithTag(Tags.Coin);
+
+        Controller.VFX.DisableActiveVFXs();
     }
 
     private void ActivatePlayerControls()

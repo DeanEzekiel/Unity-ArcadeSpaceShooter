@@ -69,6 +69,15 @@ public class Alien : AEnemy
         Entering();
     }
 
+    public override void OnDisable()
+    {
+        if (hit)
+        {
+            Controller.ShowEffect(VFX.AlienHit, transform.position);
+        }
+        base.OnDisable();
+    }
+
     private void Update()
     {
         if (entering)

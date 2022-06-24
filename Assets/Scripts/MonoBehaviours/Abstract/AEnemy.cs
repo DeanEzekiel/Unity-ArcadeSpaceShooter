@@ -25,7 +25,7 @@ public abstract class AEnemy : ACollidable
     {
         gameObject.SetActive(true);
     }
-
+    // TODO to Protected
     public virtual void OnDisable()
     {
         if (hit)

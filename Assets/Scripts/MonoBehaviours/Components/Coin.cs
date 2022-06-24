@@ -11,6 +11,9 @@ public class Coin : MonoBehaviour
     public void Activate(int sec)
     {
         gameObject.SetActive(true);
+        
+        GameController.Instance.Controller.VFX.SpawnVFX(VFX.CoinSpawn,
+            transform.position);
         StartCoroutine(C_Deactivate(sec));
     }
     private void Deactivate()
@@ -26,6 +29,8 @@ public class Coin : MonoBehaviour
     {
         if (other.gameObject.CompareTag(Tags.Player))
         {
+            GameController.Instance.Controller.VFX.SpawnVFX(VFX.CoinPickup,
+                transform.position);
             AudioController.Instance.PlaySFX(SFX.Coin_Plus);
             GameController.Instance.CoinCollected();
             //Destroy(gameObject);
