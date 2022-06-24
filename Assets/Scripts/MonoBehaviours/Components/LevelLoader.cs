@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class LevelLoader : ASingleton<LevelLoader>
 {
+    public bool InitialTransition = true;
     [SerializeField]
     private Animator _transition;
     [SerializeField]
@@ -25,8 +26,11 @@ public class LevelLoader : ASingleton<LevelLoader>
 
     private void Start()
     {
-        _loadingGroup.SetActive(false);
-        TryInitGame?.Invoke();
+        if (!InitialTransition)
+        {
+            _loadingGroup.SetActive(false);
+            TryInitGame?.Invoke();
+        }
     }
 
     public void LoadScene(int sceneIndex, bool initGameController)
@@ -36,13 +40,22 @@ public class LevelLoader : ASingleton<LevelLoader>
 
     private IEnumerator C_TransitionToScene(int sceneIndex, bool initGameController)
     {
-        // play the start transition anim
-        _transition.SetTrigger("Start");
-        AudioController.Instance.PlaySFX(SFX.UITransition_Close);
+        if (AudioController.Instance != null)
+        {
+            AudioController.Instance.PlaySFX(SFX.UITransition_Close);
+        }
 
-        // wait to complete
-        yield return new WaitForSeconds(_transitionTime);
-        MidTransition?.Invoke();
+        // play the start transition anim
+        // only if InitialTransition is false
+        if (!InitialTransition)
+        {
+            _transition.SetTrigger("Start");
+
+
+            // wait to complete
+            yield return new WaitForSeconds(_transitionTime);
+            MidTransition?.Invoke();
+        }
 
         // load scene
         //SceneManager.LoadScene(sceneIndex);
@@ -69,7 +82,12 @@ public class LevelLoader : ASingleton<LevelLoader>
             }
 
             _transition.SetTrigger("End");
-            AudioController.Instance.PlaySFX(SFX.UITransition_Open);
+            if (AudioController.Instance != null)
+            {
+                AudioController.Instance.PlaySFX(SFX.UITransition_Open);
+            }
         }
+
+        InitialTransition = false;
     }
 }

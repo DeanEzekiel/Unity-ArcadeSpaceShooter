@@ -107,7 +107,7 @@ public class WelcomeView : MonoBehaviour
     {
         PlayClickSFX();
         //SceneManager.LoadScene("GameplayScene");
-        LevelLoader.Instance.LoadScene(1, true);
+        LevelLoader.Instance.LoadScene(2, true);
     }
 
     private void ExitGame()

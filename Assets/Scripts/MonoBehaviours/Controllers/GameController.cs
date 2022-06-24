@@ -327,7 +327,7 @@ public class GameController : ASingleton<GameController>
         _view.ShowHUD(false);
         PlayTime();
         //SceneManager.LoadScene("WelcomeScene");
-        LevelLoader.Instance.LoadScene(0, false);
+        LevelLoader.Instance.LoadScene(1, false);
     }
 
     private void MidTransition()
