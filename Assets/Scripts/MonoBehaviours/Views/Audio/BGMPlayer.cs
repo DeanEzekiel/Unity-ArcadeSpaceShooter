@@ -12,10 +12,11 @@ public class BGMPlayer : MonoBehaviour
 
     private BGM currentBGM = BGM.None;
 
-    public void Init()
+    public void Init(float value)
     {
         audioSource = GetComponent<AudioSource>();
-        UpdateVolume(PlayerPrefs.GetFloat(PlayerPrefKeys.fBGMVolume, 1f));
+
+        UpdateVolume(value);
     }
 
     public void UpdateVolume(float newValue)

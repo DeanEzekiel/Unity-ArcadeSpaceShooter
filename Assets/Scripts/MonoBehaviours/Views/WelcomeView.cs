@@ -40,6 +40,17 @@ public class WelcomeView : MonoBehaviour
     [SerializeField]
     private GameObject brdDefault;
 
+    [Header("Volume Control")]
+    [SerializeField]
+    private Button btnSoundSettings;
+    [SerializeField]
+    private GameObject pnlSoundSettings;
+    [SerializeField]
+    private Slider sldBGM;
+    [SerializeField]
+    private Slider sldSFX;
+
+
     [Header("Texts")]
     [SerializeField]
     private string NoHighScore = "NO HIGH SCORE AT THE MOMENT.";
@@ -62,14 +73,78 @@ public class WelcomeView : MonoBehaviour
         pnlHome.SetActive(true);
         pnlHelp.SetActive(false);
 
+        btnHelp.gameObject.SetActive(true);
+        btnHome.gameObject.SetActive(false);
+
         btnHelp.onClick.AddListener(ShowHelp);
         btnHome.onClick.AddListener(ShowHome);
         btnPlayNow.onClick.AddListener(PlayNow);
         btnExitGame.onClick.AddListener(ExitGame);
 
+        btnSoundSettings.onClick.AddListener(ShowSoundSettings);
+        sldBGM.onValueChanged.AddListener(delegate { BGMSliderChange(); });
+        sldSFX.onValueChanged.AddListener(delegate { SFXSliderChange(); });
+        pnlSoundSettings.SetActive(false);
+
         CheckHighScore();
     }
+
+    private void OnEnable()
+    {
+        AudioController.ReflectBGMValue += UpdateBGM;
+        AudioController.ReflectSFXValue += UpdateSFX;
+    }
+
+    private void OnDisable()
+    {
+        AudioController.ReflectBGMValue -= UpdateBGM;
+        AudioController.ReflectSFXValue -= UpdateSFX;
+    }
+
     #endregion // Unity Callbacks
+
+    #region Sound Implementation
+    /// <summary>
+    /// Called on initialize of the Audio Controller.
+    /// </summary>
+    /// <param name="value">Value of the Player Prefs BGM Volume</param>
+    private void UpdateBGM(float value)
+    {
+        sldBGM.value = value;
+    }
+
+    /// <summary>
+    /// Called on initialize of the Audio Controller.
+    /// </summary>
+    /// <param name="value">Value of the Player Prefs SFX Volume</param>
+    private void UpdateSFX(float value)
+    {
+        sldSFX.value = value;
+    }
+
+    private void ShowSoundSettings()
+    {
+        PlayClickSFX();
+        if (pnlSoundSettings.activeInHierarchy)
+        {
+            pnlSoundSettings.SetActive(false);
+        }
+        else
+        {
+            pnlSoundSettings.SetActive(true);
+        }
+    }
+
+    private void SFXSliderChange()
+    {
+        AudioController.Instance.UpdateSFXVolume(sldSFX.value);
+    }
+
+    private void BGMSliderChange()
+    {
+        AudioController.Instance.UpdateBGMVolume(sldBGM.value);
+    }
+    #endregion // Sound Implementation
 
     #region Implementation
     private void ShowHelp()
@@ -79,6 +154,9 @@ public class WelcomeView : MonoBehaviour
         pnlHelp.SetActive(true);
 
         brdDefault.SetActive(false);
+
+        btnHelp.gameObject.SetActive(false);
+        btnHome.gameObject.SetActive(true);
     }
 
     private void ShowHome()
@@ -86,6 +164,9 @@ public class WelcomeView : MonoBehaviour
         PlayClickSFX();
         pnlHome.SetActive(true);
         pnlHelp.SetActive(false);
+
+        btnHelp.gameObject.SetActive(true);
+        btnHome.gameObject.SetActive(false);
     }
 
     private void CheckHighScore()

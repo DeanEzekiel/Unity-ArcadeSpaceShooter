@@ -10,10 +10,11 @@ public class SFXPlayer : MonoBehaviour
 
     AudioSource audioSource;
 
-    public void Init()
+    public void Init(float value)
     {
         audioSource = GetComponent<AudioSource>();
-        UpdateVolume(PlayerPrefs.GetFloat(PlayerPrefKeys.fSFXVolume, 1f));
+
+        UpdateVolume(value);
     }
 
     public void UpdateVolume(float newValue)

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,13 +10,22 @@ public class AudioController : ASingleton<AudioController>
     [SerializeField]
     private SFXPlayer SFX;
 
-    #region Unity Callbacks
-    protected override void Awake()
-    {
-        base.Awake();
+    #region Events
+    public static event Action<float> ReflectBGMValue;
+    public static event Action<float> ReflectSFXValue;
+    #endregion // Events
 
-        BGM.Init();
-        SFX.Init();
+    #region Unity Callbacks
+    private void Start()
+    {
+        float bgmValue = PlayerPrefs.GetFloat(PlayerPrefKeys.fBGMVolume, 1f);
+        float sfxValue = PlayerPrefs.GetFloat(PlayerPrefKeys.fSFXVolume, 1f);
+
+        BGM.Init(bgmValue);
+        SFX.Init(sfxValue);
+
+        ReflectBGMValue?.Invoke(bgmValue);
+        ReflectSFXValue?.Invoke(sfxValue);
     }
     #endregion // Unity
 
