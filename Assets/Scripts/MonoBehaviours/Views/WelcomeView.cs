@@ -65,17 +65,17 @@ public class WelcomeView : MonoBehaviour
     #endregion
 
     #region Unity Callbacks
-    void Start()
+    private void Awake()
     {
-        PlayMenuBGM();
-
         pnlBanner.SetActive(true);
         pnlHome.SetActive(true);
         pnlHelp.SetActive(false);
 
         btnHelp.gameObject.SetActive(true);
         btnHome.gameObject.SetActive(false);
-
+    }
+    void Start()
+    {
         btnHelp.onClick.AddListener(ShowHelp);
         btnHome.onClick.AddListener(ShowHome);
         btnPlayNow.onClick.AddListener(PlayNow);
@@ -111,6 +111,7 @@ public class WelcomeView : MonoBehaviour
     private void UpdateBGM(float value)
     {
         sldBGM.value = value;
+        PlayMenuBGM();
     }
 
     /// <summary>
@@ -205,14 +206,20 @@ public class WelcomeView : MonoBehaviour
 
     private void PlayMenuBGM()
     {
-        AudioController.Instance.PlayBGM(BGM.MainMenu, false);
+        if (AudioController.Instance != null)
+        {
+            AudioController.Instance.PlayBGM(BGM.MainMenu, false);
+        }
     }
     #endregion // Implementation
 
     #region Public Methods
     public void PlayClickSFX()
     {
-        AudioController.Instance.PlaySFX(SFX.UIClick);
+        if (AudioController.Instance != null)
+        {
+            AudioController.Instance.PlaySFX(SFX.UIClick);
+        }
     }
     #endregion // Public Methods
 }

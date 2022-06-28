@@ -84,6 +84,7 @@ public class LevelLoader : ASingleton<LevelLoader>
             if (AudioController.Instance != null)
             {
                 AudioController.Instance.PlaySFX(SFX.UITransition_Open);
+                AudioController.Instance.ReInitialize();
             }
         }
 

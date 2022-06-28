@@ -18,18 +18,32 @@ public class AudioController : ASingleton<AudioController>
     #region Unity Callbacks
     private void Start()
     {
+        GetVolumeValues();
+    }
+    #endregion // Unity Callbacks
+
+    #region Implementation
+    private void GetVolumeValues()
+    {
         float bgmValue = PlayerPrefs.GetFloat(PlayerPrefKeys.fBGMVolume, 1f);
         float sfxValue = PlayerPrefs.GetFloat(PlayerPrefKeys.fSFXVolume, 1f);
 
         BGM.Init(bgmValue);
         SFX.Init(sfxValue);
 
+        // below events will reflect the values in the sliders
         ReflectBGMValue?.Invoke(bgmValue);
         ReflectSFXValue?.Invoke(sfxValue);
     }
-    #endregion // Unity
+
+    #endregion // Implementation
 
     #region Public Methods
+    public void ReInitialize()
+    {
+        GetVolumeValues();
+    }
+
     public void UpdateSFXVolume(float newValue)
     {
         SFX.UpdateVolume(newValue);
