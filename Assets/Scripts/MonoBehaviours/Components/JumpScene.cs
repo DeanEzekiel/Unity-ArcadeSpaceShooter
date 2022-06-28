@@ -13,7 +13,7 @@ public class JumpScene : MonoBehaviour
 
     private IEnumerator C_JumpToScene()
     {
-        yield return new WaitForEndOfFrame();
+        yield return null;
         LevelLoader.Instance.LoadScene(SceneIndex, false);
     }
 }

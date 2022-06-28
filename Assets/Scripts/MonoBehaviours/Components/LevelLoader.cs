@@ -45,7 +45,7 @@ public class LevelLoader : ASingleton<LevelLoader>
             AudioController.Instance.PlaySFX(SFX.UITransition_Close);
         }
 
-        // play the start transition anim
+        // play the start transition (or the closing anim)
         // only if InitialTransition is false
         if (!InitialTransition)
         {
@@ -58,7 +58,6 @@ public class LevelLoader : ASingleton<LevelLoader>
         }
 
         // load scene
-        //SceneManager.LoadScene(sceneIndex);
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
 
         _loadingGroup.SetActive(true);
