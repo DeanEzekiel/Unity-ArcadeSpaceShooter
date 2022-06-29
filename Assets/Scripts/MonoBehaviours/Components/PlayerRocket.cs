@@ -6,6 +6,8 @@ public class PlayerRocket : AProjectile
 {
     private bool hit = false;
     private float blastRadius;
+    [SerializeField]
+    private GameObject trailVFX;
 
     private SpriteRenderer spriteRenderer;
     private CapsuleCollider2D capsuleCollider;
@@ -28,6 +30,7 @@ public class PlayerRocket : AProjectile
         hit = false;
         spriteRenderer.enabled = true;
         capsuleCollider.enabled = true;
+        trailVFX.SetActive(true);
         base.Activate();
     }
 
@@ -50,6 +53,7 @@ public class PlayerRocket : AProjectile
         //rocket's sprite and collider becomes invisible & untouchable
         spriteRenderer.enabled = false;
         capsuleCollider.enabled = false;
+        trailVFX.SetActive(false);
 
         Explode();
     }
