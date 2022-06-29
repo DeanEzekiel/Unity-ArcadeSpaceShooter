@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,10 @@ public class PlayerRocket : AProjectile
 
     private SpriteRenderer spriteRenderer;
     private CapsuleCollider2D capsuleCollider;
+
+    private GameObject target;
+
+    public static event Action EnableTargetChecker;
 
     public void SetSpecs(float speedVal, float lifetimeVal, float radiusVal)
     {
@@ -32,14 +37,31 @@ public class PlayerRocket : AProjectile
         capsuleCollider.enabled = true;
         trailVFX.SetActive(true);
         base.Activate();
+
+        target = null;
+        EnableTargetChecker?.Invoke();
     }
 
     protected override void Update()
     {
         if(!hit)
         {
-            transform.Translate(new Vector3(1, 0, 0) * speed * Time.deltaTime);
+            transform.Translate(speed * Time.deltaTime * Vector3.right);
         }
+
+        if (target != null)
+        {
+            if (target.activeInHierarchy)
+            {
+                PursueTarget();
+                Debug.Log("Pursuing Target");
+            }
+        }
+    }
+
+    public void RegisterTarget(GameObject gameObject)
+    {
+        target = gameObject;
     }
 
     public override void OnBump(int addScore)
@@ -81,5 +103,14 @@ public class PlayerRocket : AProjectile
                 //if the hit is true, on destroy > generate a coin randomly
             }
         }
+    }
+
+    private void PursueTarget()
+    {
+        // !! Solution requires the sprite to be facing right
+        Vector3 vectorToTarget = target.transform.position - transform.position;
+        float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
+        Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
+        transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * speed);
     }
 }
