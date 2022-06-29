@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SpriteRenderer))]
 public class PlayerView : ACollidable
 {
     #region Inspector Fields
@@ -12,6 +14,12 @@ public class PlayerView : ACollidable
     private PlayerBullet projectile;
     [SerializeField]
     private PlayerRocket rocket;
+
+    [Space]
+    [SerializeField]
+    private SpriteRenderer spriteRenderer;
+    [SerializeField]
+    private List<Sprite> sprites = new List<Sprite>();
     #endregion // Inspector Fields
 
     #region Accessors
@@ -36,10 +44,19 @@ public class PlayerView : ACollidable
     }
     #endregion
 
+    #region Class Implementation
+    private void RandomizeSprite()
+    {
+        int random = UnityEngine.Random.Range(0, sprites.Count);
+        spriteRenderer.sprite = sprites[random];
+    }
+    #endregion // Class Implementation
+
     #region Public Methods
     public void Init()
     {
         shield.SetActive(false);
+        RandomizeSprite();
     }
 
     public void ResetPosition()

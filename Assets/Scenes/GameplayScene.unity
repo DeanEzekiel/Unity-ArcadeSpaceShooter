@@ -63622,7 +63622,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: caaabcce313e4ba44abe8cf2d994690f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f8435637357a54bd995ec4787fca771f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -83922,13 +83922,13 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: 0.33899358, y: 0.14986853}
-      - {x: -0.20254344, y: 0.5839023}
-      - {x: -0.42160633, y: 0.5981394}
+      - {x: -0.1894654, y: 0.44331384}
+      - {x: -0.36275533, y: 0.33004045}
       - {x: -0.250406, y: 0.1752702}
       - {x: -0.33933884, y: 0.0040269047}
       - {x: -0.24692737, y: -0.1689264}
-      - {x: -0.39478296, y: -0.6058569}
-      - {x: -0.20453948, y: -0.5804617}
+      - {x: -0.375166, y: -0.3704529}
+      - {x: -0.19800049, y: -0.4529512}
       - {x: 0.53965706, y: -0.010960221}
 --- !u!1 &6050182511296532358
 GameObject:
@@ -109075,6 +109075,11 @@ MonoBehaviour:
   shield: {fileID: 272889701}
   projectile: {fileID: -2944100794531265580, guid: 4140b5a92a0d347e1820d70389116175, type: 3}
   rocket: {fileID: 9115938807769308295, guid: 404a4a0491f15417e9ab08b922f9cafa, type: 3}
+  spriteRenderer: {fileID: 5158476519888240819}
+  sprites:
+  - {fileID: 21300000, guid: f8435637357a54bd995ec4787fca771f, type: 3}
+  - {fileID: 21300000, guid: 8818ce6019a864a238201a9d5267c207, type: 3}
+  - {fileID: 21300000, guid: 04c5f4ca00dfe4be0a32e6b8e66b67d8, type: 3}
 --- !u!1 &7409140332464342896
 GameObject:
   m_ObjectHideFlags: 0
