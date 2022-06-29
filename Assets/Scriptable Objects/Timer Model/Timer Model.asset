@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3066086ee59242afaa0f7f24dffa430, type: 3}
   m_Name: Timer Model
   m_EditorClassIdentifier: 
-  TimeLeft: -0.0033573129
+  TimeLeft: -0.032241456
   TimePerRound: 15
+  RoundStartCountdownSec: 3
+  RoundEndCountdownSec: 3
