@@ -7,7 +7,7 @@ public class BGMPlayer : MonoBehaviour
 {
     [SerializeField]
     private BGMConfig model;
-
+    [SerializeField]
     AudioSource audioSource;
 
     private BGM currentBGM = BGM.None;

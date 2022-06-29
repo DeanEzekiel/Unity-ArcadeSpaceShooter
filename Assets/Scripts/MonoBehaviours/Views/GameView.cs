@@ -31,6 +31,10 @@ public class GameView : ASingleton<GameView>
     [SerializeField]
     private GameObject uiFXFailed;
 
+    [Space]
+    [SerializeField]
+    private GameObject uiPromptQuit;
+
     [Header("Gamer Over - Player Score")]
     [SerializeField]
     private TextMeshProUGUI playerScore;
@@ -64,6 +68,10 @@ public class GameView : ASingleton<GameView>
     private Button ShopQuitButton;
     [SerializeField]
     private Button ShopNextRoundButton;
+    [SerializeField]
+    private Button btnConfirmQuit;
+    [SerializeField]
+    private Button btnDeclineQuit;
 
     [Header("Pause Panel - Buttons")]
     [SerializeField]
@@ -130,6 +138,8 @@ public class GameView : ASingleton<GameView>
 
         ShopQuitButton.onClick.AddListener(OnQuitGame);
         ShopNextRoundButton.onClick.AddListener(OnNextRound);
+        btnConfirmQuit.onClick.AddListener(OnQuitGame);
+        btnDeclineQuit.onClick.AddListener(OnClickBack);
 
         FrozenResumeButton.onClick.AddListener(OnResumeGame);
 
@@ -175,6 +185,8 @@ public class GameView : ASingleton<GameView>
         uiGamePaused.SetActive(false);
         uiShop.SetActive(false);
         uiBG.SetActive(false);
+
+        HidePromptQuit();
     }
 
     public void SetSlidersMax()
@@ -247,11 +259,27 @@ public class GameView : ASingleton<GameView>
             // go to Main Menu
             QuitGamePlay?.Invoke();
         }
+        else if (!uiPromptQuit.activeInHierarchy)
+        {
+            uiPromptQuit.SetActive(true);
+        }
         else
         {
+            HidePromptQuit();
             // set to Game Over
             SetGameOver?.Invoke();
         }
+    }
+
+    private void OnClickBack()
+    {
+        AudioController.Instance.PlaySFX(SFX.UIClick);
+        HidePromptQuit();
+    }
+
+    private void HidePromptQuit()
+    {
+        uiPromptQuit.SetActive(false);
     }
 
     private void OnNextRound()

@@ -7,7 +7,7 @@ public class SFXPlayer : MonoBehaviour
 {
     [SerializeField]
     private SFXConfig model;
-
+    [SerializeField]
     AudioSource audioSource;
 
     public void Init(float value)
