@@ -15,6 +15,10 @@ public class GameController : ASingleton<GameController>
     public GameModel_SO Model;
     #endregion // MVC
 
+    #region Events
+    public static event Action ChangeBackground;
+    #endregion // Events
+
     #region Unity Callbacks
     protected override void Awake()
     {
@@ -239,10 +243,12 @@ public class GameController : ASingleton<GameController>
         _view.InitViews();
         _view.ShowHUD(true);
 
-        DeactivatePlayerControls();
+        DeactivatePlayerControls(); // will be activated later
         Controller.Player.ShowOnscreenControls(true);
         Controller.Player.ResetPosition();
         AddRound();
+
+        ChangeBackground?.Invoke();
 
         OnStartRoundTimer();
     }
