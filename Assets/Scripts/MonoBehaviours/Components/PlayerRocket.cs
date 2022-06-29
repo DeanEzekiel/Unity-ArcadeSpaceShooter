@@ -108,6 +108,7 @@ public class PlayerRocket : AProjectile
     private void PursueTarget()
     {
         // !! Solution requires the sprite to be facing right
+        // !! IF NOT, then subtract 90 to the value of the angle
         Vector3 vectorToTarget = target.transform.position - transform.position;
         float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
         Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
