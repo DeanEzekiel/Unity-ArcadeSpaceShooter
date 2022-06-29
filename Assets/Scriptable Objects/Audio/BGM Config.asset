@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d88317c459674a0594cc8c914f9d7d3, type: 3}
   m_Name: BGM Config
   m_EditorClassIdentifier: 
-  Volume: 0
+  Volume: 0.45593697
   MainMenu:
-  - {fileID: 8300000, guid: ff5bec9866cae4acc940100e8dcd1dea, type: 3}
   - {fileID: 8300000, guid: ce5b08a8c748a4011b434f7bcb5a08d2, type: 3}
   Shop:
   - {fileID: 8300000, guid: a7aafbe257c8d48abbb511e6bdb7e356, type: 3}
