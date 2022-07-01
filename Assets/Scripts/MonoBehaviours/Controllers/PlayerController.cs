@@ -26,6 +26,8 @@ public class PlayerController : ControllerHelper
 
     private PlayerControls playerControls;
     private float _cachedShieldPoint;
+
+    private bool isDashing = false;
     #endregion
 
     #region Events
@@ -90,6 +92,15 @@ public class PlayerController : ControllerHelper
             {
                 OnPausePress();
             }
+
+            if (playerControls.Input.Dash.IsPressed())
+            {
+                isDashing = true;
+            }
+            else
+            {
+                isDashing = false;
+            }
         }
 
         ShieldPointsCalc();
@@ -101,6 +112,7 @@ public class PlayerController : ControllerHelper
         {
             Move();
             Rotate();
+            Dash();
         }
     }
 
@@ -135,6 +147,7 @@ public class PlayerController : ControllerHelper
     public void ResetPosition()
     {
         _view.ResetPosition();
+        _view.Rotate(0f); //reset rotation
     }
 
     public void AllowPlayerControls(bool value)
@@ -150,6 +163,7 @@ public class PlayerController : ControllerHelper
     public void ShowOnscreenControls(bool value)
     {
         _viewOnscreenControls.gameObject.SetActive(value);
+        _view.StopDash();
         ResetJoystickPos();
         CheckRemainingRockets();
         CheckRemainingShieldPoints();
@@ -271,12 +285,25 @@ public class PlayerController : ControllerHelper
 
     private void Move()
     {
-        if (movementDirection != Vector3.zero)
+        // if dashing, bypass the move function
+        if (!isDashing && movementDirection != Vector3.zero)
         {
             var translation = movementDirection *
                 _model.playerSpeed * Time.deltaTime;
 
             _view.Move(translation);
+        }
+    }
+
+    private void Dash()
+    {
+        if (isDashing)
+        {
+            _view.Dash(1f);
+        }
+        else
+        {
+            _view.StopDash();
         }
     }
 

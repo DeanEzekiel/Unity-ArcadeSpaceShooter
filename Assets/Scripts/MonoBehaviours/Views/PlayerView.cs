@@ -86,6 +86,18 @@ public class PlayerView : ACollidable
         _rigidbody.MoveRotation(angle);
     }
 
+    public void Dash(float thrust)
+    {
+        _rigidbody.AddForce(_rigidbody.mass * thrust * transform.right,
+            ForceMode2D.Impulse);
+    }
+
+    public void StopDash()
+    {
+        _rigidbody.velocity = Vector2.zero;
+        _rigidbody.angularVelocity = 0f;
+    }
+
     public void Shoot(PlayerController controller)
     {
         //var bullet = Instantiate(projectile, spawnPoint.position, spawnPoint.rotation);

@@ -14,6 +14,8 @@ public class PlayerView_MobileControls : MonoBehaviour
     private Image _blastButton;
     [SerializeField]
     private Image _guardButton;
+    [SerializeField]
+    private Image _dashButton;
 
     [SerializeField]
     private GameObject _shootIcon;
@@ -21,6 +23,8 @@ public class PlayerView_MobileControls : MonoBehaviour
     private GameObject _blastIcon;
     [SerializeField]
     private GameObject _guardIcon;
+    [SerializeField]
+    private GameObject _dashIcon;
 
     [SerializeField]
     private GameObject _shootKey;
@@ -28,6 +32,8 @@ public class PlayerView_MobileControls : MonoBehaviour
     private GameObject _blastKey;
     [SerializeField]
     private GameObject _guardKey;
+    [SerializeField]
+    private GameObject _dashKey;
     #endregion // Inspector Fields
 
     #region Private Fields
@@ -41,6 +47,7 @@ public class PlayerView_MobileControls : MonoBehaviour
         _shootKey.SetActive(value);
         _blastKey.SetActive(value);
         _guardKey.SetActive(value);
+        _dashKey.SetActive(value);
     }
 
     public void ResetJoystickPos()
