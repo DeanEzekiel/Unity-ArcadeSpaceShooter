@@ -64,6 +64,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Dash"",
+                    ""type"": ""Button"",
+                    ""id"": ""6beafd0e-aa5c-43a8-a20d-ebe2bbfb33cd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Pause"",
                     ""type"": ""Button"",
                     ""id"": ""bc2f97ec-a2a3-4708-b7fc-ebf922ac49e1"",
@@ -282,6 +291,28 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""20d454e4-f74e-4bbc-8441-053f38881b00"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""aae07973-4a64-42f7-bbd6-ef73050a8bf6"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -305,6 +336,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Input_Shoot = m_Input.FindAction("Shoot", throwIfNotFound: true);
         m_Input_Blast = m_Input.FindAction("Blast", throwIfNotFound: true);
         m_Input_Guard = m_Input.FindAction("Guard", throwIfNotFound: true);
+        m_Input_Dash = m_Input.FindAction("Dash", throwIfNotFound: true);
         m_Input_Pause = m_Input.FindAction("Pause", throwIfNotFound: true);
     }
 
@@ -369,6 +401,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Input_Shoot;
     private readonly InputAction m_Input_Blast;
     private readonly InputAction m_Input_Guard;
+    private readonly InputAction m_Input_Dash;
     private readonly InputAction m_Input_Pause;
     public struct InputActions
     {
@@ -378,6 +411,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Shoot => m_Wrapper.m_Input_Shoot;
         public InputAction @Blast => m_Wrapper.m_Input_Blast;
         public InputAction @Guard => m_Wrapper.m_Input_Guard;
+        public InputAction @Dash => m_Wrapper.m_Input_Dash;
         public InputAction @Pause => m_Wrapper.m_Input_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Input; }
         public void Enable() { Get().Enable(); }
@@ -400,6 +434,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Guard.started -= m_Wrapper.m_InputActionsCallbackInterface.OnGuard;
                 @Guard.performed -= m_Wrapper.m_InputActionsCallbackInterface.OnGuard;
                 @Guard.canceled -= m_Wrapper.m_InputActionsCallbackInterface.OnGuard;
+                @Dash.started -= m_Wrapper.m_InputActionsCallbackInterface.OnDash;
+                @Dash.performed -= m_Wrapper.m_InputActionsCallbackInterface.OnDash;
+                @Dash.canceled -= m_Wrapper.m_InputActionsCallbackInterface.OnDash;
                 @Pause.started -= m_Wrapper.m_InputActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_InputActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_InputActionsCallbackInterface.OnPause;
@@ -419,6 +456,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Guard.started += instance.OnGuard;
                 @Guard.performed += instance.OnGuard;
                 @Guard.canceled += instance.OnGuard;
+                @Dash.started += instance.OnDash;
+                @Dash.performed += instance.OnDash;
+                @Dash.canceled += instance.OnDash;
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
@@ -450,6 +490,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnShoot(InputAction.CallbackContext context);
         void OnBlast(InputAction.CallbackContext context);
         void OnGuard(InputAction.CallbackContext context);
+        void OnDash(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
     }
 }
