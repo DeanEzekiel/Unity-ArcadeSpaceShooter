@@ -80,6 +80,7 @@ public class PlayerController : ControllerHelper
     {
         if (PlayerControlsActive)
         {
+            MovementInput();
             Shoot();
 
             ShieldAbility();
@@ -252,7 +253,8 @@ public class PlayerController : ControllerHelper
         AudioController.Instance.PlaySFX(SFX.UIClick);
         PausePressed?.Invoke();
     }
-    private void Move()
+
+    private void MovementInput()
     {
         // Movement -- Old Input
         //float horizontalMove = Input.GetAxis("Horizontal");
@@ -265,10 +267,17 @@ public class PlayerController : ControllerHelper
 
         //Vector3 move = new Vector3(horizontalMove, verticalMove, 0);
         movementDirection = new Vector3(horizontalMove, verticalMove, 0);
-        var translation = movementDirection *
-            _model.playerSpeed * Time.deltaTime;
+    }
 
-        _view.Move(translation);
+    private void Move()
+    {
+        if (movementDirection != Vector3.zero)
+        {
+            var translation = movementDirection *
+                _model.playerSpeed * Time.deltaTime;
+
+            _view.Move(translation);
+        }
     }
 
     private void Rotate()
