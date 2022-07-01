@@ -80,8 +80,6 @@ public class PlayerController : ControllerHelper
     {
         if (PlayerControlsActive)
         {
-            Move();
-            Rotate();
             Shoot();
 
             ShieldAbility();
@@ -94,6 +92,15 @@ public class PlayerController : ControllerHelper
         }
 
         ShieldPointsCalc();
+    }
+
+    private void FixedUpdate()
+    {
+        if (PlayerControlsActive)
+        {
+            Move();
+            Rotate();
+        }
     }
 
     private void OnEnable()
@@ -132,6 +139,11 @@ public class PlayerController : ControllerHelper
     public void AllowPlayerControls(bool value)
     {
         PlayerControlsActive = value;
+
+        if(value == false)
+        {
+            movementDirection = Vector3.zero;
+        }
     }
 
     public void ShowOnscreenControls(bool value)
@@ -269,14 +281,20 @@ public class PlayerController : ControllerHelper
             //rotate based on movement direction & need to adjust by 90 degrees
             if (movementDirection != Vector3.zero)
             {
-                Quaternion toRotation = Quaternion.LookRotation(Vector3.forward,
-                    movementDirection) * Quaternion.Euler(0, 0, 90);//90 deg
-                var quaternion = Quaternion.RotateTowards(_view.transform.rotation,
-                    toRotation,
-                    _model.playerRotationSpeed *
-                    Time.deltaTime);
+                //// [transitioning rotate] passing Quaternion on the View
+                //Quaternion toRotation = Quaternion.LookRotation(Vector3.forward,
+                //    movementDirection) * Quaternion.Euler(0, 0, 90);//90 deg
+                //var quaternion = Quaternion.RotateTowards(_view.transform.rotation,
+                //    toRotation,
+                //    _model.playerRotationSpeed *
+                //    Time.deltaTime);
 
-                _view.Rotate(quaternion);
+                //_view.Rotate(quaternion);
+
+                // [snappy rotate] passing float on the View
+                float angle = Mathf.Atan2(movementDirection.y, movementDirection.x)
+                    * Mathf.Rad2Deg;
+                _view.Rotate(angle);
             }
         }
         else if (GameController.Instance.Model.playerControls ==

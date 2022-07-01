@@ -22,6 +22,10 @@ public class PlayerView : ACollidable
     private List<Sprite> sprites = new List<Sprite>();
     #endregion // Inspector Fields
 
+    #region Private Fields
+    Rigidbody2D _rigidbody;
+    #endregion // Private Fields
+
     #region Accessors
     public GameObject Shield => shield;
     #endregion // Accessors
@@ -55,6 +59,7 @@ public class PlayerView : ACollidable
     #region Public Methods
     public void Init()
     {
+        _rigidbody = GetComponent<Rigidbody2D>();
         shield.SetActive(false);
         RandomizeSprite();
     }
@@ -66,12 +71,19 @@ public class PlayerView : ACollidable
 
     public void Move(Vector3 translation)
     {
-        transform.Translate(translation, Space.World);
+        //transform.Translate(translation, Space.World);
+        _rigidbody.MovePosition(transform.position + translation);
     }
 
     public void Rotate(Quaternion quaternion)
     {
-        transform.rotation = quaternion;
+        //transform.rotation = quaternion;
+        _rigidbody.MoveRotation(quaternion);
+    }
+
+    public void Rotate(float angle)
+    {
+        _rigidbody.MoveRotation(angle);
     }
 
     public void Shoot(PlayerController controller)
