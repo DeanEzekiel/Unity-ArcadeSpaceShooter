@@ -17620,7 +17620,7 @@ MonoBehaviour:
   _poolCoinParent: {fileID: 1860385338}
   _alienPrefab: {fileID: 37116662, guid: bf6332b14828043ceaeedc6d05ed41c6, type: 3}
   _asteroidPrefab: {fileID: 1582733405950248981, guid: 774af03e4fac54e338fd148fc675b810, type: 3}
-  _bulletPrefab: {fileID: 6224547014287347028, guid: 2d5545c6c98dc4e90b4e4162c7bd2848, type: 3}
+  _bulletPrefab: {fileID: 1341208630450131868, guid: 0888d939680654f7fb2ed0f3c21b0809, type: 3}
   _coinPrefab: {fileID: 8205053727231953616, guid: 3d3cfa38734074ba0b1a57dde797ebe0, type: 3}
   AlienMax: 50
   AsteroidMax: 50
