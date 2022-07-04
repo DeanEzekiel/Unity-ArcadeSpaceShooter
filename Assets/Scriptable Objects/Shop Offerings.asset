@@ -31,7 +31,7 @@ MonoBehaviour:
     WatchAd: 0
   - ItemName: +1 Rocket Max
     ItemDescription: Lets your ship able to carry one more rocket.
-    ItemIcon: {fileID: 21300000, guid: 0a09dd4ae4bc34f6eb99716d8e0c7619, type: 3}
+    ItemIcon: {fileID: 21300000, guid: 59c5a551152b14cc5bad960121f891bf, type: 3}
     ItemCost: 5
     CostIcon: {fileID: 21300000, guid: 7d246de05724f914a891bb7e83f2e400, type: 3}
     ItemPurpose: 1
@@ -39,7 +39,7 @@ MonoBehaviour:
     WatchAd: 0
   - ItemName: Refill Rockets
     ItemDescription: Refill to current rocket carrying capacity.
-    ItemIcon: {fileID: 21300000, guid: 0a09dd4ae4bc34f6eb99716d8e0c7619, type: 3}
+    ItemIcon: {fileID: 21300000, guid: 59c5a551152b14cc5bad960121f891bf, type: 3}
     ItemCost: 1
     CostIcon: {fileID: 21300000, guid: 7d246de05724f914a891bb7e83f2e400, type: 3}
     ItemPurpose: 2
