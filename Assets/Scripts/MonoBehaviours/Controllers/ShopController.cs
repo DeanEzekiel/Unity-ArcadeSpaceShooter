@@ -255,19 +255,25 @@ public class ShopController : ControllerHelper
 
             if (shopItem.WatchAd)
             {
+                // only add watch ad for Android and iOS
+#if UNITY_ANDROID || UNITY_IOS
                 itemView.SetText(shopItem.ItemName, shopItem.ItemDescription);
                 itemView.SetAd();
                 itemView.IsAdWatched = false;
                 itemView.EnablePurchasing(BUY_AD_TEXT);
+
+                // register the purpose of this Shop Item View
+                _dictShopItem.Add(shopItem.ItemPurpose, itemView);
+#endif
             }
             else
             {
                 itemView.SetText(shopItem.ItemName, shopItem.ItemDescription, shopItem.ItemCost);
                 itemView.EnablePurchasing(BUY_TEXT);
-            }
 
-            // register the purpose of this Shop Item View
-            _dictShopItem.Add(shopItem.ItemPurpose, itemView);
+                // register the purpose of this Shop Item View
+                _dictShopItem.Add(shopItem.ItemPurpose, itemView);
+            }
         }
     }
 
