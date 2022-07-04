@@ -11,6 +11,8 @@ public class PlayerView : ACollidable
     [SerializeField]
     private GameObject shield;
     [SerializeField]
+    private GameObject dash;
+    [SerializeField]
     private PlayerBullet projectile;
     [SerializeField]
     private PlayerRocket rocket;
@@ -61,6 +63,7 @@ public class PlayerView : ACollidable
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         shield.SetActive(false);
+        dash.SetActive(false);
         RandomizeSprite();
     }
 
@@ -90,12 +93,14 @@ public class PlayerView : ACollidable
     {
         _rigidbody.AddForce(_rigidbody.mass * thrust * transform.right,
             ForceMode2D.Impulse);
+        dash.SetActive(true);
     }
 
     public void StopDash()
     {
         _rigidbody.velocity = Vector2.zero;
         _rigidbody.angularVelocity = 0f;
+        dash.SetActive(false);
     }
 
     public void Shoot(PlayerController controller)
