@@ -37,9 +37,6 @@ public class WelcomeView : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI txtHelp;
 
-    [SerializeField]
-    private GameObject brdDefault;
-
     [Header("Volume Control")]
     [SerializeField]
     private Button btnSoundSettings;
@@ -153,8 +150,6 @@ public class WelcomeView : MonoBehaviour
         PlayClickSFX();
         pnlHome.SetActive(false);
         pnlHelp.SetActive(true);
-
-        brdDefault.SetActive(false);
 
         btnHelp.gameObject.SetActive(false);
         btnHome.gameObject.SetActive(true);
