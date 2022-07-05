@@ -10,6 +10,8 @@ public class SFXConfig : ScriptableObject
     [Header("Individual SFXs")]
     public AudioClip Player_Shield_Activate;
     public AudioClip Player_Shield_Deactivate;
+    public AudioClip Player_Dash_Activate;
+    public AudioClip Player_Dash_Deactivate;
     public AudioClip Player_Rocket_Launch;
     public AudioClip Player_Rocket_Impact;
     [Space]
@@ -29,4 +31,8 @@ public class SFXConfig : ScriptableObject
     public List<AudioClip> Player_Shoot;
     public List<AudioClip> Enemy_Shoot;
     public List<AudioClip> Hit_Crash;
+
+    [Header("Loopable SFXs")]
+    public AudioClip Player_Shield_Loop;
+    public AudioClip Player_Dash_Loop;
 }

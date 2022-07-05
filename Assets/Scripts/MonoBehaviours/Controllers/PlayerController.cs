@@ -83,6 +83,7 @@ public class PlayerController : ControllerHelper
         if (PlayerControlsActive)
         {
             MovementInput();
+            DashInput();
             Shoot();
 
             ShieldAbility();
@@ -91,15 +92,6 @@ public class PlayerController : ControllerHelper
             if (playerControls.Input.Pause.WasPressedThisFrame())
             {
                 OnPausePress();
-            }
-
-            if (playerControls.Input.Dash.IsPressed())
-            {
-                isDashing = true;
-            }
-            else
-            {
-                isDashing = false;
             }
         }
 
@@ -163,7 +155,9 @@ public class PlayerController : ControllerHelper
     public void ShowOnscreenControls(bool value)
     {
         _viewOnscreenControls.gameObject.SetActive(value);
-        _view.StopDash();
+
+        ResetShieldDash();
+
         ResetJoystickPos();
         CheckRemainingRockets();
         CheckRemainingShieldPoints();
@@ -295,11 +289,42 @@ public class PlayerController : ControllerHelper
         }
     }
 
+    private void DashInput()
+    {
+        if (playerControls.Input.Dash.IsPressed())
+        {
+            ToggleDashSFX(true);
+        }
+        else
+        {
+            ToggleDashSFX(false);
+        }
+    }
+
+    private void ToggleDashSFX(bool value)
+    {
+        if (isDashing != value)
+        {
+            isDashing = value;
+
+            if (value)
+            {
+                AudioController.Instance.PlaySFX(SFX.Player_Dash_Activate);
+                AudioController.Instance.PlayLoopSFX(SFX.Player_Dash_Loop);
+            }
+            else
+            {
+                AudioController.Instance.PlaySFX(SFX.Player_Dash_Deactivate);
+                AudioController.Instance.StopLoopSFX(SFX.Player_Dash_Loop);
+            }
+        }
+    }
+
     private void Dash()
     {
         if (isDashing)
         {
-            _view.Dash(1f);
+            _view.Dash(_model.playerDashSpeed);
         }
         else
         {
@@ -372,28 +397,39 @@ public class PlayerController : ControllerHelper
         //if (Keyboard.current.spaceKey.wasPressedThisFrame) // this works too
         if (playerControls.Input.Guard.WasPressedThisFrame())
         {
-            ToggleShield();
+            ToggleShield(FlipShieldValue());
+            ShowEffect(VFX.ShieldToggle, _view.transform.position);
         }
 
     }
-    private void ToggleShield()
+    private bool FlipShieldValue()
     {
         // flip to toggle
-        bool newValue = !_view.Shield.activeInHierarchy;
+        return !_view.ShieldObj.activeInHierarchy;
+    }
+
+    private void ToggleShield(bool newValue)
+    {
         _view.ToggleShield(newValue);
         _model.shieldOn = newValue;
 
-        ShowEffect(VFX.ShieldToggle, _view.transform.position);
+        ToggleShieldSFX(newValue);
+    }
 
+    private void ToggleShieldSFX(bool newValue)
+    {
         if (newValue)
         {
             AudioController.Instance.PlaySFX(SFX.Player_Shield_Activate);
+            AudioController.Instance.PlayLoopSFX(SFX.Player_Shield_Loop);
         }
         else
         {
             AudioController.Instance.PlaySFX(SFX.Player_Shield_Deactivate);
+            AudioController.Instance.StopLoopSFX(SFX.Player_Shield_Loop);
         }
     }
+
     private void BlasterAbility()
     {
         blasterTimer -= Time.deltaTime;
@@ -440,7 +476,8 @@ public class PlayerController : ControllerHelper
             else if (_model.shieldPoint <= 0)
             {
                 _model.shieldPoint = 0;
-                ToggleShield(); //this will activate/deactivate the shield
+                ToggleShield(false);
+                ShowEffect(VFX.ShieldToggle, _view.transform.position);
             }
 
             CheckRemainingShieldPoints();
@@ -495,6 +532,20 @@ public class PlayerController : ControllerHelper
     private void ResetJoystickPos()
     {
         _viewOnscreenControls.ResetJoystickPos();
+    }
+
+    private void ResetShieldDash()
+    {
+        if (isDashing)
+        {
+            _view.StopDash();
+            ToggleDashSFX(false);
+            isDashing = false;
+        }
+        if (_view.ShieldObj.activeInHierarchy)
+        {
+            ToggleShield(false);
+        }
     }
     #endregion
 }

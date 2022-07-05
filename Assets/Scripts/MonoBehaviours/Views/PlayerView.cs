@@ -29,7 +29,8 @@ public class PlayerView : ACollidable
     #endregion // Private Fields
 
     #region Accessors
-    public GameObject Shield => shield;
+    public GameObject ShieldObj => shield;
+    public GameObject DashObj => dash;
     #endregion // Accessors
 
     #region Events

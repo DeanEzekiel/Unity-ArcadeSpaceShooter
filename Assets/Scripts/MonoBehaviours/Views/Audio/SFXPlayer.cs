@@ -9,6 +9,10 @@ public class SFXPlayer : MonoBehaviour
     private SFXConfig model;
     [SerializeField]
     AudioSource audioSource;
+    [SerializeField]
+    AudioSource dashLoopAudioSource;
+    [SerializeField]
+    AudioSource shieldLoopAudioSource;
 
     public void Init(float value)
     {
@@ -22,6 +26,9 @@ public class SFXPlayer : MonoBehaviour
         PlayerPrefs.SetFloat(PlayerPrefKeys.fSFXVolume, newValue);
         model.Volume = newValue;
         audioSource.volume = newValue;
+
+        dashLoopAudioSource.volume = newValue;
+        shieldLoopAudioSource.volume = newValue;
     }
 
     public void Play(SFX type)
@@ -77,6 +84,33 @@ public class SFXPlayer : MonoBehaviour
             case SFX.GameOver:
                 audioSource.PlayOneShot(model.GameOver);
                 break;
+            case SFX.Player_Dash_Activate:
+                audioSource.PlayOneShot(model.Player_Dash_Activate);
+                break;
+            case SFX.Player_Dash_Deactivate:
+                audioSource.PlayOneShot(model.Player_Dash_Deactivate);
+                break;
+        }
+    }
+
+    public void PlayLoop(SFX type)
+    {
+        switch (type)
+        {
+            case SFX.Player_Dash_Loop:
+                if (!dashLoopAudioSource.isPlaying)
+                {
+                    dashLoopAudioSource.clip = model.Player_Dash_Loop;
+                    dashLoopAudioSource.Play();
+                }
+                break;
+            case SFX.Player_Shield_Loop:
+                if (!shieldLoopAudioSource.isPlaying)
+                {
+                    shieldLoopAudioSource.clip = model.Player_Shield_Loop;
+                    shieldLoopAudioSource.Play();
+                }
+                break;
         }
     }
 
@@ -85,6 +119,25 @@ public class SFXPlayer : MonoBehaviour
         if (audioSource.isPlaying)
         {
             audioSource.Stop();
+        }
+    }
+
+    public void StopLoop(SFX type)
+    {
+        switch (type)
+        {
+            case SFX.Player_Dash_Loop:
+                if (dashLoopAudioSource.isPlaying)
+                {
+                    dashLoopAudioSource.Stop();
+                }
+                break;
+            case SFX.Player_Shield_Loop:
+                if (shieldLoopAudioSource.isPlaying)
+                {
+                    shieldLoopAudioSource.Stop();
+                }
+                break;
         }
     }
 }

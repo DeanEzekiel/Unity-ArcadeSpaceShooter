@@ -64,6 +64,16 @@ public class AudioController : ASingleton<AudioController>
         SFX.Stop();
     }
 
+    public void PlayLoopSFX(SFX type)
+    {
+        SFX.PlayLoop(type);
+    }
+
+    public void StopLoopSFX(SFX type)
+    {
+        SFX.StopLoop(type);
+    }
+
     public void PlayBGM(BGM type, bool switchClipRegardless)
     {
         BGM.Play(type, switchClipRegardless);
