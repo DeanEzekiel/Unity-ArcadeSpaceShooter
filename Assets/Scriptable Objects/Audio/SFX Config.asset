@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9562a092a784426e97d35f292eb7eec, type: 3}
   m_Name: SFX Config
   m_EditorClassIdentifier: 
-  Volume: 1
-  Player_Shield_Activate: {fileID: 8300000, guid: 917c24438da15401788952bc020f3e76, type: 3}
-  Player_Shield_Deactivate: {fileID: 8300000, guid: 376f1cfbff8eb43a784228aa3d8bd05b, type: 3}
-  Player_Dash: {fileID: 8300000, guid: b3749ab6cbe39480b9ae440bfe4b3bb0, type: 3}
+  Volume: 0.45500937
+  Player_Shield_Activate: {fileID: 8300000, guid: e50d11d12e0194a45b9a52f0d70f7982, type: 3}
+  Player_Shield_Deactivate: {fileID: 8300000, guid: eb39c5fc8f167433dbd6d677aab2fce7, type: 3}
+  Player_Dash_Activate: {fileID: 8300000, guid: b3749ab6cbe39480b9ae440bfe4b3bb0, type: 3}
+  Player_Dash_Deactivate: {fileID: 8300000, guid: 841c468590314451092631c834c4ba1c, type: 3}
   Player_Rocket_Launch: {fileID: 8300000, guid: 467a99927334b4c039af1963eabf5d50, type: 3}
   Player_Rocket_Impact: {fileID: 8300000, guid: 221d93bc93e2843ac897bdfb8c5af72e, type: 3}
   Coin_Plus: {fileID: 8300000, guid: 21363527afdd94ad982392103f3d6246, type: 3}
