@@ -26,6 +26,8 @@ public class PlayerController : ControllerHelper
 
     private PlayerControls playerControls;
     private float _cachedShieldPoint;
+
+    private bool isDashing = false;
     #endregion
 
     #region Events
@@ -80,8 +82,8 @@ public class PlayerController : ControllerHelper
     {
         if (PlayerControlsActive)
         {
-            Move();
-            Rotate();
+            MovementInput();
+            DashInput();
             Shoot();
 
             ShieldAbility();
@@ -94,6 +96,16 @@ public class PlayerController : ControllerHelper
         }
 
         ShieldPointsCalc();
+    }
+
+    private void FixedUpdate()
+    {
+        if (PlayerControlsActive)
+        {
+            Move();
+            Rotate();
+            Dash();
+        }
     }
 
     private void OnEnable()
@@ -127,16 +139,25 @@ public class PlayerController : ControllerHelper
     public void ResetPosition()
     {
         _view.ResetPosition();
+        _view.Rotate(0f); //reset rotation
     }
 
     public void AllowPlayerControls(bool value)
     {
         PlayerControlsActive = value;
+
+        if(value == false)
+        {
+            movementDirection = Vector3.zero;
+        }
     }
 
     public void ShowOnscreenControls(bool value)
     {
         _viewOnscreenControls.gameObject.SetActive(value);
+
+        ResetShieldDash();
+
         ResetJoystickPos();
         CheckRemainingRockets();
         CheckRemainingShieldPoints();
@@ -154,7 +175,6 @@ public class PlayerController : ControllerHelper
 
     public void CoinCollected()
     {
-        // TODO should the coins be clamped to MAX 99?
         //_model.coins++;
 
         _model.coins = Mathf.Clamp(
@@ -170,7 +190,6 @@ public class PlayerController : ControllerHelper
 
     public void AddCoins(int value)
     {
-        // TODO should the coins be clamped to MAX 99?
         //_model.coins += value;
 
         _model.coins = Mathf.Clamp(
@@ -229,14 +248,21 @@ public class PlayerController : ControllerHelper
     {
         return _modelPool.GetPlayerRocket();
     }
+
+    public void ShowEffect(VFX vfxType, Vector3 position)
+    {
+        Controller.VFX.SpawnVFX(vfxType, position);
+    }
     #endregion // Public Methods for Pooling
 
     #region Class Implementation
     private void OnPausePress()
     {
+        AudioController.Instance.PlaySFX(SFX.UIClick);
         PausePressed?.Invoke();
     }
-    private void Move()
+
+    private void MovementInput()
     {
         // Movement -- Old Input
         //float horizontalMove = Input.GetAxis("Horizontal");
@@ -249,10 +275,61 @@ public class PlayerController : ControllerHelper
 
         //Vector3 move = new Vector3(horizontalMove, verticalMove, 0);
         movementDirection = new Vector3(horizontalMove, verticalMove, 0);
-        var translation = movementDirection *
-            _model.playerSpeed * Time.deltaTime;
+    }
 
-        _view.Move(translation);
+    private void Move()
+    {
+        // if dashing, bypass the move function
+        if (!isDashing && movementDirection != Vector3.zero)
+        {
+            var translation = movementDirection *
+                _model.playerSpeed * Time.deltaTime;
+
+            _view.Move(translation);
+        }
+    }
+
+    private void DashInput()
+    {
+        if (playerControls.Input.Dash.IsPressed())
+        {
+            ToggleDashSFX(true);
+        }
+        else
+        {
+            ToggleDashSFX(false);
+        }
+    }
+
+    private void ToggleDashSFX(bool value)
+    {
+        if (isDashing != value)
+        {
+            isDashing = value;
+
+            if (value)
+            {
+                AudioController.Instance.PlaySFX(SFX.Player_Dash_Activate);
+                AudioController.Instance.PlayLoopSFX(SFX.Player_Dash_Loop);
+            }
+            else
+            {
+                AudioController.Instance.PlaySFX(SFX.Player_Dash_Deactivate);
+                AudioController.Instance.StopLoopSFX(SFX.Player_Dash_Loop);
+            }
+        }
+    }
+
+    private void Dash()
+    {
+        if (isDashing)
+        {
+            _view.Dash(_model.playerDashSpeed);
+        }
+        else
+        {
+            _view.StopDash();
+        }
     }
 
     private void Rotate()
@@ -265,14 +342,20 @@ public class PlayerController : ControllerHelper
             //rotate based on movement direction & need to adjust by 90 degrees
             if (movementDirection != Vector3.zero)
             {
-                Quaternion toRotation = Quaternion.LookRotation(Vector3.forward,
-                    movementDirection) * Quaternion.Euler(0, 0, 90);//90 deg
-                var quaternion = Quaternion.RotateTowards(_view.transform.rotation,
-                    toRotation,
-                    _model.playerRotationSpeed *
-                    Time.deltaTime);
+                //// [transitioning rotate] passing Quaternion on the View
+                //Quaternion toRotation = Quaternion.LookRotation(Vector3.forward,
+                //    movementDirection) * Quaternion.Euler(0, 0, 90);//90 deg
+                //var quaternion = Quaternion.RotateTowards(_view.transform.rotation,
+                //    toRotation,
+                //    _model.playerRotationSpeed *
+                //    Time.deltaTime);
 
-                _view.Rotate(quaternion);
+                //_view.Rotate(quaternion);
+
+                // [snappy rotate] passing float on the View
+                float angle = Mathf.Atan2(movementDirection.y, movementDirection.x)
+                    * Mathf.Rad2Deg;
+                _view.Rotate(angle);
             }
         }
         else if (GameController.Instance.Model.playerControls ==
@@ -301,6 +384,8 @@ public class PlayerController : ControllerHelper
             if (playerControls.Input.Shoot.IsPressed())
             {
                 _view.Shoot(this);
+                AudioController.Instance.PlaySFX(SFX.Player_Shoot);
+
                 shootTimer = _model.playerBulletCooldown;
             }
         }
@@ -312,17 +397,39 @@ public class PlayerController : ControllerHelper
         //if (Keyboard.current.spaceKey.wasPressedThisFrame) // this works too
         if (playerControls.Input.Guard.WasPressedThisFrame())
         {
-            ToggleShield();
+            ToggleShield(FlipShieldValue());
+            ShowEffect(VFX.ShieldToggle, _view.transform.position);
         }
 
     }
-    private void ToggleShield()
+    private bool FlipShieldValue()
     {
         // flip to toggle
-        bool newValue = !_view.Shield.activeInHierarchy;
+        return !_view.ShieldObj.activeInHierarchy;
+    }
+
+    private void ToggleShield(bool newValue)
+    {
         _view.ToggleShield(newValue);
         _model.shieldOn = newValue;
+
+        ToggleShieldSFX(newValue);
     }
+
+    private void ToggleShieldSFX(bool newValue)
+    {
+        if (newValue)
+        {
+            AudioController.Instance.PlaySFX(SFX.Player_Shield_Activate);
+            AudioController.Instance.PlayLoopSFX(SFX.Player_Shield_Loop);
+        }
+        else
+        {
+            AudioController.Instance.PlaySFX(SFX.Player_Shield_Deactivate);
+            AudioController.Instance.StopLoopSFX(SFX.Player_Shield_Loop);
+        }
+    }
+
     private void BlasterAbility()
     {
         blasterTimer -= Time.deltaTime;
@@ -336,6 +443,8 @@ public class PlayerController : ControllerHelper
                 {
                     _model.rocketCount--;
                     _view.ShootRocket(this);
+                    AudioController.Instance.PlaySFX(SFX.Player_Rocket_Launch);
+
                     blasterTimer = _model.rocketCooldown;
 
                     CheckRemainingRockets();
@@ -367,7 +476,8 @@ public class PlayerController : ControllerHelper
             else if (_model.shieldPoint <= 0)
             {
                 _model.shieldPoint = 0;
-                ToggleShield(); //this will activate/deactivate the shield
+                ToggleShield(false);
+                ShowEffect(VFX.ShieldToggle, _view.transform.position);
             }
 
             CheckRemainingShieldPoints();
@@ -376,6 +486,8 @@ public class PlayerController : ControllerHelper
 
     private void OnBump(int addScore)
     {
+        ShowEffect(VFX.PlayerHit, _view.transform.position);
+        AudioController.Instance.PlaySFX(SFX.Hit_Crash);
         //score
         _model.score += addScore;
         if (_model.shieldOn == false)
@@ -420,6 +532,20 @@ public class PlayerController : ControllerHelper
     private void ResetJoystickPos()
     {
         _viewOnscreenControls.ResetJoystickPos();
+    }
+
+    private void ResetShieldDash()
+    {
+        if (isDashing)
+        {
+            _view.StopDash();
+            ToggleDashSFX(false);
+            isDashing = false;
+        }
+        if (_view.ShieldObj.activeInHierarchy)
+        {
+            ToggleShield(false);
+        }
     }
     #endregion
 }

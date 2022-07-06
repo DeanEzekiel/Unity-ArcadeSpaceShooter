@@ -21,11 +21,19 @@ public class GameView : ASingleton<GameView>
     private GameObject uiHUD;
     [SerializeField]
     private GameObject uiBG;
-
+    [Space]
     [SerializeField]
     private GameObject uiGOverNewHiBoard;
     [SerializeField]
     private GameObject uiGOverFailedBoard;
+    [SerializeField]
+    private GameObject uiFXNewHighScore;
+    [SerializeField]
+    private GameObject uiFXFailed;
+
+    [Space]
+    [SerializeField]
+    private GameObject uiPromptQuit;
 
     [Header("Gamer Over - Player Score")]
     [SerializeField]
@@ -60,6 +68,10 @@ public class GameView : ASingleton<GameView>
     private Button ShopQuitButton;
     [SerializeField]
     private Button ShopNextRoundButton;
+    [SerializeField]
+    private Button btnConfirmQuit;
+    [SerializeField]
+    private Button btnDeclineQuit;
 
     [Header("Pause Panel - Buttons")]
     [SerializeField]
@@ -126,6 +138,8 @@ public class GameView : ASingleton<GameView>
 
         ShopQuitButton.onClick.AddListener(OnQuitGame);
         ShopNextRoundButton.onClick.AddListener(OnNextRound);
+        btnConfirmQuit.onClick.AddListener(OnQuitGame);
+        btnDeclineQuit.onClick.AddListener(OnClickBack);
 
         FrozenResumeButton.onClick.AddListener(OnResumeGame);
 
@@ -171,6 +185,8 @@ public class GameView : ASingleton<GameView>
         uiGamePaused.SetActive(false);
         uiShop.SetActive(false);
         uiBG.SetActive(false);
+
+        HidePromptQuit();
     }
 
     public void SetSlidersMax()
@@ -188,6 +204,7 @@ public class GameView : ASingleton<GameView>
     public void ShowGameOverPassBoard(bool value)
     {
         uiGOverNewHiBoard.SetActive(value);
+        uiFXNewHighScore.SetActive(value);
     }
 
     public void ShowInputHiScoreName(bool value)
@@ -212,6 +229,7 @@ public class GameView : ASingleton<GameView>
     public void ShowGameOverFailBoard(bool value)
     {
         uiGOverFailedBoard.SetActive(value);
+        uiFXFailed.SetActive(value);
     }
 
     public void ShowGamePausedUI(bool value)
@@ -235,20 +253,38 @@ public class GameView : ASingleton<GameView>
     #region Button Actions
     private void OnQuitGame()
     {
+        AudioController.Instance.PlaySFX(SFX.UIClick);
         if (IsGameOverUIActive)
         {
             // go to Main Menu
             QuitGamePlay?.Invoke();
         }
+        else if (!uiPromptQuit.activeInHierarchy)
+        {
+            uiPromptQuit.SetActive(true);
+        }
         else
         {
+            HidePromptQuit();
             // set to Game Over
             SetGameOver?.Invoke();
         }
     }
 
+    private void OnClickBack()
+    {
+        AudioController.Instance.PlaySFX(SFX.UIClick);
+        HidePromptQuit();
+    }
+
+    private void HidePromptQuit()
+    {
+        uiPromptQuit.SetActive(false);
+    }
+
     private void OnNextRound()
     {
+        AudioController.Instance.PlaySFX(SFX.UIClick);
         //Restart Scene
         NextRound?.Invoke();
         // TODO LoadScene should be managed by the Controller
@@ -257,6 +293,7 @@ public class GameView : ASingleton<GameView>
 
     private void OnRestartGame()
     {
+        AudioController.Instance.PlaySFX(SFX.UIClick);
         //Restart Game
         RestartGame?.Invoke();
         // TODO LoadScene should be managed by the Controller
@@ -265,6 +302,7 @@ public class GameView : ASingleton<GameView>
 
     private void OnSaveHighScore()
     {
+        AudioController.Instance.PlaySFX(SFX.UIClick);
         if (!string.IsNullOrEmpty(playerNameInput.text))
         {
             playerNameHolder.text = playerNameInput.text;
@@ -274,6 +312,7 @@ public class GameView : ASingleton<GameView>
 
     private void OnResumeGame()
     {
+        AudioController.Instance.PlaySFX(SFX.UIClick);
         ResumeGame?.Invoke();
     }
 

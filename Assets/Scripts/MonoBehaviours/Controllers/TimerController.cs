@@ -54,11 +54,13 @@ public class TimerController : ControllerHelper
     public void StartTimer()
     {
         hasRoundStarted = true;
+        AudioController.Instance.PlayBGM(BGM.Gameplay, true);
     }
 
     public void StopTimer()
     {
         hasRoundStarted = false;
+        AudioController.Instance.StopBGM();
     }
 
     public void StartRoundTimer(int round)
@@ -76,7 +78,9 @@ public class TimerController : ControllerHelper
 
         if (TimeLeft <= 0 && Controller.Player.Life >= 1)
         {
-            StopTimer();
+            StopTimer(); // also stops the BGM
+            AudioController.Instance.PlaySFX(SFX.Round_Success);
+
             TimeEnd?.Invoke();
 
             EndRoundTimer();
@@ -92,6 +96,7 @@ public class TimerController : ControllerHelper
         do
         {
             _view_RoundStart.SetTextCountdown(_roundCountdown);
+            AudioController.Instance.PlaySFX(SFX.Countdown_Counting);
 
             _roundCountdown--;
             yield return new WaitForSeconds(1);
@@ -99,6 +104,7 @@ public class TimerController : ControllerHelper
 
         if (_roundCountdown <= 0)
         {
+            AudioController.Instance.PlaySFX(SFX.Countdown_End);
             StartTimer();
             _view_RoundStart.ShowCountdown(false);
             StartRound?.Invoke();

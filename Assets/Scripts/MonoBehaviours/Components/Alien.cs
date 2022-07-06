@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SpriteRenderer))]
 public class Alien : AEnemy
 {
     #region Fields
@@ -50,6 +51,13 @@ public class Alien : AEnemy
     private float spaceMinY = 0f;
     private float spaceMaxY = 0f;
     //screenbounds - end
+
+    // Sprite Randomize - start
+    [SerializeField]
+    private SpriteRenderer spriteRenderer;
+    [SerializeField]
+    private List<Sprite> sprites = new List<Sprite>();
+    // Sprite Randomize - end
     #endregion
 
     #region Unity Callbacks
@@ -67,6 +75,15 @@ public class Alien : AEnemy
 
         SetScreenBounds();
         Entering();
+    }
+
+    public override void OnDisable()
+    {
+        if (hit)
+        {
+            Controller.ShowEffect(VFX.AlienHit, transform.position);
+        }
+        base.OnDisable();
     }
 
     private void Update()
@@ -111,12 +128,19 @@ public class Alien : AEnemy
             moving = false;
         }
     }
+
+    private void RandomizeSprite()
+    {
+        int random = UnityEngine.Random.Range(0, sprites.Count);
+        spriteRenderer.sprite = sprites[random];
+    }
     #endregion
 
     #region Methods
     public override void Activate()
     {
         base.Activate();
+        RandomizeSprite();
         movementSpeed = Controller.AlienSpeed;
         hit = false;
         pointWhenKilled = Controller.AlienPoints;
@@ -266,6 +290,8 @@ public class Alien : AEnemy
             bullet.transform.rotation = spawnPoint.rotation;
             bullet.SetSpecs(Controller.AlienBulletSpeed, Controller.AlienBulletLifetime);
             bullet.Activate();
+
+            AudioController.Instance.PlaySFX(SFX.Enemy_Shoot);
 
             shootTimer = defaultBulletCooldown;
             //print("Shoot Now");

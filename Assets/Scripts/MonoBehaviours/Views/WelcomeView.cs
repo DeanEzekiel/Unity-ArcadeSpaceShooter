@@ -37,8 +37,16 @@ public class WelcomeView : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI txtHelp;
 
+    [Header("Volume Control")]
     [SerializeField]
-    private GameObject brdDefault;
+    private Button btnSoundSettings;
+    [SerializeField]
+    private GameObject pnlSoundSettings;
+    [SerializeField]
+    private Slider sldBGM;
+    [SerializeField]
+    private Slider sldSFX;
+
 
     [Header("Texts")]
     [SerializeField]
@@ -52,33 +60,114 @@ public class WelcomeView : MonoBehaviour
 
 
     #endregion
-    // Start is called before the first frame update
-    void Start()
+
+    #region Events
+    public static event Action OpenInstructions;
+    #endregion // Events
+
+    #region Unity Callbacks
+    private void Awake()
     {
         pnlBanner.SetActive(true);
         pnlHome.SetActive(true);
         pnlHelp.SetActive(false);
 
+        btnHelp.gameObject.SetActive(true);
+        btnHome.gameObject.SetActive(false);
+    }
+    void Start()
+    {
         btnHelp.onClick.AddListener(ShowHelp);
         btnHome.onClick.AddListener(ShowHome);
         btnPlayNow.onClick.AddListener(PlayNow);
         btnExitGame.onClick.AddListener(ExitGame);
 
+        btnSoundSettings.onClick.AddListener(ShowSoundSettings);
+        sldBGM.onValueChanged.AddListener(delegate { BGMSliderChange(); });
+        sldSFX.onValueChanged.AddListener(delegate { SFXSliderChange(); });
+        pnlSoundSettings.SetActive(false);
+
         CheckHighScore();
     }
 
+    private void OnEnable()
+    {
+        AudioController.ReflectBGMValue += UpdateBGM;
+        AudioController.ReflectSFXValue += UpdateSFX;
+    }
+
+    private void OnDisable()
+    {
+        AudioController.ReflectBGMValue -= UpdateBGM;
+        AudioController.ReflectSFXValue -= UpdateSFX;
+    }
+
+    #endregion // Unity Callbacks
+
+    #region Sound Implementation
+    /// <summary>
+    /// Called on initialize of the Audio Controller.
+    /// </summary>
+    /// <param name="value">Value of the Player Prefs BGM Volume</param>
+    private void UpdateBGM(float value)
+    {
+        sldBGM.value = value;
+        PlayMenuBGM();
+    }
+
+    /// <summary>
+    /// Called on initialize of the Audio Controller.
+    /// </summary>
+    /// <param name="value">Value of the Player Prefs SFX Volume</param>
+    private void UpdateSFX(float value)
+    {
+        sldSFX.value = value;
+    }
+
+    private void ShowSoundSettings()
+    {
+        PlayClickSFX();
+        if (pnlSoundSettings.activeInHierarchy)
+        {
+            pnlSoundSettings.SetActive(false);
+        }
+        else
+        {
+            pnlSoundSettings.SetActive(true);
+        }
+    }
+
+    private void SFXSliderChange()
+    {
+        AudioController.Instance.UpdateSFXVolume(sldSFX.value);
+    }
+
+    private void BGMSliderChange()
+    {
+        AudioController.Instance.UpdateBGMVolume(sldBGM.value);
+    }
+    #endregion // Sound Implementation
+
+    #region Implementation
     private void ShowHelp()
     {
+        PlayClickSFX();
         pnlHome.SetActive(false);
         pnlHelp.SetActive(true);
 
-        brdDefault.SetActive(false);
+        btnHelp.gameObject.SetActive(false);
+        btnHome.gameObject.SetActive(true);
+        OpenInstructions?.Invoke();
     }
 
     private void ShowHome()
     {
+        PlayClickSFX();
         pnlHome.SetActive(true);
         pnlHelp.SetActive(false);
+
+        btnHelp.gameObject.SetActive(true);
+        btnHome.gameObject.SetActive(false);
     }
 
     private void CheckHighScore()
@@ -98,12 +187,14 @@ public class WelcomeView : MonoBehaviour
 
     private void PlayNow()
     {
+        PlayClickSFX();
         //SceneManager.LoadScene("GameplayScene");
-        LevelLoader.Instance.LoadScene(1, true);
+        LevelLoader.Instance.LoadScene(2, true);
     }
 
     private void ExitGame()
     {
+        PlayClickSFX();
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #elif UNITY_WEBPLAYER
@@ -112,4 +203,23 @@ public class WelcomeView : MonoBehaviour
         Application.Quit();
 #endif
     }
+
+    private void PlayMenuBGM()
+    {
+        if (AudioController.Instance != null)
+        {
+            AudioController.Instance.PlayBGM(BGM.MainMenu, false);
+        }
+    }
+    #endregion // Implementation
+
+    #region Public Methods
+    public void PlayClickSFX()
+    {
+        if (AudioController.Instance != null)
+        {
+            AudioController.Instance.PlaySFX(SFX.UIClick);
+        }
+    }
+    #endregion // Public Methods
 }

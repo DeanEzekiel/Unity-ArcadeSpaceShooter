@@ -95,6 +95,11 @@ public class EnemyController : ControllerHelper
     {
         _model = _modelInit.DeepClone(_model);
     }
+
+    public void ShowEffect(VFX vfxType, Vector3 position)
+    {
+        Controller.VFX.SpawnVFX(vfxType, position);
+    }
     #endregion // Public API
 
     #region Class Implementation

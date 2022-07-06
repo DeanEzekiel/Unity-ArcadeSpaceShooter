@@ -6,58 +6,46 @@ using UnityEngine;
 public class SafeAreaFitter : MonoBehaviour
 {
     private DeviceOrientation cachedOrientation = DeviceOrientation.Unknown;
+    // Unknown is obsolete in ScreenOrientation
     private ScreenOrientation screenOrientation = ScreenOrientation.Landscape;
-
-    [SerializeField]
-    private GameObject indicator;
-
-    private void Start()
-    {
-        //indicator.SetActive(false);
-    }
 
     private void Update()
     {
 #if (UNITY_IOS || UNITY_ANDROID)
-        // USING DEVICE ORIENTATION
-        if ((Input.deviceOrientation == DeviceOrientation.LandscapeLeft) &&
-            (cachedOrientation != DeviceOrientation.LandscapeLeft))
-        {
-            ChangedOrientation();
-            cachedOrientation = DeviceOrientation.LandscapeLeft;
+        //// USING DEVICE ORIENTATION
+        //if ((Input.deviceOrientation == DeviceOrientation.LandscapeLeft) &&
+        //    (cachedOrientation != DeviceOrientation.LandscapeLeft))
+        //{
+        //    StartCoroutine(C_ChangedOrientation());
+        //    cachedOrientation = DeviceOrientation.LandscapeLeft;
+        //}
+        //else if ((Input.deviceOrientation == DeviceOrientation.LandscapeRight) &&
+        //    (cachedOrientation != DeviceOrientation.LandscapeRight))
+        //{
+        //    StartCoroutine(C_ChangedOrientation());
+        //    cachedOrientation = DeviceOrientation.LandscapeRight;
+        //}
 
-            //StartCoroutine(C_Indicator());
+        // USING SCREEN ORIENTATION
+        if ((Screen.orientation == ScreenOrientation.LandscapeLeft) &&
+            (screenOrientation != ScreenOrientation.LandscapeLeft))
+        {
+            StartCoroutine(C_ChangedOrientation());
+            screenOrientation = ScreenOrientation.LandscapeLeft;
         }
-        else if ((Input.deviceOrientation == DeviceOrientation.LandscapeRight) &&
-            (cachedOrientation != DeviceOrientation.LandscapeRight))
+        else if ((Screen.orientation == ScreenOrientation.LandscapeRight) &&
+            (screenOrientation != ScreenOrientation.LandscapeRight))
         {
-            ChangedOrientation();
-            cachedOrientation = DeviceOrientation.LandscapeRight;
-
-            //StartCoroutine(C_Indicator());
+            StartCoroutine(C_ChangedOrientation());
+            screenOrientation = ScreenOrientation.LandscapeRight;
         }
 #endif
-
-        //// USING SCREEN ORIENTATION
-        //if ((Screen.orientation == ScreenOrientation.LandscapeLeft) &&
-        //    (screenOrientation != ScreenOrientation.LandscapeLeft))
-        //{
-        //    ChangedOrientation();
-        //    screenOrientation = ScreenOrientation.LandscapeLeft;
-        //}
-        //else if ((Screen.orientation == ScreenOrientation.LandscapeRight) &&
-        //    (screenOrientation != ScreenOrientation.LandscapeRight))
-        //{
-        //    ChangedOrientation();
-        //    screenOrientation = ScreenOrientation.LandscapeRight;
-        //}
-
-        //// JUST Check if the screen orientation changed every frame for smoother checking
-        //ChangedOrientation();
     }
 
-    private void ChangedOrientation()
+    private IEnumerator C_ChangedOrientation()
     {
+        yield return null;
+
         var rectTransform = GetComponent<RectTransform>();
         var safeArea = Screen.safeArea;
         var anchorMin = safeArea.position;
@@ -76,13 +64,5 @@ public class SafeAreaFitter : MonoBehaviour
 
         rectTransform.anchorMin = anchorMin;
         rectTransform.anchorMax = anchorMax;
-    }
-
-    private IEnumerator C_Indicator()
-    {
-        indicator.SetActive(true);
-        yield return new WaitForSeconds(3);
-
-        indicator.SetActive(false);
     }
 }

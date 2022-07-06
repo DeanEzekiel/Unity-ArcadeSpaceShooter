@@ -19,6 +19,7 @@ MonoBehaviour:
   rocketCount: 3
   shieldPoint: 100
   lifeMax: 3
+  coinsMax: 99
   playerSpeed: 6
   playerRotationSpeed: 720
   rocketMax: 3

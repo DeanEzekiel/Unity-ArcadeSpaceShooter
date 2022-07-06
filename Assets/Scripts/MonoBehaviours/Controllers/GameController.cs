@@ -15,6 +15,10 @@ public class GameController : ASingleton<GameController>
     public GameModel_SO Model;
     #endregion // MVC
 
+    #region Events
+    public static event Action ChangeBackground;
+    #endregion // Events
+
     #region Unity Callbacks
     protected override void Awake()
     {
@@ -123,6 +127,8 @@ public class GameController : ASingleton<GameController>
         DeactivateObjWithTag(Tags.Rocket);
         DeactivateObjWithTag(Tags.AlienProjectile);
         DeactivateObjWithTag(Tags.Coin);
+
+        Controller.VFX.DisableActiveVFXs();
     }
 
     private void ActivatePlayerControls()
@@ -135,6 +141,8 @@ public class GameController : ASingleton<GameController>
     }
     private void GameOver()
     {
+        AudioController.Instance.StopBGM();
+        AudioController.Instance.PlaySFX(SFX.GameOver);
         // Log Game Over
         Services.Instance.Analytics.SetCustomEvent(
             AnalyticsKeys.eGameOver,
@@ -187,6 +195,7 @@ public class GameController : ASingleton<GameController>
     {
         _view.ShowHUD(false);
         _view.ShowShopUI(true);
+        AudioController.Instance.PlayBGM(BGM.Shop, true);
 
         Controller.Shop.UpdateViewTexts();
         Controller.Shop.CheckAdItems();
@@ -234,10 +243,12 @@ public class GameController : ASingleton<GameController>
         _view.InitViews();
         _view.ShowHUD(true);
 
-        DeactivatePlayerControls();
+        DeactivatePlayerControls(); // will be activated later
         Controller.Player.ShowOnscreenControls(true);
         Controller.Player.ResetPosition();
         AddRound();
+
+        ChangeBackground?.Invoke();
 
         OnStartRoundTimer();
     }
@@ -322,7 +333,7 @@ public class GameController : ASingleton<GameController>
         _view.ShowHUD(false);
         PlayTime();
         //SceneManager.LoadScene("WelcomeScene");
-        LevelLoader.Instance.LoadScene(0, false);
+        LevelLoader.Instance.LoadScene(1, false);
     }
 
     private void MidTransition()

@@ -12,24 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19b4f37afe7b248be96aebda3a6c0244, type: 3}
   m_Name: PlayerModel
   m_EditorClassIdentifier: 
-  life: 3
-  score: 1550
-  coins: 76
+  life: 52
+  score: 4000
+  coins: 20
   coinMultiplier: 25
-  rocketCount: 5
-  shieldPoint: 100
+  rocketCount: 3
+  shieldPoint: 19127.502
   lifeMax: 3
   coinsMax: 99
   playerSpeed: 6
   playerRotationSpeed: 720
-  rocketMax: 5
+  rocketMax: 3
   rocketSpeed: 15
   rocketLifetime: 1
   rocketCooldown: 0.5
   rocketBlastRadius: 2
-  shieldMax: 100
+  shieldMax: 99999
   shieldDepleteSec: 3
-  shieldReplenishSec: 2
+  shieldReplenishSec: 5
   shieldOn: 0
   playerBulletSpeed: 13
   playerBulletLifetime: 1

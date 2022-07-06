@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SpriteRenderer))]
 public class PlayerView : ACollidable
 {
     #region Inspector Fields
@@ -9,13 +11,26 @@ public class PlayerView : ACollidable
     [SerializeField]
     private GameObject shield;
     [SerializeField]
+    private GameObject dash;
+    [SerializeField]
     private PlayerBullet projectile;
     [SerializeField]
     private PlayerRocket rocket;
+
+    [Space]
+    [SerializeField]
+    private SpriteRenderer spriteRenderer;
+    [SerializeField]
+    private List<Sprite> sprites = new List<Sprite>();
     #endregion // Inspector Fields
 
+    #region Private Fields
+    Rigidbody2D _rigidbody;
+    #endregion // Private Fields
+
     #region Accessors
-    public GameObject Shield => shield;
+    public GameObject ShieldObj => shield;
+    public GameObject DashObj => dash;
     #endregion // Accessors
 
     #region Events
@@ -36,10 +51,21 @@ public class PlayerView : ACollidable
     }
     #endregion
 
+    #region Class Implementation
+    private void RandomizeSprite()
+    {
+        int random = UnityEngine.Random.Range(0, sprites.Count);
+        spriteRenderer.sprite = sprites[random];
+    }
+    #endregion // Class Implementation
+
     #region Public Methods
     public void Init()
     {
+        _rigidbody = GetComponent<Rigidbody2D>();
         shield.SetActive(false);
+        dash.SetActive(false);
+        RandomizeSprite();
     }
 
     public void ResetPosition()
@@ -49,12 +75,33 @@ public class PlayerView : ACollidable
 
     public void Move(Vector3 translation)
     {
-        transform.Translate(translation, Space.World);
+        //transform.Translate(translation, Space.World);
+        _rigidbody.MovePosition(transform.position + translation);
     }
 
     public void Rotate(Quaternion quaternion)
     {
-        transform.rotation = quaternion;
+        //transform.rotation = quaternion;
+        _rigidbody.MoveRotation(quaternion);
+    }
+
+    public void Rotate(float angle)
+    {
+        _rigidbody.MoveRotation(angle);
+    }
+
+    public void Dash(float thrust)
+    {
+        _rigidbody.AddForce(_rigidbody.mass * thrust * transform.right,
+            ForceMode2D.Impulse);
+        dash.SetActive(true);
+    }
+
+    public void StopDash()
+    {
+        _rigidbody.velocity = Vector2.zero;
+        _rigidbody.angularVelocity = 0f;
+        dash.SetActive(false);
     }
 
     public void Shoot(PlayerController controller)

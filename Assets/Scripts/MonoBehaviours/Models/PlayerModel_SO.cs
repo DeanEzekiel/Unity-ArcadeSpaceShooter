@@ -19,6 +19,7 @@ public class PlayerModel_SO : ScriptableObject
     public int lifeMax = 3;
     public int coinsMax = 99;
     public float playerSpeed = 6;
+    public float playerDashSpeed = 1;
     public float playerRotationSpeed = 720;
     [Space]
     public int rocketMax = 3;
@@ -54,6 +55,7 @@ public class PlayerModel_SO : ScriptableObject
         other.rocketCount = this.rocketCount;
         other.shieldPoint = this.shieldPoint;
         other.playerSpeed = this.playerSpeed;
+        other.playerDashSpeed = this.playerDashSpeed;
         other.playerRotationSpeed = this.playerRotationSpeed;
         other.rocketMax = this.rocketMax;
         other.rocketSpeed = this.rocketSpeed;
