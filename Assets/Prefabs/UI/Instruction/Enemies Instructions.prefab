@@ -71,10 +71,10 @@ MonoBehaviour:
 
     <color="red">Enemy ships</color> wander around
     randomly and have tunnel vision. Only when they spot a target in front of them
-    will <color="red">they attack</color>.<br>
+    will <color="red">they attack</color>.
 
-    <color="red">Asteroids</color>
-    are pretty much harmless, as long as you don''t collide with them.
+    <color="red">Asteroids</color> are
+    pretty much harmless, as long as you don''t collide with them.
 
 '
   m_isRightToLeft: 0
@@ -177,7 +177,7 @@ RectTransform:
   - {fileID: 4985641083425959320}
   - {fileID: 4985641082970664113}
   m_Father: {fileID: 4985641083119061713}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -370,7 +370,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -450, y: 10}
+  m_AnchoredPosition: {x: -450, y: 60}
   m_SizeDelta: {x: 180, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4985641082362278597
@@ -445,7 +445,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 450, y: 10}
+  m_AnchoredPosition: {x: 450, y: 60}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4985641082970664115
@@ -515,7 +515,7 @@ RectTransform:
   m_Children:
   - {fileID: 4985641081477511284}
   m_Father: {fileID: 4985641083119061713}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -556,7 +556,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -150, y: 10}
+  m_AnchoredPosition: {x: -150, y: 60}
   m_SizeDelta: {x: 180, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4985641083037320977
@@ -625,8 +625,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4985641081969342142}
-  - {fileID: 4985641083032946161}
   - {fileID: 4985641081582115793}
+  - {fileID: 4985641083032946161}
   m_Father: {fileID: 4985641082272149564}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -803,7 +803,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 150, y: 10}
+  m_AnchoredPosition: {x: 150, y: 60}
   m_SizeDelta: {x: 180, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4985641083425959322
