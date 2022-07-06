@@ -8459,10 +8459,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Controls Instructions
       objectReference: {fileID: 0}
-    - target: {fileID: 1760958127673679066, guid: 9066f17ef23724abcb4f94880eafc547, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1760958127673679077, guid: 9066f17ef23724abcb4f94880eafc547, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -8559,10 +8555,6 @@ PrefabInstance:
     - target: {fileID: 1774829034138994149, guid: 1950782a5ad164ca9bb1c1ff78d0ac92, type: 3}
       propertyPath: m_Name
       value: Dash Instructions
-      objectReference: {fileID: 0}
-    - target: {fileID: 1774829034138994149, guid: 1950782a5ad164ca9bb1c1ff78d0ac92, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1774829034138994168, guid: 1950782a5ad164ca9bb1c1ff78d0ac92, type: 3}
       propertyPath: m_Pivot.x
@@ -8801,10 +8793,6 @@ PrefabInstance:
     - target: {fileID: 3305544547061173799, guid: fbb00e92be679409b9cb36b776eafbce, type: 3}
       propertyPath: m_Name
       value: Game Flow Instructions
-      objectReference: {fileID: 0}
-    - target: {fileID: 3305544547061173799, guid: fbb00e92be679409b9cb36b776eafbce, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fbb00e92be679409b9cb36b776eafbce, type: 3}
@@ -9056,21 +9044,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 15451362}
     m_Modifications:
-    - target: {fileID: 1552155971335252708, guid: 71dd4c335717e4641adc65864b8b2ad5, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1552155971335252708, guid: 71dd4c335717e4641adc65864b8b2ad5, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7710399906729888884, guid: 71dd4c335717e4641adc65864b8b2ad5, type: 3}
       propertyPath: m_Name
       value: Shield Instructions
-      objectReference: {fileID: 0}
-    - target: {fileID: 7710399906729888884, guid: 71dd4c335717e4641adc65864b8b2ad5, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7710399906729888887, guid: 71dd4c335717e4641adc65864b8b2ad5, type: 3}
       propertyPath: m_Pivot.x
@@ -9252,10 +9228,6 @@ PrefabInstance:
     - target: {fileID: 8822678238203542203, guid: 70f066146165e47089d303b622b556d1, type: 3}
       propertyPath: m_Name
       value: Rocket Instructions
-      objectReference: {fileID: 0}
-    - target: {fileID: 8822678238203542203, guid: 70f066146165e47089d303b622b556d1, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70f066146165e47089d303b622b556d1, type: 3}
