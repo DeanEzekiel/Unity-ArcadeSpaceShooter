@@ -26,11 +26,13 @@ public class InstructionsView : MonoBehaviour
     private void OnEnable()
     {
         UpdateActive += DeactivateLastItem;
+        WelcomeView.OpenInstructions += DeactivateLastItem;
     }
 
     private void OnDisable()
     {
         UpdateActive -= DeactivateLastItem;
+        WelcomeView.OpenInstructions -= DeactivateLastItem;
     }
     #endregion // Unity Callbacks
 

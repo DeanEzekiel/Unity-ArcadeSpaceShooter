@@ -61,6 +61,10 @@ public class WelcomeView : MonoBehaviour
 
     #endregion
 
+    #region Events
+    public static event Action OpenInstructions;
+    #endregion // Events
+
     #region Unity Callbacks
     private void Awake()
     {
@@ -153,6 +157,7 @@ public class WelcomeView : MonoBehaviour
 
         btnHelp.gameObject.SetActive(false);
         btnHome.gameObject.SetActive(true);
+        OpenInstructions?.Invoke();
     }
 
     private void ShowHome()
