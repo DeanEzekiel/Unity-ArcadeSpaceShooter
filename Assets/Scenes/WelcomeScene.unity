@@ -8455,9 +8455,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 15451362}
     m_Modifications:
+    - target: {fileID: 1760958126607177802, guid: 9066f17ef23724abcb4f94880eafc547, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f6c38e9ad8bea41ffa0beeddc022f4e5, type: 3}
     - target: {fileID: 1760958127673679066, guid: 9066f17ef23724abcb4f94880eafc547, type: 3}
       propertyPath: m_Name
       value: Controls Instructions
+      objectReference: {fileID: 0}
+    - target: {fileID: 1760958127673679066, guid: 9066f17ef23724abcb4f94880eafc547, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1760958127673679077, guid: 9066f17ef23724abcb4f94880eafc547, type: 3}
       propertyPath: m_Pivot.x
