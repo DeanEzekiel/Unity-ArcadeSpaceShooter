@@ -651,10 +651,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "These are special projectiles that lock in on a target within its detection
-    range. Upon collision, these rockets also blast enemies within its blast radius.
-    \nTake note: you don't have an infinite number of rockets but you can upgrade
-    their stats and replenish your ammo via the Shop."
+  m_text: "These are special projectiles that <color=\"green\">lock in on a target</color>
+    within its detection range. Upon collision, these rockets also <color=\"purple\">blast
+    enemies</color> within its blast radius. \nTake note: <u>you don't have an infinite
+    number of rockets but you can upgrade their stats and replenish your ammo via
+    the Shop.</u>"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0b51dbee9f2f047cebc9e85675fb05d5, type: 2}
   m_sharedMaterial: {fileID: -4171563015097924827, guid: 0b51dbee9f2f047cebc9e85675fb05d5, type: 2}
@@ -821,7 +822,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8822678238203542203}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

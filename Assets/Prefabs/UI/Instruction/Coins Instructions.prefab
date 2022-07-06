@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -100}
+  m_AnchoredPosition: {x: 0, y: -167}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8932530325051405182
@@ -284,7 +284,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8932530326526251285}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -534,14 +534,15 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Some enemies and asteroids drop coins upon death. These are valuable items
-    that disappear after a few seconds, so be sure to take them before that -- just
-    move your ship toward them.
+  m_text: 'Some enemies and asteroids <color="yellow">drop coins upon death</color>.
+    These are valuable items that <u>disappear after a few seconds</u>, so be sure
+    to take them before that -- just move your ship toward them.
 
 
-    Coins you''ve collected can be used in the
-    Shop to upgrade your stats. Leftover coins that you have upon game over will
-    be converted into points that jack up your final score.
+    Coins you''ve
+    collected can be used in the <color="yellow">Shop</color> to upgrade your stats.
+    <u>Leftover coins that you have upon game over will be <color="yellow">converted
+    into points</color> that jack up your final score.</u>
 
 '
   m_isRightToLeft: 0

@@ -623,7 +623,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7710399906729888884}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -708,7 +708,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -145}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 183}
   m_SizeDelta: {x: 180, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7710399906791159314
@@ -783,7 +783,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5.7998085, y: 3.5726492}
+  m_AnchoredPosition: {x: 5.7998085, y: 186.57266}
   m_SizeDelta: {x: 220, y: 220}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7710399906840758372
@@ -889,11 +889,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: When your ship's shield is ON, you are invulnerable to attacks nor collisions.
-    However, its effects don't last as you have a bar that dictates how long you
-    can use it. The shield will turn automatically OFF upon the depletion of the
-    bar. The bar auto-refills though, and you can toggle the shiled ON or OFF at
-    any point so you can budget when exactly you want to use it.
+  m_text: When your ship's <color="green">shield is ON</color>, you are <color="purple">invulnerable
+    to attacks and collisions</color>. However, its effects don't last as you have
+    a bar that dictates how long you can use it. <u>The shield will turn automatically
+    OFF upon the depletion of the bar.</u> The bar auto-refills though, and you can
+    toggle the shiled ON or OFF at any point so you can budget when exactly you want
+    to use it.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0b51dbee9f2f047cebc9e85675fb05d5, type: 2}
   m_sharedMaterial: {fileID: -4171563015097924827, guid: 0b51dbee9f2f047cebc9e85675fb05d5, type: 2}

@@ -65,15 +65,16 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Enemy ships and asteroids always spawn at the edges of the screen so try
-    to stay away from the edges if you don''t want any surprise collisions.
+  m_text: '<color="red">Enemy ships and asteroids</color> always <u>spawn at the
+    edges of the screen</u> so try to stay away from the edges if you don''t want
+    any surprise collisions.<br>
 
-    Enemy
-    ships wander around randomly and have tunnel vision. Only when they spot a target
-    in front of them will they attack.
+    <color="red">Enemy ships</color> wander around
+    randomly and have tunnel vision. Only when they spot a target in front of them
+    will <color="red">they attack</color>.<br>
 
-    Asteroids are pretty much harmless, as
-    long as you don''t collide with them.
+    <color="red">Asteroids</color>
+    are pretty much harmless, as long as you don''t collide with them.
 
 '
   m_isRightToLeft: 0
@@ -283,7 +284,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4985641082272149561}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -479,7 +480,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 185}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4985641082970664115

@@ -8455,17 +8455,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 15451362}
     m_Modifications:
-    - target: {fileID: 1760958126607177802, guid: 9066f17ef23724abcb4f94880eafc547, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: f6c38e9ad8bea41ffa0beeddc022f4e5, type: 3}
     - target: {fileID: 1760958127673679066, guid: 9066f17ef23724abcb4f94880eafc547, type: 3}
       propertyPath: m_Name
       value: Controls Instructions
-      objectReference: {fileID: 0}
-    - target: {fileID: 1760958127673679066, guid: 9066f17ef23724abcb4f94880eafc547, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1760958127673679077, guid: 9066f17ef23724abcb4f94880eafc547, type: 3}
       propertyPath: m_Pivot.x
@@ -8560,17 +8552,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 15451362}
     m_Modifications:
-    - target: {fileID: 1774829033783813466, guid: 1950782a5ad164ca9bb1c1ff78d0ac92, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 214
-      objectReference: {fileID: 0}
     - target: {fileID: 1774829034138994149, guid: 1950782a5ad164ca9bb1c1ff78d0ac92, type: 3}
       propertyPath: m_Name
       value: Dash Instructions
-      objectReference: {fileID: 0}
-    - target: {fileID: 1774829034138994149, guid: 1950782a5ad164ca9bb1c1ff78d0ac92, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1774829034138994168, guid: 1950782a5ad164ca9bb1c1ff78d0ac92, type: 3}
       propertyPath: m_Pivot.x
@@ -8655,10 +8639,6 @@ PrefabInstance:
     - target: {fileID: 1774829034138994168, guid: 1950782a5ad164ca9bb1c1ff78d0ac92, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1774829034456466648, guid: 1950782a5ad164ca9bb1c1ff78d0ac92, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 144.30002
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1950782a5ad164ca9bb1c1ff78d0ac92, type: 3}
@@ -8814,10 +8794,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game Flow Instructions
       objectReference: {fileID: 0}
-    - target: {fileID: 3305544547061173799, guid: fbb00e92be679409b9cb36b776eafbce, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fbb00e92be679409b9cb36b776eafbce, type: 3}
 --- !u!1001 &4985641082662933840
@@ -8830,10 +8806,6 @@ PrefabInstance:
     - target: {fileID: 4985641082272149561, guid: ee494d0c8d6074ead8d0bb10b8bd3cf3, type: 3}
       propertyPath: m_Name
       value: Enemies Instructions
-      objectReference: {fileID: 0}
-    - target: {fileID: 4985641082272149561, guid: ee494d0c8d6074ead8d0bb10b8bd3cf3, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4985641082272149564, guid: ee494d0c8d6074ead8d0bb10b8bd3cf3, type: 3}
       propertyPath: m_Pivot.x
@@ -8918,10 +8890,6 @@ PrefabInstance:
     - target: {fileID: 4985641082272149564, guid: ee494d0c8d6074ead8d0bb10b8bd3cf3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4985641082970664113, guid: ee494d0c8d6074ead8d0bb10b8bd3cf3, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 185
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee494d0c8d6074ead8d0bb10b8bd3cf3, type: 3}
@@ -9076,21 +9044,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 15451362}
     m_Modifications:
-    - target: {fileID: 1552155971335252708, guid: 71dd4c335717e4641adc65864b8b2ad5, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1552155971335252708, guid: 71dd4c335717e4641adc65864b8b2ad5, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7710399906729888884, guid: 71dd4c335717e4641adc65864b8b2ad5, type: 3}
       propertyPath: m_Name
       value: Shield Instructions
-      objectReference: {fileID: 0}
-    - target: {fileID: 7710399906729888884, guid: 71dd4c335717e4641adc65864b8b2ad5, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7710399906729888887, guid: 71dd4c335717e4641adc65864b8b2ad5, type: 3}
       propertyPath: m_Pivot.x
@@ -9175,14 +9131,6 @@ PrefabInstance:
     - target: {fileID: 7710399906729888887, guid: 71dd4c335717e4641adc65864b8b2ad5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7710399906791159312, guid: 71dd4c335717e4641adc65864b8b2ad5, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 183
-      objectReference: {fileID: 0}
-    - target: {fileID: 7710399906840758298, guid: 71dd4c335717e4641adc65864b8b2ad5, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 186.57266
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71dd4c335717e4641adc65864b8b2ad5, type: 3}
@@ -9281,10 +9229,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rocket Instructions
       objectReference: {fileID: 0}
-    - target: {fileID: 8822678238203542203, guid: 70f066146165e47089d303b622b556d1, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70f066146165e47089d303b622b556d1, type: 3}
 --- !u!1001 &8932530326493474746
@@ -9294,14 +9238,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 15451362}
     m_Modifications:
-    - target: {fileID: 8932530325051405176, guid: 001faafec8ce3411084ebeb9e5ed0525, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -167
-      objectReference: {fileID: 0}
-    - target: {fileID: 8932530325051405179, guid: 001faafec8ce3411084ebeb9e5ed0525, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8932530326526251272, guid: 001faafec8ce3411084ebeb9e5ed0525, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -9389,10 +9325,6 @@ PrefabInstance:
     - target: {fileID: 8932530326526251285, guid: 001faafec8ce3411084ebeb9e5ed0525, type: 3}
       propertyPath: m_Name
       value: Coins Instructions
-      objectReference: {fileID: 0}
-    - target: {fileID: 8932530326526251285, guid: 001faafec8ce3411084ebeb9e5ed0525, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 001faafec8ce3411084ebeb9e5ed0525, type: 3}

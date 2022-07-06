@@ -102,10 +102,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Your ship can use a speed boost whenever you please. Just press and hold
-    down the Dash button. This can help you get away from packs of enemies and projectiles,
-    or catch that faraway coin before it disappears. Beware though, as this can just
-    as well get you into trouble. Time your dashes and don't forget to aim your ship.
+  m_text: Your ship can use a <color="purple">speed boost</color> whenever you please.
+    Just <color="green">press and hold down the Dash button</color>. This can help
+    you get away from packs of enemies and projectiles, or catch that faraway coin
+    before it disappears. Beware though, as this can just as well get you into trouble.
+    Time your dashes and don't forget to aim your ship.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0b51dbee9f2f047cebc9e85675fb05d5, type: 2}
   m_sharedMaterial: {fileID: -4171563015097924827, guid: 0b51dbee9f2f047cebc9e85675fb05d5, type: 2}
@@ -569,7 +570,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 214}
   m_SizeDelta: {x: 180, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1774829033783813464
@@ -747,7 +748,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1774829034138994149}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -832,7 +833,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.3, y: -69.7}
+  m_AnchoredPosition: {x: 1.3, y: 144.30002}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1774829034456466654

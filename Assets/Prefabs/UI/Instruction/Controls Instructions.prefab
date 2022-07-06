@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: deb8acde1575f43d48ac685d2da58a71, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f6c38e9ad8bea41ffa0beeddc022f4e5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -213,14 +213,15 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Use the joystick on the left side to move and aim your ship to any direction.
-    Press the biggest button on the right side to fire normal bullets. You also have
-    a button to toggle your Shield on or off, and another button to fire homing rockets.
+  m_text: 'Use the <color="green">joystick</color> on the left side to <color="purple">move
+    and aim</color> your ship to any direction. Press the <color="green">biggest
+    button</color> on the right side to <color="purple">fire normal bullets</color>.
+    There are buttons to <u>toggle your Shield on or off</u>, <u>dash</u>, and <u>fire
+    homing rockets</u>.
 
-    <i><color="grey">For
-    non-mobile players, you have the option to control the ship using the on-screen
-    controls or using the arrow keys on your keyboard and the indicated keys on the
-    buttons.</color></i>'
+    <i><color="grey">For non-mobile players, you have the
+    option to control the ship using the on-screen controls or using the arrow keys
+    on your keyboard and the indicated keys on the buttons.</color></i>'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0b51dbee9f2f047cebc9e85675fb05d5, type: 2}
   m_sharedMaterial: {fileID: -4171563015097924827, guid: 0b51dbee9f2f047cebc9e85675fb05d5, type: 2}
@@ -500,7 +501,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1760958127673679066}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
