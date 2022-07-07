@@ -447,15 +447,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: Survive one more hit by getting +1 life.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0b51dbee9f2f047cebc9e85675fb05d5, type: 2}
+  m_sharedMaterial: {fileID: -4171563015097924827, guid: 0b51dbee9f2f047cebc9e85675fb05d5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4293716972
+  m_fontColor: {r: 0.9245283, g: 0.9234552, b: 0.9254902, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1175,7 +1175,6 @@ MonoBehaviour:
   _icon: {fileID: 4581018297193698846}
   _title: {fileID: 4581018296712552767}
   _description: {fileID: 4581018297177870684}
-  _costText: {fileID: 4581018298008614684}
   _cost: {fileID: 4581018296708326101}
   _costIcon: {fileID: 4581018296341809667}
   _purchaseButton: {fileID: 4581018297575234856}
