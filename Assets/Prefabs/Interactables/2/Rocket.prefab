@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3909266671885283853}
   - component: {fileID: 192679679252171233}
   - component: {fileID: 9115938807769308295}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: Rocket
   m_TagString: Rocket
   m_Icon: {fileID: 0}
@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 9098649529287443536}
   - component: {fileID: 5697012381710797798}
   - component: {fileID: 4744660862319050403}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: TargetChecker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 7255586536555048957}
   - component: {fileID: 7377480351535655035}
   - component: {fileID: 7377776190324378083}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CFX3 Fire Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4932,7 +4932,7 @@ GameObject:
   - component: {fileID: 7255427873550975167}
   - component: {fileID: 7377072094481184185}
   - component: {fileID: 7378649863594161757}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CFX3 Fire Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9622,7 +9622,7 @@ GameObject:
   - component: {fileID: 7255662159807170401}
   - component: {fileID: 7377173953090693865}
   - component: {fileID: 7378101884887182823}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CFX3 Fire CCW
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14412,7 +14412,7 @@ GameObject:
   - component: {fileID: 7254931007474060147}
   - component: {fileID: 7377514822434834561}
   - component: {fileID: 7378600510243776243}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Trail (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19087,7 +19087,7 @@ GameObject:
   - component: {fileID: 7255780687968143005}
   - component: {fileID: 7377449859318502455}
   - component: {fileID: 7378074051527722903}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CFX3 Sparkles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23903,7 +23903,7 @@ GameObject:
   - component: {fileID: 7255144207765323761}
   - component: {fileID: 7377331217485294255}
   - component: {fileID: 7378268272177138613}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CFX3 Fire CW
   m_TagString: Untagged
   m_Icon: {fileID: 0}
