@@ -80,12 +80,17 @@ public class WelcomeView : MonoBehaviour
         btnHelp.onClick.AddListener(ShowHelp);
         btnHome.onClick.AddListener(ShowHome);
         btnPlayNow.onClick.AddListener(PlayNow);
-        btnExitGame.onClick.AddListener(ExitGame);
 
         btnSoundSettings.onClick.AddListener(ShowSoundSettings);
         sldBGM.onValueChanged.AddListener(delegate { BGMSliderChange(); });
         sldSFX.onValueChanged.AddListener(delegate { SFXSliderChange(); });
         pnlSoundSettings.SetActive(false);
+
+#if UNITY_WEBGL
+        btnExitGame.gameObject.SetActive(false);
+#else
+        btnExitGame.onClick.AddListener(ExitGame);
+#endif
 
         CheckHighScore();
     }
@@ -102,9 +107,9 @@ public class WelcomeView : MonoBehaviour
         AudioController.ReflectSFXValue -= UpdateSFX;
     }
 
-    #endregion // Unity Callbacks
+#endregion // Unity Callbacks
 
-    #region Sound Implementation
+#region Sound Implementation
     /// <summary>
     /// Called on initialize of the Audio Controller.
     /// </summary>
@@ -146,9 +151,9 @@ public class WelcomeView : MonoBehaviour
     {
         AudioController.Instance.UpdateBGMVolume(sldBGM.value);
     }
-    #endregion // Sound Implementation
+#endregion // Sound Implementation
 
-    #region Implementation
+#region Implementation
     private void ShowHelp()
     {
         PlayClickSFX();
@@ -203,8 +208,6 @@ public class WelcomeView : MonoBehaviour
         PlayClickSFX();
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
-#elif UNITY_WEBGL
-        Application.OpenURL(webplayerQuitURL);
 #else
         Application.Quit();
 #endif
@@ -217,9 +220,9 @@ public class WelcomeView : MonoBehaviour
             AudioController.Instance.PlayBGM(BGM.MainMenu, false);
         }
     }
-    #endregion // Implementation
+#endregion // Implementation
 
-    #region Public Methods
+#region Public Methods
     public void PlayClickSFX()
     {
         if (AudioController.Instance != null)
@@ -227,5 +230,5 @@ public class WelcomeView : MonoBehaviour
             AudioController.Instance.PlaySFX(SFX.UIClick);
         }
     }
-    #endregion // Public Methods
+#endregion // Public Methods
 }

@@ -255,8 +255,11 @@ public class ShopController : ControllerHelper
 
             if (shopItem.WatchAd)
             {
+#if UNITY_WEBGL || UNITY_STANDALONE
+                // DO NOT add the shopping for free coins for non-mobile platforms
+
+#elif UNITY_ANDROID || UNITY_IOS || UNITY_EDITOR
                 // only add watch ad for Android and iOS
-#if UNITY_ANDROID || UNITY_IOS
                 itemView.SetText(shopItem.ItemName, shopItem.ItemDescription);
                 itemView.SetAd();
                 itemView.IsAdWatched = false;
