@@ -158,6 +158,9 @@ public class WelcomeView : MonoBehaviour
         btnHelp.gameObject.SetActive(false);
         btnHome.gameObject.SetActive(true);
         OpenInstructions?.Invoke();
+
+        // ensure the sound settings are closed
+        pnlSoundSettings.SetActive(false);
     }
 
     private void ShowHome()
@@ -168,6 +171,9 @@ public class WelcomeView : MonoBehaviour
 
         btnHelp.gameObject.SetActive(true);
         btnHome.gameObject.SetActive(false);
+
+        // ensure the sound settings are closed
+        pnlSoundSettings.SetActive(false);
     }
 
     private void CheckHighScore()
@@ -197,7 +203,7 @@ public class WelcomeView : MonoBehaviour
         PlayClickSFX();
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
-#elif UNITY_WEBPLAYER
+#elif UNITY_WEBGL
         Application.OpenURL(webplayerQuitURL);
 #else
         Application.Quit();

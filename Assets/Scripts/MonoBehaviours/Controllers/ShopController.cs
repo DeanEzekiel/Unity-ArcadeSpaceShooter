@@ -264,6 +264,8 @@ public class ShopController : ControllerHelper
 
                 // register the purpose of this Shop Item View
                 _dictShopItem.Add(shopItem.ItemPurpose, itemView);
+#else
+                // DO NOT add the shopping for free coins for non-mobile platforms
 #endif
             }
             else
