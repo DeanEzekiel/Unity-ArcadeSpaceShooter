@@ -18,9 +18,9 @@ MonoBehaviour:
   alienSpeed: 2
   alienForwardDetection: 5
   alienDetectCooldown: 0.5
-  alienShootSpeed: 13
-  alienShootLifetime: 1.2
-  alienShootCooldown: 1
+  alienBulletSpeed: 13
+  alienBulletLifetime: 1.2
+  alienBulletCooldown: 1
   alienPoints: 100
   asteroidPoints: 50
   coinDropRate: 40
