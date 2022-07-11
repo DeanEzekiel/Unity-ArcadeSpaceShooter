@@ -493,6 +493,7 @@ public class PlayerController : ControllerHelper
         if (_model.shieldOn == false)
         {
             _model.life--;
+            _view.Hit();
 
             if (_model.life == 0)
             {

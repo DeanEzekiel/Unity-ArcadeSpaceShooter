@@ -17,6 +17,9 @@ public class PlayerView : ACollidable
     [SerializeField]
     private PlayerRocket rocket;
 
+    [SerializeField]
+    private Animator _animator;
+
     [Space]
     [SerializeField]
     private SpriteRenderer spriteRenderer;
@@ -63,6 +66,7 @@ public class PlayerView : ACollidable
     public void Init()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
         shield.SetActive(false);
         dash.SetActive(false);
         RandomizeSprite();
@@ -131,6 +135,11 @@ public class PlayerView : ACollidable
         rocket.transform.rotation = spawnPoint.rotation;
         rocket.SetSpecs(controller.RocketSpeed, controller.RocketLifetime, controller.RocketBlastRadius);
         rocket.Activate();
+    }
+
+    public void Hit()
+    {
+        _animator.SetTrigger("Hit");
     }
     #endregion
 }
