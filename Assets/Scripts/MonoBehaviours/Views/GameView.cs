@@ -214,6 +214,11 @@ public class GameView : ASingleton<GameView>
         GOverSaveHighScore.gameObject.SetActive(value);
 
         playerNameHolder.gameObject.SetActive(!value); // flip value
+
+        if (value)
+        {
+            playerNameInput.ActivateInputField();
+        }
     }
 
     public void SetGameOverScore(string scoreEarned, string coinsLeft, string total)
