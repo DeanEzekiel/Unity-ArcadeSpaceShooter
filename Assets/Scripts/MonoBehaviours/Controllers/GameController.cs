@@ -142,7 +142,6 @@ public class GameController : ASingleton<GameController>
     private void GameOver()
     {
         AudioController.Instance.StopBGM();
-        AudioController.Instance.PlaySFX(SFX.GameOver);
         // Log Game Over
         Services.Instance.Analytics.SetCustomEvent(
             AnalyticsKeys.eGameOver,
@@ -162,12 +161,14 @@ public class GameController : ASingleton<GameController>
 
         if (playerTotalScore > PlayerPrefs.GetInt(PlayerPrefKeys.iHighScore))
         {
+            AudioController.Instance.PlaySFX(SFX.GameOver_HighScore);
             _view.ShowGameOverPassBoard(true);
             _view.ShowInputHiScoreName(true);
             _view.ShowGameOverFailBoard(false); // hide fail
         }
         else
         {
+            AudioController.Instance.PlaySFX(SFX.GameOver);
             _view.ShowGameOverPassBoard(false); // hide pass
             _view.ShowGameOverFailBoard(true);
         }

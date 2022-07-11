@@ -63,6 +63,9 @@ public class SFXPlayer : MonoBehaviour
             case SFX.Coin_Plus:
                 audioSource.PlayOneShot(model.Coin_Plus);
                 break;
+            case SFX.Coin_Drop:
+                audioSource.PlayOneShot(model.Coin_Drop);
+                break;
             case SFX.Countdown_Counting:
                 audioSource.PlayOneShot(model.Countdown_Counting);
                 break;
@@ -83,6 +86,9 @@ public class SFXPlayer : MonoBehaviour
                 break;
             case SFX.GameOver:
                 audioSource.PlayOneShot(model.GameOver);
+                break;
+            case SFX.GameOver_HighScore:
+                audioSource.PlayOneShot(model.GameOver_HighScore);
                 break;
             case SFX.Player_Dash_Activate:
                 audioSource.PlayOneShot(model.Player_Dash_Activate);

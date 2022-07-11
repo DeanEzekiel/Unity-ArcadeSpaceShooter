@@ -11,7 +11,8 @@ public class Coin : MonoBehaviour
     public void Activate(int sec)
     {
         gameObject.SetActive(true);
-        
+
+        AudioController.Instance.PlaySFX(SFX.Coin_Drop);
         GameController.Instance.Controller.VFX.SpawnVFX(VFX.CoinSpawn,
             transform.position);
         StartCoroutine(C_Deactivate(sec));

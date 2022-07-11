@@ -13,6 +13,7 @@ public enum SFX
 
     Hit_Crash,
     Coin_Plus,
+    Coin_Drop,
 
     Countdown_Counting,
     Countdown_End,
@@ -23,4 +24,5 @@ public enum SFX
 
     Round_Success,
     GameOver,
+    GameOver_HighScore,
 }

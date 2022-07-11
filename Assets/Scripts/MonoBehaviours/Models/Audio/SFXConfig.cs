@@ -16,6 +16,7 @@ public class SFXConfig : ScriptableObject
     public AudioClip Player_Rocket_Impact;
     [Space]
     public AudioClip Coin_Plus;
+    public AudioClip Coin_Drop;
     [Space]
     public AudioClip Countdown_Counting;
     public AudioClip Countdown_End;
@@ -26,6 +27,7 @@ public class SFXConfig : ScriptableObject
     [Space]
     public AudioClip Round_Success;
     public AudioClip GameOver;
+    public AudioClip GameOver_HighScore;
 
     [Header("Randomizable SFXs")]
     public List<AudioClip> Player_Shoot;
