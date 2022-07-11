@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9562a092a784426e97d35f292eb7eec, type: 3}
   m_Name: SFX Config
   m_EditorClassIdentifier: 
-  Volume: 0.45500937
+  Volume: 1
   Player_Shield_Activate: {fileID: 8300000, guid: e50d11d12e0194a45b9a52f0d70f7982, type: 3}
   Player_Shield_Deactivate: {fileID: 8300000, guid: eb39c5fc8f167433dbd6d677aab2fce7, type: 3}
   Player_Dash_Activate: {fileID: 8300000, guid: b3749ab6cbe39480b9ae440bfe4b3bb0, type: 3}
@@ -20,6 +20,7 @@ MonoBehaviour:
   Player_Rocket_Launch: {fileID: 8300000, guid: 467a99927334b4c039af1963eabf5d50, type: 3}
   Player_Rocket_Impact: {fileID: 8300000, guid: 221d93bc93e2843ac897bdfb8c5af72e, type: 3}
   Coin_Plus: {fileID: 8300000, guid: 21363527afdd94ad982392103f3d6246, type: 3}
+  Coin_Drop: {fileID: 8300000, guid: 0c90c7df6894c4ac59299bb1f7dda15f, type: 3}
   Countdown_Counting: {fileID: 8300000, guid: 6d06106e6d28b4b3db8b9cd499b1294c, type: 3}
   Countdown_End: {fileID: 8300000, guid: 1342ec4a0f68e4290b4b16abcec150bb, type: 3}
   UIClick: {fileID: 8300000, guid: 3ea5143caf0f146a381726a96299c568, type: 3}
@@ -27,6 +28,7 @@ MonoBehaviour:
   UITransition_Close: {fileID: 8300000, guid: 6b033cd4995f7401786a76777c98baf8, type: 3}
   Round_Success: {fileID: 8300000, guid: 28f1a7d34619548558466c1b8a0d5cff, type: 3}
   GameOver: {fileID: 8300000, guid: d42b1aaf12c2a4438bae32b0680fefc0, type: 3}
+  GameOver_HighScore: {fileID: 8300000, guid: f049a1f224b4c478ebee79cdb444392b, type: 3}
   Player_Shoot:
   - {fileID: 8300000, guid: ac280fef5c1214bbeaebfb5806992f5d, type: 3}
   - {fileID: 8300000, guid: ac6009ae5842a496996ad56286a8d943, type: 3}
