@@ -41,17 +41,6 @@ public class Alien : AEnemy
     private float defaultBulletCooldown = 0f;
     //for logic - end
 
-    //screenbounds - start
-    private Vector2 screenBounds;
-    private float objectWidth;
-    private float objectHeight;
-
-    private float spaceMinX = 0f;
-    private float spaceMaxX = 0f;
-    private float spaceMinY = 0f;
-    private float spaceMaxY = 0f;
-    //screenbounds - end
-
     // Sprite Randomize - start
     [SerializeField]
     private SpriteRenderer spriteRenderer;
@@ -150,7 +139,6 @@ public class Alien : AEnemy
         defaultThinkCooldown = Controller.AlienDetectCooldown;
         defaultBulletCooldown = Controller.AlienBulletCooldown;
 
-        SetScreenBounds();
         Entering();
     }
     public override void OnBump(int addScore)
@@ -179,21 +167,6 @@ public class Alien : AEnemy
         entering = true;
         detector.DisableTrigger();
         //detector.CanDetect = false;
-    }
-
-    private void SetScreenBounds()
-    {
-        //Start [Bounds] get Screen Bounds and movable space
-        screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
-
-        objectWidth = transform.GetComponent<SpriteRenderer>().bounds.size.x / 2;
-        objectHeight = transform.GetComponent<SpriteRenderer>().bounds.size.y / 2;
-
-        spaceMinX = screenBounds.x * -1 + objectWidth;
-        spaceMaxX = screenBounds.x - objectWidth;
-        spaceMinY = screenBounds.y * -1 + objectHeight;
-        spaceMaxY = screenBounds.y - objectHeight;
-        //End [Bounds]
     }
 
     private void EnterSpace()
