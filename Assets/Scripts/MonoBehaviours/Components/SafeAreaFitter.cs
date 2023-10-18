@@ -7,7 +7,7 @@ public class SafeAreaFitter : MonoBehaviour
 {
     private DeviceOrientation cachedOrientation = DeviceOrientation.Unknown;
     // Unknown is obsolete in ScreenOrientation
-    private ScreenOrientation screenOrientation = ScreenOrientation.Landscape;
+    private ScreenOrientation screenOrientation = ScreenOrientation.LandscapeLeft;
 
     private void Update()
     {
